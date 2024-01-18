@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "ENTMLGY 6703 - Jelmer's lectures"
