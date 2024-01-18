@@ -1,0 +1,132 @@
+---
+title: "Sequence alignment and BLAST"
+author: Jelmer Poelstra
+date: 2024-01-25
+institute: "MCIC Wooster, OSU"
+editor: visual
+format:
+  revealjs:
+    theme: [simple, theme_mod.scss]
+    smaller: true
+    scrollable: false
+    progress: true
+    incremental: false
+    css: slides.css
+    slide-number: true
+    slide-level: 2
+    highlight-style: pygments
+    embed-resources: true
+    toc: true
+    toc-depth: 1
+    toc-title: Overview
+editor_options: 
+  chunk_output_type: console
+---
+
+# Sequence alignment
+
+## Sequence alignment
+
+Sequence alignment is central to genomics and molecular genetics — and has been since long before the advent of high-throughput sequencing.
+
+-   What gene does a sequence belong to?
+
+-   Which gene is homologous my novel gene? Which functional domains does my gene contain?
+
+-   What species does a sequence belong to?
+
+-   How similar are two or more sequences and how are they related to each other?
+
+-   Which positions differ among sequences?
+
+-   Where in the genome do my sequence reads map to?
+
+***Sequence assembly*** is similar to sequence alignment, as it relies on overlap between sequences, but distinct as it tries to generate a single "consensus" sequence that is much longer than the original sequences/reads.
+
+## Sequence alignment (cont.)
+
+Even though it can be straightforward to align short sequences by eye/hand, it's important to realize that there are quickly thousands to millions different possible ways of aligning two sequences.
+
+And speed is important, because we often either want to align:
+
+-   1 (or more) sequence to a database with millions of sequences (e.g., BLAST)
+
+-   Millions of sequence reads to a reference genome
+
+## Sequence alignment (cont.)
+
+-   Amino acid (protein) vs nucleotide (DNA/RNA) sequence aligment — very similar procedures, but different ***scoring matrices***
+
+-   Local vs. global alignments
+
+-   Pairwise vs. multiple sequence alignments (MSA). Pairwise is more common (includes BLAST and mapping reads to a genome).
+
+## Developments in alignment approaches
+
+-   Pairwise alignments with ... (196X, global alignment) and Smith-Waterman (197X, local alignment)
+
+    -   Use clever algorithms that are guaranteed to find the optimal solution without checking every option.
+
+    -   Are still way too slow for modern databases sizes and numbers of reads
+
+-   BLAST: Basic Local Alignment Search Tool (199X) — we'll go in some detail into this, and run BLAST in our lab tomorrow
+
+-   BLAST is still too slow for high-throughput sequencing alignments – new tools were developed for this, like `BWA` and `Bowtie`. These have algorithms with more complex database/reference indexing, based on suffix arrays or the Burrows-Wheeler Transform.
+
+-   As we'll see next week, aligners for RNA-seq (such as `STAR`) additionally need to be ***splice-aware***.
+
+## Homology
+
+-   Orthologs and paralogs
+
+# BLAST
+
+## Intro to BLAST
+
+## Types of BLAST
+
+## BLAST: terminology
+
+-   Query
+
+-   Target
+
+-   Subject
+
+-   HSP
+
+-   Score
+
+-   Evalue
+
+## General strategy of BLAST
+
+-   Hash-based index: simple kmer lookup
+
+## Scoring matrices
+
+-   MegaBLAST
+
+## E-values
+
+-   Database size
+
+# Sequence databases {background-color="dimgray"}
+
+## Sequence databases
+
+-   NCBI Genbank
+
+-   NCBI RefSeq
+
+-   NCBI SRA
+
+Proteins:
+
+-   UniProt
+
+-   Protein Data Bank (3D structures)
+
+## Genbank & SRA growth
+
+## Refseq sequence prefixes

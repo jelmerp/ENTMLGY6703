@@ -1,0 +1,44 @@
+project:
+  type: website
+
+website:
+  title: "ENTMLGY 6703 - Jelmer's lectures"
+  site-url: https://osu-codeclub.github.io/
+  repo-url: https://github.com/osu-codeclub/osu-codeclub.github.io
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: "Week 3: HTS"
+        menu: 
+          - text: "Lecture: High-throughput Sequencing & Genomes"
+            href: lectures/sequencing.qmd
+          - text: "Lab: FASTQ files"
+            href: labs/FASTQ.qmd
+      - text: "Week 4: RNA-seq"
+        menu: 
+          - text: "Lecture: RNA-seq"
+            href: lectures/rnaseq.qmd
+          - text: "Lab: Differential expression analysis"
+            href: labs/DE.qmd
+    right:
+      - text: About
+        href: about.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/osu-codeclub/osu-codeclub.github.io
+          - text: Report an Issue
+            url:  https://github.com/osu-codeclub/osu-codeclub.github.io/issues/new
+format:
+  html:
+    theme: yeti
+    css: styles.css
+    toc: true
+    number-sections: true
+
+editor: visual
+

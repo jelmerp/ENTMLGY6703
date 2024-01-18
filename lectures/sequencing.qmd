@@ -1,0 +1,711 @@
+---
+title: "High-throughput sequencing <br> and genomes"
+author: Jelmer Poelstra
+date: 2024-01-25
+institute: "MCIC Wooster, OSU"
+editor: visual
+format:
+  revealjs:
+    theme: [simple, theme_mod.scss]
+    smaller: true
+    scrollable: false
+    progress: true
+    incremental: false
+    css: slides.css
+    slide-number: true
+    slide-level: 2
+    highlight-style: pygments
+    embed-resources: true
+    toc: true
+    toc-depth: 1
+    toc-title: Overview
+editor_options: 
+  chunk_output_type: console
+---
+
+# Sequencing technologies {background-color="dimgray"}
+
+## DNA sequencing technologies: overview
+
+-   **Sanger sequencing** (since 1977)\
+    Sequences a single, PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**High-throughput sequencing (HTS)**\
+Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time — two types:
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: columns
+::: {.column width="50%"}
+-   **Short-read sequencing**
+    -   AKA Next-generation Sequencing (NGS)
+    -   Produces up to billions of 50-300 bp "reads"
+    -   Market dominated by Illumina
+    -   Since 2005 — technology stable
+:::
+
+::: {.column width="50%"}
+:::
+:::
+
+## DNA sequencing technologies: overview
+
+-   **Sanger sequencing** (since 1977)\
+    Sequences a single, PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**High-throughput sequencing (HTS)**\
+Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time — two types:
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: columns
+::: {.column width="50%"}
+-   **Short-read sequencing**
+    -   AKA Next-generation Sequencing (NGS)
+    -   Produces up to billions of 50-300 bp "reads"
+    -   Market dominated by Illumina
+    -   Since 2005 — technology stable
+:::
+
+::: {.column width="50%"}
+-   **Long-read sequencing**
+    -   Reads much longer than in NGS but fewer, less accurate, and more costly per base
+    -   Two main companies: Oxford Nanopore Technologies (ONT) and Pacific Biosciences (PacBio)
+    -   Since 2011 — remains under rapid development
+:::
+:::
+
+## DNA sequencing technologies: overview
+
+::: callout-caution
+## What about RNA sequencing?
+
+This lecture mostly talks about DNA sequencing, but this includes the indirect sequencing of RNA after reverse transcription to cDNA.
+:::
+
+## Sequencing technology development timeline
+
+![Modified after Pereira et al. 2020 (www.ncbi.nlm.nih.gov/pmc/articles/PMC7019349/)](img_sequencing/seq_timeline2.png)
+
+## Sanger sequencing
+
+Sequencing is performed by **synthesizing a new DNA strand** in part with fluorescently-labeled nucleotides — a different color for each base (`A`, `C`, `G`, `T`).[^1]
+
+[^1]: Visualization is not done in real time, but after the fact: sequences of each possible length are produced with a fluorescently labeled last base, and these can be separated by length afterwards.
+
+The final result is a **chromatogram** that can be base-called:
+
+![](img_sequencing/good.chromatogram.png){fig-alt="https://dnacore.mgh.harvard.edu/new-cgi-bin/site/pages/sequencing_pages/seq_troubleshooting.jsp" fig-align="center" width="100%"}
+
+. . .
+
+::: callout-warning
+## A \$100 million dollar genome
+
+*The entire human genome (3 Gbp) was sequenced with Sanger technology!*
+:::
+
+------------------------------------------------------------------------
+
+![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing1.png){fig-align="center" width="100%"}
+
+------------------------------------------------------------------------
+
+[![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing.jpeg){fig-align="center" width="100%"}](https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost)
+
+## Sequencing cost through time
+
+![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/2022_Sequencing_cost_per_Human_Genome.jpg)
+
+## Present-day Sanger applications
+
+**Common** **current applications** of Sanger sequencing include:
+
+-   Examining variation among individuals or populations in one or more candidate or marker genes (for population genetics, phylogenetics, functional inferences, etc.)
+
+-   Taxonomic identification of a sample
+
+<br>
+
+. . .
+
+::: callout-note
+## **Amplification** of a target DNA fragment is usually done with PCR
+
+-   This means that you need to (approximately) **know in advance short flanking sequences** to the sequence of interest — primers for your PCR.
+
+-   **Introns** are good targets to sequence: variable sequences flanked by conserved sequences (exons) in which primers can be designed.
+:::
+
+## High-throughput sequencing applications
+
+-   **Whole-genome assembly**
+
+. . .
+
+-   **Variant analysis** (for population genetics/genomics, molecular evolution, GWAS, etc.):
+
+    -   Whole-genome "resequencing"
+
+    -   Reduced-representation libraries (e.g. RADseq, GBS)
+
+. . .
+
+-   **RNA-seq** (transcriptome analysis)
+
+-   Other functional sequencing methods like **Methyl-seq, ChIP-seq,** etc.
+
+. . .
+
+-   **Microbial community characterization**
+
+    -   Metabarcoding
+
+    -   Shotgun metagenomics
+
+## Two important variables in high-throughput sequencing: <br> read lengths & error rates
+
+## Read lengths
+
+-   Short-read (Illumina) HTS: 50-300 bp reads
+
+-   Long-read HTS: longer & more variable read lengths (PacBio: 10-50 kbp, ONT: 10-100 kbp)
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+**When are longer reads useful?**
+
+-   Genome assembly
+
+-   Haplotype and large structural variant calling
+
+-   Transcript isoform identification
+
+-   Taxonomic identification of single reads (microbial metabarcoding)
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**When does read length not matter (as much)?**
+
+-   Read-as-a-tag: the goal is just to know a read's origin in a reference genome, like in counting applications such as RNA-seq
+
+-   SNP variant analysis
+
+## Error rates
+
+Currently, no sequencing technology is error-free, and several types of errors can occur:
+
+::: incremental
+-   Base call errors, e.g. a base that was called as an `A` may instead be a `G`.
+
+-   Insertion or deletion (indel) errors
+
+-   When the base calling software is not confident at all, it can also return `N`s (= undetermined).
+:::
+
+. . .
+
+![](img_sequencing/noisy.sequence.png){fig-align="center" width="95%"}
+
+::: callout-note
+## Quality scores in sequence data
+
+When you get sequences from a high-throughput sequencer, base calls have typically already been made. Every base is also accompanied by a quality score (inversely related to the estimated error probability).
+:::
+
+## Overcoming sequencing errors
+
+-   Sequencing at a high so-called "depth of coverage"[^2] generally allows to infer the correct sequence
+
+[^2]: Often referred to simply as "depth" or, confusing, "coverage"
+
+![](img_sequencing/coverage2.jpg){fig-align="center" width="60%"}
+
+. . .
+
+-   But made more challenging by natural genetic variation among and within (heterozygosity due to diploid genomes) individuals
+
+-   Typical depths of coverage: at least 50-100x for genome assembly; 10-30x for resequencing.
+
+## Illumina (short-read HTS / NGS)
+
+. . .
+
+-   100-300 bp reads with 0.1-0.2% error rates
+
+-   More reads, lower per-base cost, and lower error rates than long-read sequencing[^3].
+
+[^3]: But the error rate difference is disappearing: long-read technologies keep improving and Illumina does not.
+
+. . .
+
+-   Machines differ in throughput, cost per Gb, and read length:
+
+![](img_sequencing/illumina_machines3.png){fig-align="center"}
+
+## Libraries and library prep
+
+In a sequencing context, a "**library**" is a collection of nucleic acid fragments ready for sequencing.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+The procedure to get from a DNA (or RNA) extraction to a library is called **library prep**:
+
+![](img_sequencing/library_prep.png){fig-align="center"}
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+::: callout-tip
+## Many different methods
+
+There are many different library prep procedures depending on the type of sequencing (WGS, RAD-seq, RNA-seq, etc.) and the HTS technology used. We'll see the specific library prep steps for RNA-seq next week.
+:::
+
+## Libraries and library prep (cont.)
+
+After library prep (here, for Illumina sequencing), each DNA fragment is flanked by several types of short sequences that together make up the "**adapters**":
+
+<br>
+
+![](img_sequencing/adapters2.png){fig-align="center"}
+
+. . .
+
+<br>
+
+After talking about paired-end vs. single-end sequencing and the way Illumina sequencing works, we'll take a closer look at the adapter components.
+
+## Paired-end vs. single-end sequencing
+
+In Illumina sequencing, DNA fragments can be sequenced from both ends as shown below — this is called **"paired-end" (PE) sequencing**[^4]:
+
+[^4]: As the image suggests, the reverse read is read from the other direction and the other strand (so if the forward and reverse reads fully overlapped, they would be "reverse complements").
+
+![](img_sequencing/pairedend.png){fig-align="center"}
+
+. . .
+
+When sequencing is instead **single-end (SE)**, it simply means that there is no reverse read:
+
+![](img_sequencing/singleend.png){fig-align="center"}
+
+## Paired-end sequencing
+
+-   Paired-end sequencing is a way to **effectively increase the read length**. (In the resulting sequence files, the two reads in each pair are separate, but can be matched thanks to shared read IDs.)
+
+-   Earlier, we saw that the maximum read length of Illumina is 300 bp but in paired-end sequencing, this becomes "**2 x 300 bp**", etc.
+
+. . .
+
+-   The total size of the biological DNA fragment (without adapters) is often called the **insert size:**
+
+![](img_sequencing/insert_size.png){fig-align="center"}
+
+## Insert size variation
+
+The insert size varies — because the library prep protocol can aim for various sizes, and because of variation due to limited precision in size selection. It can be:
+
+-   Shorter than the *combined* read length, leading to **overlapping reads**:
+
+![](img_sequencing/insert_size_overlap.png){fig-align="center" width="70%"}
+
+. . .
+
+-   Shorter than the *single* read length, leading to "**adapter read-through**":
+
+![](img_sequencing/insert_size_adapter-read-through.png){fig-align="center" width="58%"}
+
+## How Illumina sequencing works
+
+First, library fragments **bind to a surface** thanks to the adapters, and the DNA templates (the biological sequence) is then **PCR-amplified to form "clusters"** of identical fragments:
+
+![](img_sequencing/illumina_seq1.png){fig-align="center"}
+
+. . .
+
+::: callout-note
+## In the diagram above, for illustrative purposes:
+
+-   Only a few nucleotides are shown (1 block = 1 nucleotide) — in reality, fragments are much longer
+
+-   Only two clusters are shown — in reality, there are millions
+:::
+
+## How Illumina sequencing works (cont.)
+
+Then, sequencing is performed by synthesizing a new strand using fluorescently-labeled bases and taking a picture each time a new nucleotide is incorporated:
+
+![](img_sequencing/illumina_seq2.png){fig-align="center"}
+
+## How Illumina sequencing works (cont.)
+
+![](img_sequencing/illumina_seq3.png){fig-align="center"}
+
+## How errors come about in Illumina
+
+::: columns
+::: {.column width="50%"}
+-   The different templates within a cluster get out of sync because occasionally:
+
+    -   They miss a base incorporation
+
+    -   They incorporate two bases at once
+
+-   Base incorporation may also terminate before the end of the template is reached
+:::
+
+::: {.column width="50%"}
+![](img_sequencing/illumina_errors.png){fig-align="center" width="80%"}
+:::
+:::
+
+. . .
+
+::: callout-tip
+## This is why:
+
+-   There are hard limits on Illumina read lengths
+
+-   Base quality scores decrease along the read
+:::
+
+## How Illumina sequencing works: Zooming out
+
+![](img_sequencing/flowcell1.png){fig-align="center"}
+
+## How Illumina sequencing works: Zooming out
+
+![](img_sequencing/flowcell2.png){fig-align="center"}
+
+## A closer look at the adapter components
+
+Now that you have a better idea of how Illumina sequencing works, let's take a closer look at the different components of the adapters flanking the DNA:
+
+<br>
+
+. . .
+
+![Modified after http://nextgen.mgh.harvard.edu/IlluminaChemistry.html](img_sequencing/adapters3.png){fig-align="center"}
+
+## Long-read HTS
+
+The technologies underlying the two main long-read HTS technologies are very different, but have some commonalities beyond long reads — they:
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+-   Perform "single-molecule" sequencing (no PCR amplification of library fragments)
+-   Require higher quantities and especially higher quality (undegraded) DNA
+-   Can detect some base modifications, like methyl groups
+-   Can sequence RNA directly
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-important
+## Error rates are changing
+
+As a shorthand that was universally true until recently, I mentioned earlier that long-read HTS has higher error rate than short-read (Illumina) HTS.\
+\
+However, error rates in one type of PacBio sequencing where individual fragments are sequenced multiple times ("HiFi") are now lower than in Illumina.
+:::
+
+## Nanopore sequencing
+
+**A single strand of DNA passes through a nanopore** —\
+what is measured is the electrical current, which depends on which combination of bases passes through:
+
+[![https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing](img_sequencing/Nanopore-sequencing_crop.jpg){fig-align="center" width="80%"}](https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing)
+
+## ONT (Nanopore) sequencers
+
+![](img_sequencing/ont_sequencers.png){fig-align="center" width="70%"}
+
+. . .
+
+::: callout-caution
+## Under development!
+
+ONT constantly releases new flow cells with updated technology, which have led to large decreases in error rates over the past decade and even over the past two or so years.
+
+At the same time, there is also a lot of development in the base-calling software. Unlike with Illumina or PacBio, it is common & useful to receive raw, not-basecalled data files: re-basecalling the same data a few years later with new software (versions) can make a substantial difference.
+:::
+
+## ONT vs. PacBIO
+
+**Advantages of ONT:**
+
+-   Low capital cost, portability (in-the-field sequencing!)
+
+-   Read length not inherently limited, some extremely long reads
+
+-   Lower cost per base
+
+<br>
+
+. . .
+
+**Disadvantages of ONT:**
+
+-   Higher error rates
+
+-   Some systematic errors (e.g. homopolymers)
+
+# Sequence data files {background-color="dimgray"}
+
+## Overview
+
+All common genetic/genomic data files are **plain-text**, meaning that they can be opened by any text editor. However, they are often **compressed** to save space. The main types are:
+
+-   **FASTA**\
+    Simple sequence files, where each entry contains a header and a DNA/AA sequence.\
+    Versatile, anything from a genome assemblies, proteomes, and single sequence fragments to alignments can be in this format.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+-   **FASTQ**\
+    The standard format for **HTS reads** — contains a quality score for each nucleotide.
+
+-   **SAM/BAM**\
+    An **alignment** format for HTS reads
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+-   **GTF**/**GFF**\
+    Tables (tab-delimited) with information such as genomic coordinates on "**genomic features**" such as genes and exons. The files contain reference **genome annotations**.
+
+## FASTA files
+
+FASTA files contain one or more (sometimes called multi-FASTA) DNA or amino acid sequences, with no limits on the number of sequences or the sequence lengths.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+As mentioned, they are versatile, and are the standard format for:
+
+-   Genome assembly sequences
+
+-   Proteomes (all of organism's amino acid sequences)
+
+-   Sequence downloads from NCBI such as a single gene/protein or other GenBank entry
+
+-   Sequence alignments (but not from HTS reads)
+
+## FASTA files (cont.)
+
+The following example FASTA file contains two entries:
+
+``` bash
+>unique_sequence_ID Optional description
+ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA
+>unique_sequence_ID2
+ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG
+```
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+Each entry contains a **header** and the **sequence** itself, and:
+
+-   Header lines start with a `>` and are otherwise "free form" but usually provide an identifier (and sometimes metadata) for the sequence
+-   A single sequence is often not on a single line, but spread across multiple lines with a fixed width
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+FASTA file name **extensions** are variable:
+
+-   **Generic** extensions are `.fasta` and `.fa`
+
+-   Also used are extensions that explicitly indicate whether sequences are **nucleotide** (`.fna`) or **amino acids** (`.faa`)
+
+## FASTQ
+
+FASTQ is the standard format for HTS reads.\
+**Each** **read forms** **one FASTQ entry** and is represented by four lines, which contain, respectively:
+
+. . .
+
+1.  A **header** that starts with `@` and e.g. uniquely identifies the read
+2.  The **sequence** itself
+3.  A **`+`** (plus sign)
+4.  One-character **quality scores** for each base (hence FASTQ as in "Q" for "quality")
+
+![](img_sequencing/fastq_header.png){fig-align="center" width="80%"}
+
+## FASTQ quality scores
+
+The quality scores we saw in the read on the previous slide represent an estimate of the error probability of the base call.
+
+Specifically, they correspond to a numeric "Phred" quality score (`Q`), which is a function of the estimated probability that a base call is erroneous (`P`):
+
+> **Q = -10 \* log10(P)**
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+For some specific probabilities and their rough qualitative interpretation for Illumina data:
+
+| Phred quality score | Error probability | Rough interpretation |
+|---------------------|-------------------|----------------------|
+| **10**              | 1 in 10           | terrible             |
+| **20**              | 1 in 100          | bad                  |
+| **30**              | 1 in 1,000        | good                 |
+| **40**              | 1 in 10,000       | excellent            |
+
+## FASTQ quality scores (cont.)
+
+This numeric quality score is represented in FASTQ files *not by the number itself*, but by a corresponding "ASCII character".
+
+This allows for a single-character representation of each possible score — as a consequence, **each quality score character can conveniently correspond to (& line up with) a base character** in the read.
+
+. . .
+
+| Phred quality score | Error probability | ASCII character |
+|---------------------|-------------------|-----------------|
+| **10**              | 1 in 10           | `+`             |
+| **20**              | 1 in 100          | `5`             |
+| **30**              | 1 in 1,000        | `?`             |
+| **40**              | 1 in 10,000       | `I`             |
+
+::: callout-tip
+## A rule of thumb
+
+In practice, you almost never have to manually check the quality scores of bases in FASTQ files, but if you do, a rule of thumb is that letter characters are good (Phred of 32 and up).
+:::
+
+## FASTQ (cont.)
+
+FASTQ files have no size limit, so you may receive a single file per sample, although:
+
+::: incremental
+-   With paired-end (PE) sequencing, forward and reverse reads are **split into two files**:\
+    forward reads contain `R1` and reverse reads contain `R2` in the file name.
+
+-   If sequencing was done on multiple lanes, you get one (SE) or two (PE) files *per lane per sample*.[^5]
+:::
+
+[^5]: Note that libraries usually consist of a mixture of *all* samples (though standard multiplexing is up to 96 samples). As such, if you need more data than a single Illumina lane can produce, the same library is sequenced on multiple lanes, rather than creating libraries with fewer samples.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+FASTQ files have the **extension** `.fastq` or `.fq` (but are commonly compressed, leading to `fastq.gz` etc.). All in all, having paired-end FASTQ files for 2 samples could look like this:
+
+``` bash
+# A listing of (unusually simple) file names:
+sample1_R1.fastq.gz
+sample1_R2.fastq.gz
+sample2_R1.fastq.gz
+sample2_R1.fastq.gz
+```
+
+## GTF/GFF
+
+The GTF and GFF formats are tab-delimited **tabular** **files** that contain **genome annotations**, with:
+
+-   One row for each annotated "**genomic feature**" (gene, exon, etc.)
+
+-   One column for each piece of information about a feature, like its genomic coordinates
+
+. . .
+
+See the sample below, with an added header line (not normally present) with column names:
+
+``` bash-out-solo
+seqname     source  feature start   end     score  strand  frame    attributes
+NC_000001   RefSeq  gene    11874   14409   .       +       .       gene_id "DDX11L1"; transcript_id ""; db_xref "GeneID:100287102"; db_xref "HGNC:HGNC:37102"; description "DEAD/H-box helicase 11 like 1 (pseudogene)"; gbkey "Gene"; gene "DDX11L1"; gene_biotype "transcribed_pseudogene"; pseudo "true"; 
+NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX11L1"; transcript_id "NR_046018.2"; db_xref "GeneID:100287102"; gene "DDX11L1"; product "DEAD/H-box helicase 11 like 1 (pseudogene)"; pseudo "true"; 
+```
+
+. . .
+
+::: callout-note
+## Some details on the more important/interesting columns:
+
+-   ***seqname*** — Name of the chromosome, scaffold, or contig
+-   ***feature*** — Name of the feature type, e.g. "gene", "exon", "intron", "CDS"
+-   ***start*** & **end**— Start & end position of the feature
+-   ***strand*** — Whether the feature is on the `+` (forward) or `-` (reverse) strand
+-   ***attribute*** — A semicolon-separated list of tag-value pairs with additional information
+:::
+
+## SAM/BAM
+
+Using specialized bioinformatics tools, you can align HTS reads (in FASTQ files) to a reference genome assembly (in a FASTA file).
+
+The resulting alignments are stored in the SAM (uncompressed) / BAM (compressed) format.
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+**SAM/BAM are tabular files with one line per alignment**, each of which includes:
+
+-   The position in the genome that the read aligned to
+
+-   A mapping score based on the length of the alignment and the number of mismatches
+
+-   The sequence of aligned the read itself
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-tip
+## File conversions
+
+-   FASTQ files can be converted to FASTA files (losing quality information) but not vice versa
+
+-   SAM/BAM files can be converted to FASTQ files (losing aligment information) but not vice versa
+
+-   Proteome FASTA files can be produced from the combination of a FASTA genome assembly and a GFF/GTF genome annotation
+:::
+
+# Genomes
+
+## Genome sizes
+
+-   Genome sizes of different organisms
+-   & variation in ploidy & genome organization
+
+## Genome assembly and annotation
+
+-   Creating a reference genome has two main steps: assembly and annotation
+
+-   Contigs and scaffolds
+
+-   Most assemblies are not "chromosome-level", and even chromosome-level assemblies are not 100% complete
+
+    -   With increasing usage & quality of long-reads, better assembly qualities
+
+    -   To create chromosome-level assemblies, other technologies typically also needed (Hi-C, optical mapping)
+
+## Genome assemblies online
