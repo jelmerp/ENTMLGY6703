@@ -3,8 +3,8 @@ h1, h2 {
 }
 
 p.caption {
-  text-align: center;
-  color: #bebfc2;
-  font-size: 0.5em;
-  font-style: italic;
+  text-align: center !important;
+  color: #bebfc2 !important;
+  font-size: 0.7em !important; 
+  font-style: italic !important;
 }

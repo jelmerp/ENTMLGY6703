@@ -28,7 +28,7 @@ editor_options:
 ## DNA sequencing technologies: overview
 
 -   **Sanger sequencing** (since 1977)\
-    Sequences a single, PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
+    Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
 
 . . .
 
@@ -57,7 +57,7 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 ## DNA sequencing technologies: overview
 
 -   **Sanger sequencing** (since 1977)\
-    Sequences a single, PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
+    Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -83,13 +83,19 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 :::
 :::
 
-## DNA sequencing technologies: overview
+## What about RNA?
 
-::: callout-caution
-## What about RNA sequencing?
+This lecture mostly talks about DNA sequencing, but:
 
-This lecture mostly talks about DNA sequencing, but this includes the indirect sequencing of RNA after reverse transcription to cDNA.
-:::
+-   This includes the indirect sequencing of RNA after reverse transcription to cDNA, as in nearly all "RNA-seq".
+
+-   Direct RNA sequencing is possible with some of the sequencing technologies we discuss, as I'll briefly mention later, but is hard and not (yet) widely used.
+
+<br>
+
+. . .
+
+Similarly, the shorthand "sequencing", like in "high-throughput sequencing" in the title of this presentation, generally refers to DNA sequencing.
 
 ## Sequencing technology development timeline
 
@@ -97,9 +103,13 @@ This lecture mostly talks about DNA sequencing, but this includes the indirect s
 
 ## Sanger sequencing
 
+Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time.
+
 Sequencing is performed by **synthesizing a new DNA strand** in part with fluorescently-labeled nucleotides — a different color for each base (`A`, `C`, `G`, `T`).[^1]
 
 [^1]: Visualization is not done in real time, but after the fact: sequences of each possible length are produced with a fluorescently labeled last base, and these can be separated by length afterwards.
+
+. . .
 
 The final result is a **chromatogram** that can be base-called:
 
@@ -108,18 +118,8 @@ The final result is a **chromatogram** that can be base-called:
 . . .
 
 ::: callout-warning
-## A \$100 million dollar genome
-
-*The entire human genome (3 Gbp) was sequenced with Sanger technology!*
+## A \$100 million dollar genome: the entire human genome (3 Gbp) was sequenced with Sanger!
 :::
-
-------------------------------------------------------------------------
-
-![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing1.png){fig-align="center" width="100%"}
-
-------------------------------------------------------------------------
-
-[![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing.jpeg){fig-align="center" width="100%"}](https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost)
 
 ## Sequencing cost through time
 
@@ -259,22 +259,16 @@ When you get sequences from a high-throughput sequencer, base calls have typical
 
 In a sequencing context, a "**library**" is a collection of nucleic acid fragments ready for sequencing.
 
-<hr style="height:1pt; visibility:hidden;" />
+. . .
+
+In Illumina and other HTS libraries, the fragments **number in the millions or billions** and are **often** **randomly generated** from input such as genomic DNA — cf. Sanger sequencing:
+
+![The procedure that produces a library from a DNA (or RNA) extraction is called library prep.](img_sequencing/library_prep.png){fig-align="center"}
 
 . . .
 
-The procedure to get from a DNA (or RNA) extraction to a library is called **library prep**:
-
-![](img_sequencing/library_prep.png){fig-align="center"}
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-::: callout-tip
-## Many different methods
-
-There are many different library prep procedures depending on the type of sequencing (WGS, RAD-seq, RNA-seq, etc.) and the HTS technology used. We'll see the specific library prep steps for RNA-seq next week.
+::: {.callout-tip appearance="minimal"}
+Different library prep procedures are used depending on the type of sequencing (WGS, RAD-seq, RNA-seq, etc.) and HTS technology — and some include more specific fragment generation or selection. We'll see the specific library prep steps for RNA-seq next week.
 :::
 
 ## Libraries and library prep (cont.)
@@ -327,13 +321,14 @@ The insert size varies — because the library prep protocol can aim for various
 
 . . .
 
--   Shorter than the *single* read length, leading to "**adapter read-through**":
+-   Shorter than the *single* read length, leading to "**adapter read-through**"\
+    (i.e., the ends of the resulting reads will consist of adapter sequence):
 
 ![](img_sequencing/insert_size_adapter-read-through.png){fig-align="center" width="58%"}
 
 ## How Illumina sequencing works
 
-First, library fragments **bind to a surface** thanks to the adapters, and the DNA templates (the biological sequence) is then **PCR-amplified to form "clusters"** of identical fragments:
+First, library fragments **bind to a surface** thanks to the adapters, and the DNA templates (the biological sequences) are then **PCR-amplified to form "clusters"** of identical fragments:
 
 ![](img_sequencing/illumina_seq1.png){fig-align="center"}
 
@@ -344,12 +339,14 @@ First, library fragments **bind to a surface** thanks to the adapters, and the D
 
 -   Only a few nucleotides are shown (1 block = 1 nucleotide) — in reality, fragments are much longer
 
--   Only two clusters are shown — in reality, there are millions
+-   Only two templates =\> clusters are shown — in reality, there are millions
 :::
 
 ## How Illumina sequencing works (cont.)
 
 Then, sequencing is performed by synthesizing a new strand using fluorescently-labeled bases and taking a picture each time a new nucleotide is incorporated:
+
+. . .
 
 ![](img_sequencing/illumina_seq2.png){fig-align="center"}
 
@@ -378,9 +375,9 @@ Then, sequencing is performed by synthesizing a new strand using fluorescently-l
 . . .
 
 ::: callout-tip
-## This is why:
+## This error profile is why, for Illumina:
 
--   There are hard limits on Illumina read lengths
+-   There are hard limits on read lengths
 
 -   Base quality scores decrease along the read
 :::
@@ -411,10 +408,10 @@ The technologies underlying the two main long-read HTS technologies are very dif
 
 <hr style="height:1pt; visibility:hidden;" />
 
--   Perform "single-molecule" sequencing (no PCR amplification of library fragments)
--   Require higher quantities and especially higher quality (undegraded) DNA
--   Can detect some base modifications, like methyl groups
--   Can sequence RNA directly
+-   Perform **"single-molecule" sequencing** (no PCR amplification of library fragments)
+-   Require higher quality & quantity DNA
+-   Can detect some **base modifications**, like methyl groups
+-   Can **sequence RNA** directly
 
 . . .
 
@@ -425,7 +422,7 @@ The technologies underlying the two main long-read HTS technologies are very dif
 
 As a shorthand that was universally true until recently, I mentioned earlier that long-read HTS has higher error rate than short-read (Illumina) HTS.\
 \
-However, error rates in one type of PacBio sequencing where individual fragments are sequenced multiple times ("HiFi") are now lower than in Illumina.
+However, error rates in one type of PacBio sequencing where individual fragments are sequenced multiple times ("HiFi") *are now lower than in Illumina*.
 :::
 
 ## Nanopore sequencing
@@ -469,7 +466,98 @@ At the same time, there is also a lot of development in the base-calling softwar
 
 -   Some systematic errors (e.g. homopolymers)
 
-# Sequence data files {background-color="dimgray"}
+# Genomes
+
+## Genomes
+
+As methods facilitating genomics and transcriptomics research, genomes loom large in HTS. Specifically, most HTS applications either **require a "reference genome"** **or involve its production.**
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+What exactly does "reference genome" refer to? Three components to this phrase:
+
+-   **Assembly**\
+    It includes a representation of most of the genome DNA sequence: the genome assembly
+
+. . .
+
+-   **Annotation**\
+    It (preferably) includes an "annotation" that provides the locations of genes and other genomic features, as well as functional information on these features
+
+. . .
+
+-   **Taxonomic identity**\
+    This is typically considered at the **species level**, in which case it should involve the focal species. But:
+
+    -   If necessary, it is often possible to work with reference genomes of closely related species
+
+    -   Conversely, different reference genomes may exist for different subspecies/populations within a species
+
+## Genome size variation
+
+[![https://en.wikipedia.org/wiki/Genome_size](img_sequencing/Genome_Sizes.png){fig-align="center"}](https://en.wikipedia.org/wiki/Genome_size)
+
+## Genome structure
+
+::: columns
+::: {.column width="75%"}
+![https://en.wikipedia.org/wiki/Karyotype](img_sequencing/DNA_human_male_chromosomes.gif){fig-align="center" width="90%"}
+:::
+
+::: {.column width="25%"}
+<br> <br> <br> <br>
+
+Key features:
+
+-   Number of distinct chromosomes
+
+-   Ploidy
+:::
+:::
+
+## Genome assembly & annotation
+
+Creating a reference genome has two main steps: assembly and annotation.
+
+<br>
+
+**A few notes on genome assembly**:
+
+::: incremental
+-   Most assemblies are not "chromosome-level", i.e. they don't have one contiguous sequence for each chromosome. Instead, they consist of contigs and scaffolds, which can number in the thousands.
+
+-   Even chromosome-level assemblies are not 100% complete
+
+-   With increasing usage & quality of long-read HTS, we are generating better assemblies
+
+-   To create chromosome-level assemblies, other technologies typically also needed (Hi-C, optical mapping)
+:::
+
+## Genome assembly & annotation
+
+**A few notes on genome annotation**:
+
+::: incremental
+-   The first step is **structural annotation**: the identification of genes and other genomic features within the genome sequence
+
+-   The second step is **functional annotation**: giving names and assigning functions to (mostly) genes
+
+-   Whereas genome assembly typically does not borrow information from other organisms, genome annotation very heavily relies on that, based on the concept of sequence **homology**.
+:::
+
+<br>
+
+. . .
+
+::: callout-note
+## How is this data stored?
+
+Both genome assemblies and annotations are typically saved in a single text file each — more on that soon.
+:::
+
+# Appendix: Sequence data files {background-color="dimgray"}
 
 ## Overview
 
@@ -508,7 +596,7 @@ As mentioned, they are versatile, and are the standard format for:
 
 -   Genome assembly sequences
 
--   Proteomes (all of organism's amino acid sequences)
+-   Transcriptomes and proteomes (all of an organism's transcripts & amino acid sequences, resp.)
 
 -   Sequence downloads from NCBI such as a single gene/protein or other GenBank entry
 
@@ -684,28 +772,7 @@ The resulting alignments are stored in the SAM (uncompressed) / BAM (compressed)
 
 -   FASTQ files can be converted to FASTA files (losing quality information) but not vice versa
 
--   SAM/BAM files can be converted to FASTQ files (losing aligment information) but not vice versa
+-   SAM/BAM files can be converted to FASTQ files (losing alignment information) but not vice versa
 
 -   Proteome FASTA files can be produced from the combination of a FASTA genome assembly and a GFF/GTF genome annotation
 :::
-
-# Genomes
-
-## Genome sizes
-
--   Genome sizes of different organisms
--   & variation in ploidy & genome organization
-
-## Genome assembly and annotation
-
--   Creating a reference genome has two main steps: assembly and annotation
-
--   Contigs and scaffolds
-
--   Most assemblies are not "chromosome-level", and even chromosome-level assemblies are not 100% complete
-
-    -   With increasing usage & quality of long-reads, better assembly qualities
-
-    -   To create chromosome-level assemblies, other technologies typically also needed (Hi-C, optical mapping)
-
-## Genome assemblies online

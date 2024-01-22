@@ -1,12 +1,16 @@
 ---
 title: "Jelmer's guest lectures in ENTMLGY 6703, SP24"
+toc: false
+number-sections: false
 ---
 
 <br>
 
+### Schedule
+
 | Week | Date       | Module                           | Topic & link                                                             |
-|-------|---------|-------------------------|-----------------------------------|
+|----------------|----------------|-----------------|------------------------|
 | 3    | Jan 25^th^ | High-throughput sequencing (HTS) | [Lecture: High-throughput sequencing & genomes](lectures/sequencing.qmd) |
-| 3    | Jan 26^th^ | High-throughput sequencing (HTS) | [Lab: FASTQ files](labs/FASTQ.qmd)                                       |
-| 4    | Feb 1^st^  | RNA-seq                          | [Lecture: RNA-seq](lectures/rnaseq.qmd)                                  |
-| 4    | Feb 2^nd^  | RNA-seq                          | [Lab: Differential expression analysis](labs/DE.qmd)                     |
+| 3    | Jan 26^th^ | High-throughput sequencing (HTS) | - [Lab part 1: Computational infrastructure](labs/infrastructure.qmd)<br>- [Lab part 2: Working with genome and HTS data](labs/data.qmd)             |
+| 4    | Feb 1^st^  | RNA-seq                          | Lecture: RNA-seq       |
+| 4    | Feb 2^nd^  | RNA-seq                          | Lab: Differential expression analysis       |

@@ -5,3 +5,13 @@ title: "Removed"
 -   Effects of *Diplodia* pathogen exposure Austrian pine (*Pinus nigra*) over time.
 
 -   Aphid biotypes & soybean cultivars under different flood conditions (Michel lab, Entomology)
+
+
+------------------------------------------------------------------------
+
+![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing1.png){fig-align="center" width="100%"}
+
+------------------------------------------------------------------------
+
+[![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing.jpeg){fig-align="center" width="100%"}](https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost)
+

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jelmer Poelstra">
+<meta name="dcterms.date" content="2024-02-02">
 
-<title>ENTMLGY 6703 - Jelmer's lectures – de</title>
+<title>ENTMLGY 6703 - Jelmer’s lectures - Week 4 lab: RNA-seq differential expression analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -95,8 +131,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Lecture: High-throughput Sequencing &amp; Genomes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../labs/FASTQ.html" rel="" target="">
- <span class="dropdown-text">Lab: FASTQ files</span></a>
+    <a class="dropdown-item" href="../labs/infrastructure.html" rel="" target="">
+ <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/data.html" rel="" target="">
+ <span class="dropdown-text">Lab part 2: Working with genome and HTS Data</span></a>
   </li>  
     </ul>
   </li>
@@ -127,12 +167,12 @@ ul.task-list li input[type="checkbox"] {
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/osu-codeclub/osu-codeclub.github.io">
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703">
             Source Code
             </a>
           </li>
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/osu-codeclub/osu-codeclub.github.io/issues/new">
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703/issues/new">
             Report an Issue
             </a>
           </li>
@@ -148,15 +188,549 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-set-up" id="toc-getting-set-up" class="nav-link active" data-scroll-target="#getting-set-up"><span class="header-section-number">1</span> Getting set up</a>
+  <ul class="collapse">
+  <li><a href="#start-an-rstudio-session-at-osc" id="toc-start-an-rstudio-session-at-osc" class="nav-link" data-scroll-target="#start-an-rstudio-session-at-osc"><span class="header-section-number">1.1</span> Start an RStudio session at OSC</a></li>
+  <li><a href="#create-an-rstudio-project" id="toc-create-an-rstudio-project" class="nav-link" data-scroll-target="#create-an-rstudio-project"><span class="header-section-number">1.2</span> Create an RStudio Project</a></li>
+  <li><a href="#load-the-necessary-packages" id="toc-load-the-necessary-packages" class="nav-link" data-scroll-target="#load-the-necessary-packages"><span class="header-section-number">1.3</span> Load the necessary packages</a></li>
+  <li><a href="#input-and-output-dirs-and-files" id="toc-input-and-output-dirs-and-files" class="nav-link" data-scroll-target="#input-and-output-dirs-and-files"><span class="header-section-number">1.4</span> Input and output dirs and files</a></li>
+  <li><a href="#load-input-data" id="toc-load-input-data" class="nav-link" data-scroll-target="#load-input-data"><span class="header-section-number">1.5</span> Load input data</a></li>
+  </ul></li>
+  <li><a href="#prepare-the-data" id="toc-prepare-the-data" class="nav-link" data-scroll-target="#prepare-the-data"><span class="header-section-number">2</span> Prepare the data</a>
+  <ul class="collapse">
+  <li><a href="#check-sample-ids" id="toc-check-sample-ids" class="nav-link" data-scroll-target="#check-sample-ids"><span class="header-section-number">2.1</span> Check sample IDs</a></li>
+  <li><a href="#create-the-deseq2-object" id="toc-create-the-deseq2-object" class="nav-link" data-scroll-target="#create-the-deseq2-object"><span class="header-section-number">2.2</span> Create the DESeq2 object</a></li>
+  </ul></li>
+  <li><a href="#explore-the-count-data" id="toc-explore-the-count-data" class="nav-link" data-scroll-target="#explore-the-count-data"><span class="header-section-number">3</span> Explore the count data</a>
+  <ul class="collapse">
+  <li><a href="#histogram-of-gene-counts" id="toc-histogram-of-gene-counts" class="nav-link" data-scroll-target="#histogram-of-gene-counts"><span class="header-section-number">3.1</span> Histogram of gene counts</a></li>
+  </ul></li>
+  <li><a href="#principal-component-analysis-pca" id="toc-principal-component-analysis-pca" class="nav-link" data-scroll-target="#principal-component-analysis-pca"><span class="header-section-number">4</span> Principal Component Analysis (PCA)</a>
+  <ul class="collapse">
+  <li><a href="#run-the-pca-and-prepare-for-plotting" id="toc-run-the-pca-and-prepare-for-plotting" class="nav-link" data-scroll-target="#run-the-pca-and-prepare-for-plotting"><span class="header-section-number">4.1</span> Run the PCA and prepare for plotting</a></li>
+  <li><a href="#plot-the-pca-results" id="toc-plot-the-pca-results" class="nav-link" data-scroll-target="#plot-the-pca-results"><span class="header-section-number">4.2</span> Plot the PCA results</a></li>
+  <li><a href="#plot-again-with-sample-names" id="toc-plot-again-with-sample-names" class="nav-link" data-scroll-target="#plot-again-with-sample-names"><span class="header-section-number">4.3</span> Plot again – with sample names</a></li>
+  </ul></li>
+  <li><a href="#de-analysis-full-dataset" id="toc-de-analysis-full-dataset" class="nav-link" data-scroll-target="#de-analysis-full-dataset"><span class="header-section-number">5</span> DE analysis – full dataset</a>
+  <ul class="collapse">
+  <li><a href="#the-results-table" id="toc-the-results-table" class="nav-link" data-scroll-target="#the-results-table"><span class="header-section-number">5.1</span> The results table</a></li>
+  <li><a href="#na-values-in-the-results-table" id="toc-na-values-in-the-results-table" class="nav-link" data-scroll-target="#na-values-in-the-results-table"><span class="header-section-number">5.2</span> <code>NA</code> values in the results table</a></li>
+  </ul></li>
+  <li><a href="#de-analysis-contrast-two-custom-groups" id="toc-de-analysis-contrast-two-custom-groups" class="nav-link" data-scroll-target="#de-analysis-contrast-two-custom-groups"><span class="header-section-number">6</span> DE analysis – contrast two custom groups</a></li>
+  <li><a href="#visually-exploring-the-results" id="toc-visually-exploring-the-results" class="nav-link" data-scroll-target="#visually-exploring-the-results"><span class="header-section-number">7</span> Visually exploring the results</a>
+  <ul class="collapse">
+  <li><a href="#volcano-plot" id="toc-volcano-plot" class="nav-link" data-scroll-target="#volcano-plot"><span class="header-section-number">7.1</span> Volcano plot</a></li>
+  <li><a href="#plot-specific-genes" id="toc-plot-specific-genes" class="nav-link" data-scroll-target="#plot-specific-genes"><span class="header-section-number">7.2</span> Plot specific genes</a></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap"><span class="header-section-number">7.3</span> Heatmap</a></li>
+  <li><a href="#export-the-results" id="toc-export-the-results" class="nav-link" data-scroll-target="#export-the-results"><span class="header-section-number">7.4</span> Export the results</a></li>
+  </ul></li>
+  <li><a href="#de-analysis-with-two-factors" id="toc-de-analysis-with-two-factors" class="nav-link" data-scroll-target="#de-analysis-with-two-factors"><span class="header-section-number">8</span> DE analysis – with two factors</a>
+  <ul class="collapse">
+  <li><a href="#controlling-for-one-factor" id="toc-controlling-for-one-factor" class="nav-link" data-scroll-target="#controlling-for-one-factor"><span class="header-section-number">8.1</span> Controlling for one factor</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 4 lab: RNA-seq differential expression analysis</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jelmer Poelstra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 2, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="getting-set-up" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="getting-set-up"><span class="header-section-number">1</span> Getting set up</h2>
+<section id="start-an-rstudio-session-at-osc" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="start-an-rstudio-session-at-osc"><span class="header-section-number">1.1</span> Start an RStudio session at OSC</h3>
+<ul>
+<li><p>Log in to OSC at <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a>.</p></li>
+<li><p>Click on <code>Interactive Apps</code> (top bar) &gt; <code>RStudio Server</code></p></li>
+</ul>
+<p>TBA</p>
+<ul>
+<li>Fill out the form as shown below:</li>
+</ul>
+<p>TBA</p>
+<ul>
+<li>Now, you should see a box like this:</li>
+</ul>
+<p align="center">
+<img src="img_DE/osc_queued.png" width="700">
+</p>
+<ul>
+<li>Your job should start running pretty soon, and when it’s ready the box should look like this:</li>
+</ul>
+<p align="center">
+<img src="img_DE/osc_running.png" width="700">
+</p>
+<ul>
+<li>Click <code>Connect to RStudio Server</code> at the bottom of the box, and an RStudio Server instance will open. You’re ready to go!</li>
+</ul>
+</section>
+<section id="create-an-rstudio-project" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="create-an-rstudio-project"><span class="header-section-number">1.2</span> Create an RStudio Project</h3>
+<p>TBA</p>
+<p>Now, RStudio will reload with the newly created Project open.</p>
+<p>If you get the pop-up below, click <code>Don't Save</code> (do this whenever you get that pop-up):</p>
+<p align="center">
+<img src="img_DE/rdata-popup.png" width="350">
+</p>
+</section>
+<section id="load-the-necessary-packages" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="load-the-necessary-packages"><span class="header-section-number">1.3</span> Load the necessary packages</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span> <span class="st">"pacman"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DESeq2"</span>,          <span class="co"># Differential expression analysis</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"tidyverse"</span>,       <span class="co"># Misc. data manipulation and plotting</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"ggrepel"</span>,         <span class="co"># PCA with sample IDs</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"pheatmap"</span>)        <span class="co"># Heatmap plot</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="at">char =</span> packages)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())  <span class="co"># Set ggplot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="input-and-output-dirs-and-files" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="input-and-output-dirs-and-files"><span class="header-section-number">1.4</span> Input and output dirs and files</h3>
+<p>Input files:</p>
+<ul>
+<li><strong>Gene counts table</strong></li>
+<li><strong>Metadata table</strong> – so we can group our samples and make comparisons between these groups.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_table_file <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results/count/gene_counts_all.txt"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>metadata_file <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data/meta/metadata.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output directories – and we create them if they don’t already exist:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"results/DE/"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(outdir)) <span class="fu">dir.create</span>(outdir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-input-data" class="level3" data-number="1.5">
+<h3 data-number="1.5" class="anchored" data-anchor-id="load-input-data"><span class="header-section-number">1.5</span> Load input data</h3>
+<p>Load the count table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>raw_counts <span class="ot">&lt;-</span> <span class="fu">read.table</span>(count_table_file,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load the metadata information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read.table</span>(metadata_file, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>Treatment</code> column currently has the values <code>Agrobacterium_noexp</code>, <code>Agrobacterium_myb</code>, and <code>mock</code>.</p>
+<p>To shorten this a bit, we’ll get rid of “Agrobacterium_”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>metadata<span class="sc">$</span>Treatment <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"Agrobacterium_"</span>, <span class="st">""</span>, metadata<span class="sc">$</span>Treatment)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(metadata<span class="sc">$</span>Treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="prepare-the-data" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="prepare-the-data"><span class="header-section-number">2</span> Prepare the data</h2>
+<p>Change the column names, which are very long:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw_counts)[<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_regex <span class="ot">&lt;-</span> <span class="st">".+PonceM_(.+)_V1N.+"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw_counts) <span class="ot">&lt;-</span> <span class="fu">sub</span>(my_regex, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, <span class="fu">colnames</span>(raw_counts))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Besides the counts, there are columns with metadata for each gene:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>raw_counts[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s remove those:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> raw_counts[, <span class="dv">7</span><span class="sc">:</span><span class="fu">ncol</span>(raw_counts)]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(counts) <span class="ot">&lt;-</span> raw_counts<span class="sc">$</span>Geneid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="check-sample-ids" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="check-sample-ids"><span class="header-section-number">2.1</span> Check sample IDs</h3>
+<p>For differential expression analysis, we will be using the popular<strong>DESeq2</strong> R/Bioconductor package (<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8">paper</a>, <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">website</a>).</p>
+<p>We will load both the count table and the metadata into <em>DESeq2</em>. When doing so, <em>DESeq2</em> assumes that sample IDs in both tables match and are provided in the same order. Let’s make sure this is indeed the case.</p>
+<p>Sort both data frames alphabetically:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata[<span class="fu">order</span>(metadata<span class="sc">$</span>SampleID), ]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts[, <span class="fu">order</span>(<span class="fu">colnames</span>(counts))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check if names are the same:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>metadata<span class="sc">$</span>SampleID</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(counts)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>matching_names <span class="ot">&lt;-</span> <span class="fu">identical</span>(metadata<span class="sc">$</span>SampleID, <span class="fu">colnames</span>(counts))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>matching_names</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(matching_names <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="fu">stop</span>(<span class="st">"Sample ID in metadata and count matrix do not match!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-the-deseq2-object" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="create-the-deseq2-object"><span class="header-section-number">2.2</span> Create the DESeq2 object</h3>
+<p>We will create the DESeq2 object using the function <code>DESeqDataSetFromMatrix()</code>, which we will provide with three pieces of information:</p>
+<ul>
+<li>The count data with argument <code>countData</code>.</li>
+<li>The metadata with argument <code>colData</code>.</li>
+<li>The model design for the DE analysis – argument <code>design</code>.<br>
+For now, we will specify <code>~1</code>, which means “no design” – we will change this before the actual DE analysis.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dds_raw <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> counts,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">colData =</span> metadata,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">design =</span> <span class="sc">~</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="explore-the-count-data" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="explore-the-count-data"><span class="header-section-number">3</span> Explore the count data</h2>
+<p>What are number of rows and columns of the count matrix?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many genes have non-zero counts?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(counts[<span class="fu">rowSums</span>(counts) <span class="sc">&gt;</span> <span class="dv">0</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many genes have total counts of at least 10?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(counts[<span class="fu">rowSums</span>(counts) <span class="sc">&gt;=</span> <span class="dv">10</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="histogram-of-gene-counts" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="histogram-of-gene-counts"><span class="header-section-number">3.1</span> Histogram of gene counts</h3>
+<p>Let’s plot a histogram of gene counts:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>summed_gene_counts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">gene_count =</span> <span class="fu">rowSums</span>(counts)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"gene_id"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summed_gene_counts) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> gene_count), <span class="at">binwidth =</span> <span class="dv">10000</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zoom in a bit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summed_gene_counts) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> gene_count), <span class="at">binwidth =</span> <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200000</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"cm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How are counts distributed across samples? That is, we would like a sum of counts for each column. To get this, we use the <code>apply()</code> function, which can apply a function (in our case <code>sum()</code>) to all columns (hence <code>MARGIN = 2</code> – for rows, use <code>1</code>) of our <code>counts</code> dataframe:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(<span class="at">X =</span> counts, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="principal-component-analysis-pca" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="principal-component-analysis-pca"><span class="header-section-number">4</span> Principal Component Analysis (PCA)</h2>
+<section id="run-the-pca-and-prepare-for-plotting" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="run-the-pca-and-prepare-for-plotting"><span class="header-section-number">4.1</span> Run the PCA and prepare for plotting</h3>
+<p>First, we normalize the count data to have even sampling across samples (with respect to library size) and approximately even variance:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>vsd <span class="ot">&lt;-</span> <span class="fu">varianceStabilizingTransformation</span>(dds_raw, <span class="at">blind =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we run the PCA and retrieve the data to plot with <em>ggplot2</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pcaData <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(vsd,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ntop =</span> <span class="dv">500</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"AMF"</span>, <span class="st">"Treatment"</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">returnData =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We extract the percentage of variance explained by different principal components, so we can later add this information to the plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>percentVar <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">attr</span>(pcaData, <span class="st">"percentVar"</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>percentVar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plot-the-pca-results" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="plot-the-pca-results"><span class="header-section-number">4.2</span> Plot the PCA results</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pcaData,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> AMF, <span class="at">shape =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">"PC1: "</span>, percentVar[<span class="dv">1</span>], <span class="st">"% of variance"</span>)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">"PC2: "</span>, percentVar[<span class="dv">2</span>], <span class="st">"% of variance"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plot-again-with-sample-names" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="plot-again-with-sample-names"><span class="header-section-number">4.3</span> Plot again – with sample names</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pcaData,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(PC1, PC2, <span class="at">color =</span> AMF, <span class="at">shape =</span> Treatment)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> name)) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="fu">paste0</span>(<span class="st">"PC1: "</span>, percentVar[<span class="dv">1</span>], <span class="st">"% of variance"</span>)) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">"PC2: "</span>, percentVar[<span class="dv">2</span>], <span class="st">"% of variance"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="de-analysis-full-dataset" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="de-analysis-full-dataset"><span class="header-section-number">5</span> DE analysis – full dataset</h2>
+<p>The design has two factors: <code>AMF</code> and <code>Treatment</code>. Rather than fit a multivariate model, we can start by merging the two into a single factor called <code>group</code>, and fit a univariate model with this factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dds_raw<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">paste</span>(dds_raw<span class="sc">$</span>AMF, dds_raw<span class="sc">$</span>Treatment, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dds_raw<span class="sc">$</span>group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will set the “reference” level of the factor to be the double negative control (empty substrate, no Agrobacteria):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dds_raw<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">relevel</span>(dds_raw<span class="sc">$</span>group, <span class="at">ref =</span> <span class="st">"control_mock"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>dds_raw<span class="sc">$</span>group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we set the analysis design:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">design</span>(dds_raw) <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="sc">~</span> group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And finally, we perform the differential expression analysis with the <code>DEseq()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>DESeq()</code> function above performs three steps consecutively:</p>
+<ul>
+<li><p><code>estimateSizeFactors()</code> – “Normalization” by library size and composition.</p>
+<p>Note that <em>DESeq2</em> doesn’t actually normalize the counts in the sense that it produces a matrix with adjusted counts. Instead it uses raw counts and includes the size factors in the modeling.</p>
+<p>To learn more about gene count normalization, see <a href="https://www.youtube.com/watch?v=UFB993xufUU">this video</a> and <a href="https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html">this page</a>.</p></li>
+<li><p><code>estimateDispersions()</code> – Estimate gene-wise dispersion (variance in counts).</p></li>
+<li><p><code>nbinomWaldTest(ddsObj)</code> – Fit the negative binomial GLM and calculate Wald statistics, which is the test statistic underlying the p-value for whether a gene is differentially expressed.</p></li>
+</ul>
+<p>These functions could also be called separately, which would be useful if you want to be able to change more defaults.</p>
+<section id="the-results-table" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="the-results-table"><span class="header-section-number">5.1</span> The results table</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>By default, the results table prints statistics <strong>comparing the last level of the factor with the first level</strong>: that is, log-fold change and p-values describe differences between these two levels specifically. However, we can easily extract equivalent statistics for any pairwise comparison among our factor levels, which we will see later.</p>
+<p>For now, we will explore what each column in this table means:</p>
+<ul>
+<li><p>The <strong><code>baseMean</code></strong> column contains the mean expression level across all samples.</p></li>
+<li><p>The <strong><code>log2FoldChange</code></strong> column contains the log2-fold change of gene counts between the compared levels, that is, it represents the <em>effect size</em>.</p>
+<p>A log2-fold change of 1 indicates that the expression in the reference level is two-fold <em>lower</em> than that of the other level, a log2-fold change of 2 indicates a four-fold difference, a log2-fold change of 3 indicates an eight-fold difference, and so on.</p>
+<p>Similarly, <em>negative log2-fold</em> values indicate a change in gene counts in the other direction: the reference level is <em>higher</em> than the other level.</p></li>
+<li><p>The <code>lfcSE</code> column indicates the uncertainty in terms of the standard error (SE) of the log2-fold change estimate.</p></li>
+<li><p>The <strong><code>stat</code></strong> column indicates the value for the Wald test’s test statistic.</p></li>
+<li><p>The <strong><code>pvalue</code></strong> column reported the <em>uncorrected</em> p-value from the Wald test.</p></li>
+<li><p>Because we are testing significance for <em>many</em> genes, we need to correct for multiple testing. DESeq2 uses the Benjamini-Hochberg False Discovery Rate (FDR) correction, and these values are reported in the column <strong><code>padj</code></strong> (i.e., adjusted p-value).</p></li>
+</ul>
+<p>A summary of this information about each column can be seen by running the <code>mcols()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcols</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="na-values-in-the-results-table" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="na-values-in-the-results-table"><span class="header-section-number">5.2</span> <code>NA</code> values in the results table</h3>
+<p>Some values in the results table can be set to <code>NA</code> for one of the following reasons:</p>
+<ul>
+<li><p>If a gene contains a sample with a count <strong>outlier</strong>, both the p-value and adjusted p-value will be set to <code>NA</code>. (DESeq2 performs outlier detection using Cook’s distance.)</p></li>
+<li><p>If all samples have <strong>zero counts</strong> for a given gene, the <code>baseMean</code> column will be zero, and the log2-fold change estimates, p-value and adjusted p-value will all be set to <code>NA</code>.</p></li>
+<li><p>DESeq2 also automatically filters genes with a <strong>low mean count</strong> in the sense that it does not include them in the multiple testing correction. Therefore, in such cases, the p-value will not be <code>NA</code>, but the <em>adjusted</em> p-value will be.</p>
+<p>Because we have very low power to detect differential expression for such low-count genes, it is beneficial to remove them prior to the multiple testing correction: that way, the correction becomes less severe for the remaining genes.</p></li>
+</ul>
+<p>Let’s see how many genes have <code>NA</code> p-values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of genes with NA p-value:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(res<span class="sc">$</span>pvalue))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># As a proportion of the total number of genes in the test:</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(res<span class="sc">$</span>pvalue)) <span class="sc">/</span> <span class="fu">nrow</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And <code>NA</code> adjusted p-values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of genes with NA p-value:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(res<span class="sc">$</span>padj))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># As a proportion of the total number of genes in the test:</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(res<span class="sc">$</span>padj)) <span class="sc">/</span> <span class="fu">nrow</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="de-analysis-contrast-two-custom-groups" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="de-analysis-contrast-two-custom-groups"><span class="header-section-number">6</span> DE analysis – contrast two custom groups</h2>
+<p>Using the <code>resultsNames</code> function, we can see which pairwise contrasts between different levels of the factor are available (though it is not displayed in a particularly readable fashion):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Not all pairwise contrasts between the 5 levels in our <code>group</code> factor are available here: instead, <code>control_mock</code>, which we set as the reference level, is being compared with the other 3 levels. (However, we can make other pairwise comparisons, too.)</p>
+<p>Above, we looked at the results for the <em>last</em> of these comparisons (<code>group_Ri_myb_vs_control_mock</code>, i.e.&nbsp;“Ri_myb” vs.&nbsp;“control_mock”), simply because DESeq2 will show the last comparison by default when calling the <code>results()</code> function.</p>
+<p>To see the results table for one of the other 3 comparisons, we pass a vector to the <code>contrast</code> argument of the <code>results()</code> function with the factor (<code>group</code>) and the two levels to be contrasted. For example, to see the results for “Ri_mock” vs.&nbsp;“control_mock”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, we could specify *any* pairwise contrast,</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># not just the ones with "control_mock" that resultsNames() prints as seen above.</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>my_contrast <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ri_mock"</span>, <span class="st">"control_mock"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">"group"</span>, my_contrast))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many adjusted p-values were less than 0.1?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="visually-exploring-the-results" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="visually-exploring-the-results"><span class="header-section-number">7</span> Visually exploring the results</h2>
+<p>We will create a few plots, by way of example, of the results for the “Ri_mock” versus “control_mock” comparison, which we extracted above.</p>
+<section id="volcano-plot" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="volcano-plot"><span class="header-section-number">7.1</span> Volcano plot</h3>
+<p>For a nice overview of the results, we can plot a so-called “volcano plot”.</p>
+</section>
+<section id="plot-specific-genes" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="plot-specific-genes"><span class="header-section-number">7.2</span> Plot specific genes</h3>
+<p>We can also create plot of expression levels for individual genes. That is especially interesting for genes with highly significant differential expression.</p>
+<p>Let’s plot the top-5 most significantly differentially expressed genes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we select the 5 genes with the lowest adjusted p-value:</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>top5 <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res[<span class="fu">order</span>(res<span class="sc">$</span>padj)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then we create a function to make a plot for a single gene:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plotgene <span class="ot">&lt;-</span> <span class="cf">function</span>(geneID, dds) {</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">plotCounts</span>(dds,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gene =</span> geneID,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">intgroup =</span> <span class="st">"group"</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">returnData =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">w =</span> <span class="fl">0.1</span>, <span class="at">h =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">labs</span>(<span class="at">title =</span> geneID) <span class="sc">+</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">theme_bw</span>()</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(p)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we use <code>sapply()</code> to apply this function to each of our genes in the <code>top5</code> vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>none <span class="ot">&lt;-</span> <span class="fu">sapply</span>(top5, plotgene, dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we wanted to, we could easily create plots for 100s of genes, this way.</p>
+</section>
+<section id="heatmap" class="level3" data-number="7.3">
+<h3 data-number="7.3" class="anchored" data-anchor-id="heatmap"><span class="header-section-number">7.3</span> Heatmap</h3>
+<p>We can create heatmaps with the <code>pheatmap</code> function. Let’s start by creating a function that will plot a heatmap given a vector of gene IDs and a DESeq2 object <code>dds</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plot_heatmap <span class="ot">&lt;-</span> <span class="cf">function</span>(geneIDs, dds) {</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  ntd <span class="ot">&lt;-</span> <span class="fu">assay</span>(<span class="fu">normTransform</span>(dds))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  ntd_sel <span class="ot">&lt;-</span> ntd[<span class="fu">match</span>(geneIDs, <span class="fu">rownames</span>(ntd)), ]</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  df_meta <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">colData</span>(dds)[, <span class="fu">c</span>(<span class="st">"AMF"</span>, <span class="st">"Treatment"</span>)])</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pheatmap</span>(ntd_sel,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_rows =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> df_meta)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can easily create a heatmap for the top-20 most highly differentially expressed genes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>top20_DE <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res[<span class="fu">order</span>(res<span class="sc">$</span>padj)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>], ])</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_heatmap</span>(top20_DE, dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or for the 20 most highly expressed genes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>top20_hi_idx <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="fu">rowMeans</span>(<span class="fu">counts</span>(dds, <span class="at">normalized =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>top20_hi <span class="ot">&lt;-</span> <span class="fu">row.names</span>(dds)[top20_hi_idx]</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_heatmap</span>(top20_hi, dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="export-the-results" class="level3" data-number="7.4">
+<h3 data-number="7.4" class="anchored" data-anchor-id="export-the-results"><span class="header-section-number">7.4</span> Export the results</h3>
+<p>Let’s save the results dataframe to file.</p>
+<p>Note that it will only contain the results for one comparison. Also, if we write the results dataframe to file, we won’t be able to tell from the file what the comparison is, so let’s store that in two columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>my_contrast</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>my_contrast_pasted <span class="ot">&lt;-</span> <span class="fu">paste0</span>(my_contrast, <span class="at">collapse =</span> <span class="st">"_vs_"</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>my_contrast_pasted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>level1 <span class="ot">&lt;-</span> my_contrast[<span class="dv">1</span>]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>level2 <span class="ot">&lt;-</span> my_contrast[<span class="dv">2</span>]</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(res))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can write <code>res</code> to file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>res_file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(outdir, <span class="fu">paste0</span>(my_contrast_pasted, <span class="st">'_all-res.txt'</span>))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(res, res_file,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sep =</span> <span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="de-analysis-with-two-factors" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="de-analysis-with-two-factors"><span class="header-section-number">8</span> DE analysis – with two factors</h2>
+<section id="controlling-for-one-factor" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="controlling-for-one-factor"><span class="header-section-number">8.1</span> Controlling for one factor</h3>
+<p>Say we wanted to analyze the effect of “mock” versus “myb” (“Treatment” column) while controlling for the effects of “control” versus “Ri” (“AMF” column).</p>
+<p>Let’s start by turning “Treatment” and “AMF” into factors, and saving a new DESeq2 object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Treatment and AMF into factors: </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>dds_raw<span class="sc">$</span>Treatment <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(dds_raw<span class="sc">$</span>Treatment), <span class="at">ref =</span> <span class="st">"mock"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>dds_raw<span class="sc">$</span>AMF <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(dds_raw<span class="sc">$</span>AMF), <span class="at">ref =</span> <span class="st">"control"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Save a new object:</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>dds_2f_raw <span class="ot">&lt;-</span> dds_raw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To include both factors, we use a <code>+</code> in the formula. Note that the order matters: using <code>AMF + Treatment</code>, we test for the effect of “Treatment” (the last factor), while controlling for the effect of AMF (the first factor).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">design</span>(dds_2f_raw) <span class="ot">&lt;-</span> <span class="fu">formula</span>(<span class="sc">~</span> AMF <span class="sc">+</span> Treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run DESeq with the new design:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dds_2f <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds_2f_raw)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds_2f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How many adjusted p-values were less than 0.1?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
