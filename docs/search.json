@@ -354,14 +354,14 @@
     "href": "lectures/sequencing.html#sequencing-technologies-overview",
     "title": "High-throughput sequencing  and genomes",
     "section": "Sequencing technologies: overview",
-    "text": "Sequencing technologies: overview\n\nSanger sequencing (since 1977)\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time\n\n\n\nHigh-throughput sequencing (HTS)\nSequences 105-109, usually randomly selected, DNA fragments (“reads”) at a time — two types:\n\n\n\n\n\n\nShort-read sequencing\n\nAKA Next-Generation Sequencing (NGS)\nProduces up to billions of 50-300 bp reads\nMarket dominated by Illumina\nSince 2005 — technology stable"
+    "text": "Sequencing technologies: overview\n\nSanger sequencing (since 1977)\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time\n\n\n\nHigh-throughput sequencing (HTS)\nSequences 105-109, usually randomly selected, DNA fragments (“reads”) at a time — two types:\n\n\n\n\n\n\nShort-read HTS\n\nAKA Next-Generation Sequencing (NGS)\nProduces up to billions of 50-300 bp reads\nMarket dominated by Illumina\nSince 2005 — technology stable"
   },
   {
     "objectID": "lectures/sequencing.html#sequencing-technologies-overview-1",
     "href": "lectures/sequencing.html#sequencing-technologies-overview-1",
     "title": "High-throughput sequencing  and genomes",
     "section": "Sequencing technologies: overview",
-    "text": "Sequencing technologies: overview\n\nSanger sequencing (since 1977)\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time\n\n\nHigh-throughput sequencing (HTS)\nSequences 105-109, usually randomly selected, DNA fragments (“reads”) at a time — two types:\n\n\n\n\nShort-read sequencing\n\nAKA Next-Generation Sequencing (NGS)\nProduces up to billions of 50-300 bp reads\nMarket dominated by Illumina\nSince 2005 — technology stable\n\n\n\n\nLong-read sequencing\n\nReads much longer than in NGS but fewer, less accurate, and more costly per base\nTwo main companies: Oxford Nanopore Technologies (ONT) and Pacific Biosciences (PacBio)\nSince 2011 — remains under rapid development"
+    "text": "Sequencing technologies: overview\n\nSanger sequencing (since 1977)\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time\n\n\nHigh-throughput sequencing (HTS)\nSequences 105-109, usually randomly selected, DNA fragments (“reads”) at a time — two types:\n\n\n\n\nShort-read HTS\n\nAKA Next-Generation Sequencing (NGS)\nProduces up to billions of 50-300 bp reads\nMarket dominated by Illumina\nSince 2005 — technology stable\n\n\n\n\nLong-read HTS\n\nReads much longer than in NGS but fewer, less accurate, and more costly per base\nTwo main companies: Oxford Nanopore Technologies (ONT) and Pacific Biosciences (PacBio)\nSince 2011 — remains under rapid development"
   },
   {
     "objectID": "lectures/sequencing.html#sequencing-technology-development-timeline",
@@ -382,7 +382,7 @@
     "href": "lectures/sequencing.html#sanger-sequencing",
     "title": "High-throughput sequencing  and genomes",
     "section": "Sanger sequencing",
-    "text": "Sanger sequencing\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time.\nSequencing is performed by synthesizing a new DNA strand in part with fluorescently-labeled nucleotides — a different color for each base (A, C, G, T).\n\n\nThe final result is a chromatogram that can be base-called:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA $100 million dollar genome: the entire human genome (3 Gbp) was sequenced with Sanger!"
+    "text": "Sanger sequencing\nSequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time.\nSequencing is performed by synthesizing a new DNA strand in part with fluorescently-labeled nucleotides — a different color for each base (A, C, G, T).\n\n\nThe final result is a chromatogram that can be base-called:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe entire human genome (3 Gbp) was sequenced with Sanger technology!\n\n\nAnyone want to hazard a guess how much this cost, approximately?"
   },
   {
     "objectID": "lectures/sequencing.html#sequencing-cost-through-time",
@@ -417,7 +417,7 @@
     "href": "lectures/sequencing.html#read-lengths",
     "title": "High-throughput sequencing  and genomes",
     "section": "Read lengths",
-    "text": "Read lengths\n\nShort-read (Illumina) HTS: 50-300 bp reads\nLong-read HTS: longer & more variable read lengths (PacBio: 10-50 kbp, ONT: 10-100 kbp)\n\n\n\nWhen are longer reads useful?\n\nGenome assembly\nHaplotype and large structural variant calling\nTranscript isoform identification\nTaxonomic identification of single reads (microbial metabarcoding)\n\n\n\n\nWhen does read length not matter (as much)?\n\nSNP variant analysis\nRead-as-a-tag: the goal is just to know a read’s origin in a reference genome, like in counting applications such as RNA-seq"
+    "text": "Read lengths\n\nShort-read (Illumina) HTS: 50-300 bp reads\nLong-read HTS: longer & more variable read lengths (PacBio: 10-50 kbp, ONT: 10-100 kbp)\n\n\n\n\n\nWhen are longer reads useful?\n\n\nGenome assembly\nHaplotype and large structural variant calling\nTranscript isoform identification\nTaxonomic identification of single reads (microbial metabarcoding)\n\n\n\n\n\n\n\nWhen does read length not matter (as much)?\n\n\nSNP variant analysis\nRead-as-a-tag: the goal is just to know a read’s origin in a reference genome, like in counting applications such as RNA-seq"
   },
   {
     "objectID": "lectures/sequencing.html#error-rates",
@@ -431,14 +431,14 @@
     "href": "lectures/sequencing.html#overcoming-sequencing-errors",
     "title": "High-throughput sequencing  and genomes",
     "section": "Overcoming sequencing errors",
-    "text": "Overcoming sequencing errors\n\nSequencing every bases multiple times, i.e. having a &gt;1x so-called “depth of coverage” allows to infer the correct sequence\n\n\n\n\nBut overcoming sequencing errors is made more challenging by natural genetic variation among and within (heterozygosity due to diploid genomes) individuals\nTypical depths of coverage: at least 50-100x for genome assembly; 10-30x for resequencing."
+    "text": "Overcoming sequencing errors\n\nSequencing every bases multiple times, i.e. having a &gt;1x so-called “depth of coverage” allows to infer the correct sequence\n\n\n\n\n\nBut overcoming sequencing errors is made more challenging by natural genetic variation among and within (heterozygosity due to diploid genomes) individuals\nTypical depths of coverage: at least 50-100x for genome assembly; 10-30x for resequencing."
   },
   {
     "objectID": "lectures/sequencing.html#illumina-short-read-hts-ngs",
     "href": "lectures/sequencing.html#illumina-short-read-hts-ngs",
     "title": "High-throughput sequencing  and genomes",
     "section": "Illumina (short-read HTS / NGS)",
-    "text": "Illumina (short-read HTS / NGS)\n\n100-300 bp reads with 0.1-0.2% error rates\nMore reads, lower per-base cost, and lower error rates than long-read sequencing1.\n\n\n\nMachines differ in throughput, cost per Gb, and read length:\n\n\n\n\n\n\n\nBut the error rate difference is disappearing: long-read technologies keep improving and Illumina does not."
+    "text": "Illumina (short-read HTS / NGS)\n\n100-300 bp reads with 0.1-0.2% error rates\nMore reads, lower per-base cost, and lower error rates than long-read sequencing1.\n\n\n\nMachines differ in throughput, read length, cost per Gb:\n\n\n\n\n\n\n\nBut the error rate difference is disappearing: long-read technologies keep improving and Illumina does not."
   },
   {
     "objectID": "lectures/sequencing.html#libraries-and-library-prep",
@@ -452,7 +452,7 @@
     "href": "lectures/sequencing.html#libraries-and-library-prep-cont.",
     "title": "High-throughput sequencing  and genomes",
     "section": "Libraries and library prep (cont.)",
-    "text": "Libraries and library prep (cont.)\nAfter library prep (here, for Illumina sequencing), each DNA fragment is flanked by several types of short sequences that together make up the “adapters”:\n\n\n\n\nAfter talking about paired-end vs. single-end sequencing and the way Illumina sequencing works, we’ll take a closer look at the individual components of adapters."
+    "text": "Libraries and library prep (cont.)\nAfter library prep (here, for Illumina sequencing), each DNA fragment is flanked by several types of short sequences that together make up the “adapters”:\n\n\n\n\n\n\n\n\n\n\nAdapter components?\n\n\nAfter talking about paired-end vs. single-end sequencing and the way Illumina sequencing works, we’ll take a closer look at the individual components of adapters."
   },
   {
     "objectID": "lectures/sequencing.html#paired-end-vs.-single-end-sequencing",
@@ -599,7 +599,7 @@
     "href": "lectures/sequencing.html#genome-annotations",
     "title": "High-throughput sequencing  and genomes",
     "section": "Genome annotations",
-    "text": "Genome annotations\n\n\nAnnotating a genome consists of two main steps:\n\nStructural annotation\nThe identification of genes and other genomic features within the genome sequence\nFunctional annotation\nGiving names & assigning functions to (mostly) genes\n\nGenome annotation heavily relies on information from other organisms’ genomes, lifting over annotations based on the concept of sequence homology.\nGenome annotation files contain, for each genomic feature like a gene, its genomic coordinates alongside information like the name.\n\n\n\n\n\n\n\n\n\n\nHow is this data stored?\n\n\nBoth genome assemblies and annotations are typically saved in a single text file each — more on that soon."
+    "text": "Genome annotations\n\n\nAnnotating a genome consists of two main steps:\n\nStructural annotation\nThe identification of genes and other genomic features within the genome sequence\nFunctional annotation\nGiving names & assigning functions to (mostly) genes\n\nGenome annotation heavily relies on information from other organisms’ genomes, lifting over annotations based on the concept of sequence homology.\n\n\n\n\n\n\n\n\n\n\nHow is this data stored?\n\n\nBoth genome assemblies and annotations are typically saved in a single text file each — more on that soon."
   },
   {
     "objectID": "lectures/sequencing.html#overview",
