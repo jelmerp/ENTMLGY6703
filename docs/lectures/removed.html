@@ -82,8 +82,9 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html" rel="" target=""><i class="bi bi-house" role="img">
+</i> 
+ <span class="menu-text"> </span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-3-hts" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
@@ -95,8 +96,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Lecture: High-throughput Sequencing &amp; Genomes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../labs/FASTQ.html" rel="" target="">
- <span class="dropdown-text">Lab: FASTQ files</span></a>
+    <a class="dropdown-item" href="../labs/infrastructure.html" rel="" target="">
+ <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/data.html" rel="" target="">
+ <span class="dropdown-text">Lab part 2: Working with genome and HTS Data</span></a>
   </li>  
     </ul>
   </li>
@@ -105,14 +110,8 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Week 4: RNA-seq</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
-        <li>
-    <a class="dropdown-item" href="../lectures/rnaseq.html" rel="" target="">
- <span class="dropdown-text">Lecture: RNA-seq</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../labs/DE.html" rel="" target="">
- <span class="dropdown-text">Lab: Differential expression analysis</span></a>
-  </li>  
+        <li class="dropdown-header">Lecture: RNA-seq</li>
+        <li class="dropdown-header">Lab: Differential expression analysis</li>
     </ul>
   </li>
 </ul>
@@ -127,12 +126,12 @@ ul.task-list li input[type="checkbox"] {
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/osu-codeclub/osu-codeclub.github.io">
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703">
             Source Code
             </a>
           </li>
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/osu-codeclub/osu-codeclub.github.io/issues/new">
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703/issues/new">
             Report an Issue
             </a>
           </li>
@@ -148,7 +147,18 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sanger-sequencing" id="toc-sanger-sequencing" class="nav-link active" data-scroll-target="#sanger-sequencing"><span class="header-section-number">1</span> Sanger sequencing</a></li>
+  <li><a href="#rna-seq-projects" id="toc-rna-seq-projects" class="nav-link" data-scroll-target="#rna-seq-projects"><span class="header-section-number">2</span> RNA-seq projects</a></li>
+  <li><a href="#x" id="toc-x" class="nav-link" data-scroll-target="#x"><span class="header-section-number">3</span> x</a></li>
+  <li><a href="#x-1" id="toc-x-1" class="nav-link" data-scroll-target="#x-1"><span class="header-section-number">4</span> x</a></li>
+  <li><a href="#microarrays" id="toc-microarrays" class="nav-link" data-scroll-target="#microarrays"><span class="header-section-number">5</span> Microarrays</a></li>
+  <li><a href="#overview-of-all-steps-in-rna-seq" id="toc-overview-of-all-steps-in-rna-seq" class="nav-link" data-scroll-target="#overview-of-all-steps-in-rna-seq"><span class="header-section-number">6</span> Overview of all steps in RNA-seq</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -170,26 +180,70 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="sanger-sequencing" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sanger-sequencing"><span class="header-section-number">1</span> Sanger sequencing</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<strong>Amplification</strong> of a target DNA fragment is usually done with PCR
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>Effects of <em>Diplodia</em> pathogen exposure Austrian pine (<em>Pinus nigra</em>) over time.</p></li>
-<li><p>Aphid biotypes &amp; soybean cultivars under different flood conditions (Michel lab, Entomology)</p></li>
+<li><p>This means that you need to (approximately) <strong>know in advance short flanking sequences</strong> to the sequence of interest — primers for your PCR.</p></li>
+<li><p><strong>Introns</strong> are good targets to sequence: variable sequences flanked by conserved sequences (exons) in which primers can be designed.</p></li>
 </ul>
-<hr>
+</div>
+</div>
+</section>
+<section id="rna-seq-projects" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="rna-seq-projects"><span class="header-section-number">2</span> RNA-seq projects</h2>
+<ul>
+<li>Effects of <em>Diplodia</em> pathogen exposure Austrian pine (<em>Pinus nigra</em>) over time.</li>
+<li>Aphid biotypes &amp; soybean cultivars under different flood conditions (Michel lab, Entomology)</li>
+</ul>
+</section>
+<section id="x" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="x"><span class="header-section-number">3</span> x</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img_sequencing/genome_sequencing1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption class="figure-caption">https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost</figcaption>
 </figure>
 </div>
-<hr>
+</section>
+<section id="x-1" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="x-1"><span class="header-section-number">4</span> x</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost"><img src="img_sequencing/genome_sequencing.jpeg" class="img-fluid figure-img" style="width:100.0%"></a></p>
 <figcaption class="figure-caption">https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost</figcaption>
 </figure>
 </div>
+</section>
+<section id="microarrays" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="microarrays"><span class="header-section-number">5</span> Microarrays</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.nature.com/articles/ng0199supp_33"><img src="img_rnaseq/microarray.webp" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Brown &amp; Botstein 1999 (www.nature.com/articles/ng0199supp_33)</figcaption>
+</figure>
+</div>
+</section>
+<section id="overview-of-all-steps-in-rna-seq" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="overview-of-all-steps-in-rna-seq"><span class="header-section-number">6</span> Overview of all steps in RNA-seq</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255"><img src="img_rnaseq/rnaseq_overview.jpeg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Berge et al.&nbsp;2019 (www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)</figcaption>
+</figure>
+</div>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

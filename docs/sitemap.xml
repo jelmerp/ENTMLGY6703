@@ -1,75 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://osu-codeclub.github.io/lectures/removed.html</loc>
-    <lastmod>2024-01-18T17:24:05.296Z</lastmod>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/removed.html</loc>
+    <lastmod>2024-01-25T04:03:07.506Z</lastmod>
   </url>
   <url>
-    <loc>https://osu-codeclub.github.io/lectures/blast.html</loc>
-    <lastmod>2024-01-18T16:48:54.007Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/about.html</loc>
-    <lastmod>2024-01-20T03:30:27.375Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/labs/DE.html</loc>
-    <lastmod>2024-01-18T20:27:38.860Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/labs/FASTQ.html</loc>
-    <lastmod>2024-01-20T02:12:49.246Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/index.html</loc>
-    <lastmod>2024-01-20T03:30:13.752Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/lectures/sequencing.html</loc>
-    <lastmod>2024-01-19T20:20:58.164Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/lectures/rnaseq.html</loc>
-    <lastmod>2024-01-18T16:48:59.017Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/labs/infrastructure.html</loc>
-    <lastmod>2024-01-20T03:26:45.538Z</lastmod>
-  </url>
-  <url>
-    <loc>https://osu-codeclub.github.io/labs/data.html</loc>
-    <lastmod>2024-01-20T03:29:22.938Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/index.html</loc>
-    <lastmod>2024-01-22T18:10:46.960Z</lastmod>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/blast.html</loc>
+    <lastmod>2024-01-25T04:03:01.793Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/about.html</loc>
-    <lastmod>2024-01-20T03:33:57.546Z</lastmod>
+    <lastmod>2024-01-25T04:02:51.308Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/data.html</loc>
-    <lastmod>2024-01-22T18:11:14.166Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/rnaseq.html</loc>
-    <lastmod>2024-01-20T03:54:55.441Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/sequencing.html</loc>
-    <lastmod>2024-01-22T17:35:16.937Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/infrastructure.html</loc>
-    <lastmod>2024-01-22T16:46:12.977Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE.html</loc>
-    <lastmod>2024-01-20T22:47:14.561Z</lastmod>
+    <lastmod>2024-01-25T04:02:50.734Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/removed.html</loc>
-    <lastmod>2024-01-21T13:25:38.942Z</lastmod>
+    <lastmod>2024-01-25T04:02:46.175Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/fastqc.html</loc>
+    <lastmod>2024-01-25T04:02:44.392Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/infrastructure.html</loc>
+    <lastmod>2024-01-25T04:02:45.713Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE.html</loc>
+    <lastmod>2024-01-25T04:02:49.130Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/index.html</loc>
+    <lastmod>2024-01-25T04:02:51.045Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/sequencing.html</loc>
+    <lastmod>2024-01-25T04:02:57.325Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/rnaseq.html</loc>
+    <lastmod>2024-01-25T04:03:07.000Z</lastmod>
   </url>
 </urlset>

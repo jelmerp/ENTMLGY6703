@@ -5,21 +5,38 @@ date: 2024-02-02
 editor: visual
 execute: 
   eval: false
+number-depth: 3
+project:
+  execute-dir: project
 ---
+
+## Introduction
+
+For differential expression analysis, we will be using the popular **DESeq2**
+R/Bioconductor package
+([paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8),
+[website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)).
+
+<br>
 
 ## Getting set up
 
 ### Start an RStudio session at OSC
 
-- Log in to OSC at <https://ondemand.osc.edu>.
+<details><summary>Click to see the instructions</summary>
 
-- Click on `Interactive Apps` (top bar) > `RStudio Server`
+1. Log in to OSC at <https://ondemand.osc.edu>.
+2. Click on `Interactive Apps` (top bar) > `RStudio Server` (all the way at the bottom)
+3. Fill out the form, selecting (also shown in the figure below):
+   - Cluster: `Pitzer`
+   - R version: `4.3.0`
+   - Project: `PAS2250`
+   - Number of hours: `4`
+   - Node type: `any`
+   - Number of cores: `2`
+4. Click the `Launch` button
 
-TBA
-
-- Fill out the form as shown below:
-
-TBA
+![](img_DE/rstudio_form.png){fig-align="center" width="50%"}
 
 - Now, you should see a box like this:
 
@@ -32,21 +49,24 @@ TBA
 - Click `Connect to RStudio Server` at the bottom of the box,
   and an RStudio Server instance will open. You're ready to go!
 
-### Create an RStudio Project
+</details>
 
-TBA
+### RStudio settings & Project
 
-Now, RStudio will reload with the newly created Project open.
+#### RStudio settings
 
-If you get the pop-up below, click `Don't Save` (do this whenever you get that pop-up):
+- Base R pipe
+- Don't save the environment
 
-<p align="center"><img src=img_DE/rdata-popup.png width="350"></p>
+#### RStudio Project
+
+Using an "RStudio Project" will most of all help with making sure your working
+directory in R is correct.
+
+Click `File` > `New Project` > `Existing Directory` (in the popup) > `Browse...`
+to browse to your personal dir in `/fs/scratch/PAS2250/ENT6703` > `Create Project`.
 
 ### Load the necessary packages
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(here)
-```
 
 ```{r, warning=FALSE, message=FALSE}
 if(! "pacman" %in% installed.packages()) install.packages("pacman")
@@ -59,31 +79,23 @@ pacman::p_load(char = packages)
 theme_set(theme_bw())  # Set ggplot theme
 ```
 
-### Input and output dirs and files
+### Define our inputs and outputs
 
-```{r, echo=FALSE}
-count_table_file <- "results/count/XX"
-metadata_file <- "data/meta/metadata.tsv"
+For the differential expression analysis, we have the following input files:
 
-outdir <- "results/DE/"
-```
-
-Input files:
-
-- **Gene counts table**
-- **Metadata table** -- so we can group our samples and make comparisons between
-  these groups.
-
-```{r, eval=FALSE}
-count_table_file <- here("results/count/gene_counts_all.txt")
-metadata_file <- here("data/meta/metadata.txt")
-```
-
-Output directories -- and we create them if they don't already exist:
+- **Gene counts table** -- produced by running the [nf-core rnaseq workflow](https://nf-co.re/rnaseq) on the input data we saw last week
+- **Metadata table** -- The metadata we saw last week, to enable between-treatment comparisons
 
 ```{r}
-outdir <- here("results/DE/")
-if (!dir.exists(outdir)) dir.create(outdir, recursive = TRUE)
+count_table_file <- "results/counts/salmon.merged.gene_counts_length_scaled.tsv"
+metadata_file <- "data/meta/metadata.txt"
+```
+
+The output directory -- and we create it if it doesn't already exist:
+
+```{r}
+outdir <- "results/DE"
+dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
 ```
 
 ### Load input data
@@ -91,90 +103,44 @@ if (!dir.exists(outdir)) dir.create(outdir, recursive = TRUE)
 Load the count table:
 
 ```{r}
-raw_counts <- read.table(count_table_file,
-                         sep = "\t", header = TRUE, skip = 1)
+count_mat <- read_tsv(mat_file, show_col_types = FALSE)
 ```
 
 Load the metadata information:
 
 ```{r}
-metadata <- read.table(metadata_file, header = TRUE)
-
-head(metadata)
-```
-
-The `Treatment` column currently has the values `Agrobacterium_noexp`,
-`Agrobacterium_myb`, and `mock`.
-
-To shorten this a bit, we'll get rid of "Agrobacterium_":
-
-```{r}
-metadata$Treatment <- sub("Agrobacterium_", "", metadata$Treatment)
-
-unique(metadata$Treatment)
+meta <- read_tsv(meta_file, show_col_types = FALSE)
 ```
 
 <br>
 
-## Prepare the data
+## Create a DESeq2 object from the input data
 
-Change the column names, which are very long:
-
-```{r}
-colnames(raw_counts)[7:8]
-```
+Prepare the count table:
 
 ```{r}
-my_regex <- ".+PonceM_(.+)_V1N.+"
-colnames(raw_counts) <- sub(my_regex, "\\1", colnames(raw_counts))
-
-colnames(raw_counts)
+count_mat <- count_mat |>
+  column_to_rownames("gene_id") |>
+  select(-gene_name) |>
+  round() |>
+  as.matrix()
 ```
 
-Besides the counts, there are columns with metadata for each gene:
+Prepare the metadata:
 
 ```{r}
-raw_counts[1:5, 1:8]
+meta <- meta |>
+  arrange(sample_id) |>
+  column_to_rownames("sample_id")
 ```
 
-Let's remove those:
+When creating the DESeq2 object, DESeq2 assumes that sample IDs in both tables match and 
+are provided in the same order. Let's make sure this is indeed the case:
 
 ```{r}
-counts <- raw_counts[, 7:ncol(raw_counts)]
-rownames(counts) <- raw_counts$Geneid
+all(row.names(meta) == colnames(count_mat))
 ```
 
-### Check sample IDs
-
-For differential expression analysis, we will be using the popular**DESeq2**
-R/Bioconductor package
-([paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8),
-[website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)).
-
-We will load both the count table and the metadata into *DESeq2*.
-When doing so, *DESeq2* assumes that sample IDs in both tables match and 
-are provided in the same order. Let's make sure this is indeed the case.
-
-Sort both data frames alphabetically:
-
-```{r}
-metadata <- metadata[order(metadata$SampleID), ]
-counts <- counts[, order(colnames(counts))]
-```
-
-Check if names are the same:
-
-```{r}
-metadata$SampleID
-
-colnames(counts)
-
-matching_names <- identical(metadata$SampleID, colnames(counts))
-matching_names
-if(matching_names == FALSE) stop("Sample ID in metadata and count matrix do not match!")
-```
-
-### Create the DESeq2 object
 
 We will create the DESeq2 object using the function `DESeqDataSetFromMatrix()`,
 which we will provide with three pieces of information:
@@ -186,9 +152,11 @@ which we will provide with three pieces of information:
   we will change this before the actual DE analysis.
 
 ```{r}
-dds_raw <- DESeqDataSetFromMatrix(countData = counts,
-                                  colData = metadata,
-                                  design = ~ 1)
+dds <- DESeqDataSetFromMatrix(
+  countData = count_mat,
+  colData = meta,
+  design = ~ 1
+  )
 ```
 
 <br>

@@ -2,16 +2,33 @@
 title: "Removed"
 ---
 
--   Effects of *Diplodia* pathogen exposure Austrian pine (*Pinus nigra*) over time.
+## Sanger sequencing
 
+::: callout-note
+#### **Amplification** of a target DNA fragment is usually done with PCR
+
+-   This means that you need to (approximately) **know in advance short flanking sequences** to the sequence of interest — primers for your PCR.
+
+-   **Introns** are good targets to sequence: variable sequences flanked by conserved sequences (exons) in which primers can be designed.
+:::
+
+## RNA-seq projects
+
+-   Effects of *Diplodia* pathogen exposure Austrian pine (*Pinus nigra*) over time.
 -   Aphid biotypes & soybean cultivars under different flood conditions (Michel lab, Entomology)
 
-
-------------------------------------------------------------------------
+## x
 
 ![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing1.png){fig-align="center" width="100%"}
 
-------------------------------------------------------------------------
+## x
 
 [![https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](img_sequencing/genome_sequencing.jpeg){fig-align="center" width="100%"}](https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost)
 
+## Microarrays
+
+[![Brown & Botstein 1999 (www.nature.com/articles/ng0199supp_33)](img_rnaseq/microarray.webp)](https://www.nature.com/articles/ng0199supp_33)
+
+## Overview of all steps in RNA-seq
+
+[![Berge et al. 2019 (www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](img_rnaseq/rnaseq_overview.jpeg){fig-align="center"}](https://www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)

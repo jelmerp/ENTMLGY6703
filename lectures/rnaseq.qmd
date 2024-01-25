@@ -50,7 +50,7 @@ The **transcriptome** is the full set of transcripts expressed by an organism, w
 
 Transcriptomics is the study of the transcriptome, i.e. the **large-scale study of RNA transcripts expressed in an organism**.
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
 There are many approaches & applications — but most commonly, transcriptomics focuses on:
 
@@ -62,7 +62,33 @@ There are many approaches & applications — but most commonly, transcriptomics 
 -   **Statistically comparing** expression levels *between groups* (treatments, biotypes, tissues, etc.)
 :::
 
-\[TODO: Add count comparison figure\]
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+![](img_rnaseq/read_comp.png)
+
+::: legend2
+https://hbctraining.github.io
+:::
+
+## Transcriptomics
+
+Transcriptomics is the study of the transcriptome, i.e. the **large-scale study of RNA transcripts expressed in an organism**.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+There are many approaches & applications — but most commonly, transcriptomics focuses on:
+
+-   **mRNA** rather than on noncoding RNA types such as rRNA, tRNA, and miRNA
+
+-   **Quantifying** gene expression levels (cf. most genomics approaches)
+
+-   **Statistically comparing** expression levels *between groups* (treatments, biotypes, tissues, etc.)
+
+<hr style="height:1pt; visibility:hidden;" />
+
+![](img_rnaseq/count_comp.png){fig-align="center" width="40%"}
 
 ## Why do transcriptomics?
 
@@ -106,20 +132,20 @@ Specifically, we can use transcriptomics to:
 
 RNA-seq is the current state-of-the-art family of methods to study the transcriptome.
 
-It involves the ***random ("shotgun") sequencing of millions of transcript fragments per sample***.
+It involves the **random ("shotgun") sequencing of millions of transcript fragments per sample**.
 
 <br>
 
 We will focus on the most common type of RNA-seq, which:
 
 ::: incremental
--   Does not actually sequence the RNA, but first ***reverse transcribes RNA to cDNA***
+-   Does not actually sequence the RNA, but first **reverse transcribes RNA to cDNA**
 
--   Attempts to sequence ***only mRNA*** while avoiding noncoding RNAs ("mRNA-seq")
+-   Attempts to sequence only mRNA while avoiding noncoding RNAs ("mRNA-seq")
 
--   Does not distinguish between RNA from different cell types ("***bulk RNA-seq***")
+-   Does not distinguish between RNA from different cell types ("**bulk RNA-seq**")
 
--   Uses ***short reads*** (up to 150 bp) that do not cover full transcripts but do uniquely identify genes
+-   Uses **short reads** (up to 150 bp) that do not cover full transcripts but do uniquely identify genes
 :::
 
 . . .
@@ -148,7 +174,10 @@ RNA-seq data can also be used for **applications other than expression quantific
 
 . . .
 
-All in all, RNA-seq is a very widely used technique — constitutes the most common usage of high-throughput sequencing!
+::: {.callout-note appearance="minimal"}
+All in all, RNA-seq is a very widely used technique —\
+it constitutes the most common usage of high-throughput sequencing!
+:::
 
 ## RNA-seq project examples
 
@@ -206,33 +235,22 @@ RNA-seq is not the only method to quantify gene expression, but often the prefer
 
     -   Can only capture **known features**: cannot discover or examine novel features, and do not work for species without a (close) reference genome
 
-## Microarrays
-
-[![Brown & Botstein 1999 (www.nature.com/articles/ng0199supp_33)](img_rnaseq/microarray.webp)](https://www.nature.com/articles/ng0199supp_33)
-
 ## Some other types of RNA-seq
 
--   ***Small RNA-seq*** for small noncoding RNAs such as microRNAs and Piwi-interacting RNAs
+-   **Small RNA-seq** for small noncoding RNAs such as microRNAs and Piwi-interacting RNAs
 
--   ***Single-cell RNA-seq*** (scRNA-seq) — commonly used in cancer research
+-   **Single-cell RNA-seq** (scRNA-seq) — commonly used in cancer research
 
--   ***Spatial RNA-seq*** – TODO add to this
+-   **Direct RNA sequencing**
 
--   ***Direct RNA sequencing***
-
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-note
-## 
-
+##### Our focus
 The rest of this lecture and tomorrow's lab will only focus on bulk RNA-seq of mRNA-derived cDNA.
 :::
 
 # Experimental design {background-color="dimgray"}
-
-## Overview of steps in RNA-seq
-
-[![Berge et al. 2019 (www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](img_rnaseq/rnaseq_overview.jpeg){fig-align="center"}](https://www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)
 
 ## Experimental design: groups & replicates
 
@@ -244,33 +262,35 @@ RNA-seq typically compares groups of samples defined by differences in:
 
 -   **Tissues**
 
-. . .
+## Experimental design: groups & replicates
 
-<br>
-
-To be able to make statistically supported conclusions about expression differences between such groups of samples, **we must have biological replication**.
-
-<br>
-
-Then, a so-called ***differential expression analysis*** compares sample groups and estimates a P-value for every single expressed (measured) gene.
+![https://github.com/ScienceParkStudyGroup/rnaseq-lesson](img_rnaseq/experimental_design2.png)
 
 ## Experimental design: groups & replicates
 
-When designing an RNA-seq experiment, keep the following in mind:
+To be able to make statistically supported conclusions about expression differences between such groups of samples,
+**we must have biological replication**.
 
-<hr style="height:1pt; visibility:hidden;" />
+When designing an RNA-seq experiment, keep the following in mind:
 
 -   **Numbers of replicates**\
     These are typically quite low: 3 replicates per treatment (x tissue x biotype, etc.) is the most common. Not advisable to go lower — if possible, use 4 or 5 replicates.
 
-<hr style="height:1pt; visibility:hidden;" />
+. . .
+
+-   **Technical replicates**  
+    You won't need technical replicates that only replicate library prep and/or sequencing,
+    but depending on your experimental design, may want to tecnically replicate something else.
 
 . . .
 
 -   **Statistical comparison design**\
     Preferably, keep your design relatively simple with 1-2 independent variables and 2-3 levels for each of them. Specifically, pairwise comparisons are easiest to interpret.
 
-## Experimental design sidenote: dual RNA-seq
+## Experimental design side note
+
+::: callout-note
+#### Dual RNA-seq
 
 In agricultural research, it is common to study both a plant host and its adversary.
 
@@ -278,33 +298,45 @@ If the adversary is a microbial/viral/fungal/oomycete pathogen, it is possible o
 
 <br>
 
-. . .
-
 When these samples are subjected to RNA-seq, they will contain both host and pathogen reads.
 
 These reads can be separated bioinformatically and when both host and pathogen reads are analyzed, this is called a **dual RNA-seq experiment**.
 
+:::
+
 # From samples to reads {background-color="dimgray"}
 
-## Overview of all steps in RNA-seq
+## From samples to reads: overview of steps
 
-[![Berge et al. 2019 (www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](img_rnaseq/rnaseq_overview.jpeg){fig-align="center"}](https://www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)
+[![https://sydney-informatics-hub.github.io/training-RNAseq-slides](img_rnaseq/samples2reads){fig-align="center"}](https://sydney-informatics-hub.github.io/training-RNAseq-slides)
 
 ## Overview of library prep steps
 
-[![Kukurba & Montgomery 2015 (www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)](img_rnaseq/library_prep.jpeg)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
+::: columns
+::: {.column width="50%"}
+[![](img_rnaseq/library_prep.jpeg){fig-align="center" width="78%"}](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
+:::
 
--   Barcoding and multiplexing
+::: {.column width="50%"}
+<br>
+
+-   Many samples can be "multiplexed" into a single RNA-seq library
+
+<br><br><br><br><br><br><br><br><br><br><br>
+
+::: {.legend2 align="left"}
+Fig. from Kukurba & Montgomery 2015 (www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
+:::
+:::
+:::
 
 ## RNA extraction
 
-The first step is to extract RNA from tissue samples.
-
-This is typically the only step you conduct yourself in the lab, with sequencing facilities taking care of downstream procedures.
+The first step is to **extract RNA from tissue samples**. This is typically the only step you conduct yourself in the lab, with sequencing facilities taking care of downstream procedures.
 
 <br>
 
-Some considerations:
+Some considerations and recommendations:
 
 . . .
 
@@ -314,19 +346,37 @@ Some considerations:
 
 . . .
 
--   Highly recommended to include a **DNase treatment step** to avoid DNA contamination.
+-   Include a **DNase treatment step** to avoid DNA contamination.
 
--   Important to perform **Quality Control (QC)** on your extractions: quantity (e.g. with a Nanodrop or Qubit) and quality (degradation; e.g. with a gel).
+-   Perform **Quality Control (QC)** on your extractions: quantity (e.g. with a Nanodrop or Qubit) and quality (degradation; e.g. with a gel). Sequencing facilities can additionally check the RIN score with a "Bioanalyzer".
 
-## RIN score?
+## RIN (RNA Integrity Number) score
+
+::: columns
+::: {.column width="75%"}
+[![](img_rnaseq/RIN.png){fig-align="center" width="100%"}](https://www.novogene.com/eu-en/resources/blog/rna-integrity-number-rin-explained)
+
+::: legend2
+https://www.novogene.com/eu-en/resources/blog/rna-integrity-number-rin-explained
+:::
+:::
+
+::: {.column width="25%"}
+-   The RIN score quantifies RNA quality: the lower the RIN score, the more degraded your RNA is likely to be.
+
+<br>
+
+-   It makes use the expectation of pronounced peaks corresponding to highly abundance, intact 18S and 28S rRNAs.
+:::
+:::
 
 ## Library prep options
 
-"**Library preparation**" is the series of lab steps to produce, from one or more RNA extraction, a collection of molecules ready to be sequenced: a sequencing "*library*". (A sequencing facility typically does this for you.)
+As discussed last week, "**library preparation**" is the series of lab steps to produce, from (DNA or) RNA extractions, a collection of molecules ready to be sequenced.
 
 <hr style="height:1pt; visibility:hidden;" />
 
-Let's consider different options you have for library prep:
+Let's consider the different options you have for RNA-seq library prep:
 
 . . .
 
@@ -342,7 +392,7 @@ Let's consider different options you have for library prep:
 . . .
 
 -   **Library strandedness**\
-    Libraries can be "**stranded**" or "**unstranded**" —stranded libraries allow you to tell the directionality of a transcript, which in turn allows you to:
+    Libraries can be "**stranded**" or "**unstranded**" — stranded libraries allow you to tell the directionality of a transcript, which in turn allows you to:
 
     -   Distinguish between overlapping genes
 
@@ -372,13 +422,16 @@ Let's consider different options you have for library prep:
 
     -   Guidelines highly approximate (cf. in genomics) — depends not just on transcriptome size, but also on expression level distribution, expression levels of genes of interest, etc.
 
-    -   Typical recommendations are 20+ million reads per sample \[CHECK\]
+    -   Typical recommendations are 20+ million reads per sample
+        (more for e.g. transcript-level inferences)
 
     -   For statistical power, *more replicates are better than a higher sequencing depth*
 
-## Costs
+## Number of replicates vs. sequencing depth
 
-TODO
+For statistical power, more replicates are better than a higher sequencing depth:
+
+![From [Liu et al. 2014](https://doi.org/10.1093/bioinformatics/btt688)](img_rnaseq/02-de-replicates-3.png)
 
 # From reads to counts {background-color="dimgray"}
 
@@ -386,17 +439,9 @@ TODO
 
 [![Modified after Kukurba & Montgomery 2015](img_rnaseq/analysis_overview2.png)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
 
-## The data you receive: reads in FASTQ files
+## From reads to counts: overview
 
 You will typically receive a "demultiplexed" (split by sample) set of **FASTQ** files.
-
-Most commonly, sequencing for RNA-seq experiments is done on a single lane, so you will receive one (single-end) or two (paired-end) files per sample.
-
-These are pretty large even in compressed form (1 or a few Gb each).
-
-\[ADD SCREENSHOT\]
-
-## From reads to counts: overview
 
 Once you receive your data, the first series of analysis steps involves going from the raw reads to a count table (the count table will have a read count for each gene in each sample).
 
@@ -579,7 +624,11 @@ Several very commonly used tools like `FeatureCounts` (\>15k citations) and `HTS
 
 ## A best-practice workflow to produce counts
 
-Nf-core RNAseq workflow cc
+The "nf-core" initiative (<https://nf-co.re>) attempts to produce best-practice workflows/pipelines using the Nextflow workflow language.
+
+This entire workflow can be run with a single command!
+
+[![https://nf-co.re/rnaseq](img_rnaseq/nfcore_rnaseq.png){fig-align="center" width="120%"}](https://en.wikipedia.org/wiki/Protein_isoform)
 
 # From counts to conclusions {background-color="dimgray"}
 
@@ -609,19 +658,19 @@ Typically done using the specialized RNA-seq "packages" in the **R language**. C
 -   **Functional enrichment analysis**\
     See whether certain gene functions are overrepresented among DEGs
 
-## PCA & Differential expression analysis
+## PCA &
 
 Two or more groups are typically compared, such as plants exposed to virulent vs. avirulent aphids.
 
 -   A PCA can tell you whether there's an overall difference in the plant's transcriptional response between treatments
 
-\[PCA example fig\]
+![Fig. 1 from [Garrigos et al. 2023](https://doi.org/10.1111/mec.17240)](img_rnaseq/PCA.jpeg)
+
+## Differential expression (DE) analysis
 
 -   A Differential Expression (DE) analysis allows you to quantify the magnitude of this difference, and especially to pinpoint specific genes with statistically significant differences in expression levels (Differentially Expressed Genes, DEGs).
 
-<br>
-
-. . .
+\[TODO: Volcano plot and/or gene plot\]
 
 ## DE analysis: \>1 pairwise comparison
 

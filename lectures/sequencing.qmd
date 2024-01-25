@@ -23,9 +23,32 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Sequencing technologies {background-color="dimgray"}
+# Intro to sequencing technologies {background-color="dimgray"}
 
-## DNA sequencing technologies: overview
+## What does _sequencing_ refer to?
+
+The shorthand sequencing, like in "high-throughput sequencing" in the title of this presentation, generally refers to **determining the nucleotide sequence of fragments of DNA**.
+
+. . .
+
+<br>
+
+::: callout-note
+#### What about RNA or proteins?
+
+-   **RNA** is usually reverse transcribed to DNA (cDNA) prior to sequencing, as in nearly all "RNA-seq".
+
+    Direct RNA sequencing is possible with one of the sequencing technologies we'll discuss,
+    but this is under development and not yet widely used.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+-   **Protein** sequencing requires different technology altogether,
+    such as mass spectrometry.
+
+:::
+
+## Sequencing technologies: overview
 
 -   **Sanger sequencing** (since 1977)\
     Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
@@ -35,7 +58,7 @@ editor_options:
 <hr style="height:1pt; visibility:hidden;" />
 
 **High-throughput sequencing (HTS)**\
-Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time — two types:
+Sequences 10^5^-10^9^, usually randomly selected, DNA fragments ("reads") at a time — two types:
 
 . . .
 
@@ -44,8 +67,8 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 ::: columns
 ::: {.column width="50%"}
 -   **Short-read sequencing**
-    -   AKA Next-generation Sequencing (NGS)
-    -   Produces up to billions of 50-300 bp "reads"
+    -   AKA Next-Generation Sequencing (NGS)
+    -   Produces up to billions of 50-300 bp reads
     -   Market dominated by Illumina
     -   Since 2005 — technology stable
 :::
@@ -54,7 +77,7 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 :::
 :::
 
-## DNA sequencing technologies: overview
+## Sequencing technologies: overview
 
 -   **Sanger sequencing** (since 1977)\
     Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time
@@ -62,15 +85,15 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 <hr style="height:1pt; visibility:hidden;" />
 
 **High-throughput sequencing (HTS)**\
-Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time — two types:
+Sequences 10^5^-10^9^, usually randomly selected, DNA fragments ("reads") at a time — two types:
 
 <hr style="height:1pt; visibility:hidden;" />
 
 ::: columns
 ::: {.column width="50%"}
 -   **Short-read sequencing**
-    -   AKA Next-generation Sequencing (NGS)
-    -   Produces up to billions of 50-300 bp "reads"
+    -   AKA Next-Generation Sequencing (NGS)
+    -   Produces up to billions of 50-300 bp reads
     -   Market dominated by Illumina
     -   Since 2005 — technology stable
 :::
@@ -83,39 +106,39 @@ Sequences 10^5^-10^9^ usually randomly selected DNA fragments (reads) at a time 
 :::
 :::
 
-## What about RNA?
+## Sequencing technology development timeline
 
-This lecture mostly talks about DNA sequencing, but:
+![](img_sequencing/seq_timeline2a.png){fig-align="center" width="73%"}
 
--   This includes the indirect sequencing of RNA after reverse transcription to cDNA, as in nearly all "RNA-seq".
-
--   Direct RNA sequencing is possible with some of the sequencing technologies we discuss, as I'll briefly mention later, but is hard and not (yet) widely used.
-
-<br>
-
-. . .
-
-Similarly, the shorthand "sequencing", like in "high-throughput sequencing" in the title of this presentation, generally refers to DNA sequencing.
+::: legend2
+Modified after [Pereira et al. 2020](www.ncbi.nlm.nih.gov/pmc/articles/PMC7019349)
+:::
 
 ## Sequencing technology development timeline
 
-![Modified after Pereira et al. 2020 (www.ncbi.nlm.nih.gov/pmc/articles/PMC7019349/)](img_sequencing/seq_timeline2.png)
+![](img_sequencing/seq_timeline2.png){fig-align="center" width="70%"}
+
+::: legend2
+Modified after [Pereira et al. 2020](www.ncbi.nlm.nih.gov/pmc/articles/PMC7019349)
+:::
 
 ## Sanger sequencing
 
 Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time.
 
-Sequencing is performed by **synthesizing a new DNA strand** in part with fluorescently-labeled nucleotides — a different color for each base (`A`, `C`, `G`, `T`).[^1]
-
-[^1]: Visualization is not done in real time, but after the fact: sequences of each possible length are produced with a fluorescently labeled last base, and these can be separated by length afterwards.
+Sequencing is performed by **synthesizing a new DNA strand** in part with fluorescently-labeled nucleotides — a different color for each base (`A`, `C`, `G`, `T`).
 
 . . .
+
+<br>
 
 The final result is a **chromatogram** that can be base-called:
 
 ![](img_sequencing/good.chromatogram.png){fig-alt="https://dnacore.mgh.harvard.edu/new-cgi-bin/site/pages/sequencing_pages/seq_troubleshooting.jsp" fig-align="center" width="100%"}
 
 . . .
+
+<hr style="height:1pt; visibility:hidden;" />
 
 ::: callout-warning
 ## A \$100 million dollar genome: the entire human genome (3 Gbp) was sequenced with Sanger!
@@ -127,23 +150,17 @@ The final result is a **chromatogram** that can be base-called:
 
 ## Present-day Sanger applications
 
-**Common** **current applications** of Sanger sequencing include:
-
--   Examining variation among individuals or populations in one or more candidate or marker genes (for population genetics, phylogenetics, functional inferences, etc.)
-
--   Taxonomic identification of a sample
+With the advent of NGS, Sanger sequencing has become much less common but is not obsolete.
 
 <br>
 
-. . .
+**Some present-day applications** of Sanger sequencing include:
 
-::: callout-note
-## **Amplification** of a target DNA fragment is usually done with PCR
+-   Examining variation among individuals or populations in one or more candidate or marker genes (for population genetics, phylogenetics, functional inferences, etc.)
 
--   This means that you need to (approximately) **know in advance short flanking sequences** to the sequence of interest — primers for your PCR.
+-   Taxonomic identification of samples
 
--   **Introns** are good targets to sequence: variable sequences flanked by conserved sequences (exons) in which primers can be designed.
-:::
+# High-throughput sequencing (HTS) {background-color="dimgray"}
 
 ## High-throughput sequencing applications
 
@@ -161,7 +178,7 @@ The final result is a **chromatogram** that can be base-called:
 
 -   **RNA-seq** (transcriptome analysis)
 
--   Other functional sequencing methods like **Methyl-seq, ChIP-seq,** etc.
+-   Other functional sequencing methods like **methylation sequencing, ChIP-seq,** etc.
 
 . . .
 
@@ -199,9 +216,9 @@ The final result is a **chromatogram** that can be base-called:
 
 **When does read length not matter (as much)?**
 
--   Read-as-a-tag: the goal is just to know a read's origin in a reference genome, like in counting applications such as RNA-seq
-
 -   SNP variant analysis
+
+-   Read-as-a-tag: the goal is just to know a read's origin in a reference genome, like in counting applications such as RNA-seq
 
 ## Error rates
 
@@ -227,21 +244,20 @@ When you get sequences from a high-throughput sequencer, base calls have typical
 
 ## Overcoming sequencing errors
 
--   Sequencing at a high so-called "depth of coverage"[^2] generally allows to infer the correct sequence
-
-[^2]: Often referred to simply as "depth" or, confusing, "coverage"
+-   Sequencing every bases multiple times, i.e. having a >1x so-called
+    "depth of coverage" allows to infer the correct sequence
 
 ![](img_sequencing/coverage2.jpg){fig-align="center" width="60%"}
 
 . . .
 
--   But made more challenging by natural genetic variation among and within (heterozygosity due to diploid genomes) individuals
+-   But overcoming sequencing errors is made more challenging by natural genetic variation among and within (heterozygosity due to diploid genomes) individuals
 
 -   Typical depths of coverage: at least 50-100x for genome assembly; 10-30x for resequencing.
 
-## Illumina (short-read HTS / NGS)
+# Illumina HTS {background-color="dimgray"}
 
-. . .
+## Illumina (short-read HTS / NGS)
 
 -   100-300 bp reads with 0.1-0.2% error rates
 
@@ -261,14 +277,22 @@ In a sequencing context, a "**library**" is a collection of nucleic acid fragmen
 
 . . .
 
-In Illumina and other HTS libraries, the fragments **number in the millions or billions** and are **often** **randomly generated** from input such as genomic DNA — cf. Sanger sequencing:
+In Illumina and other HTS libraries, these fragments **number in the millions or billions** and are **often** **randomly generated** from input such as genomic DNA:
 
-![The procedure that produces a library from a DNA (or RNA) extraction is called library prep.](img_sequencing/library_prep.png){fig-align="center"}
+. . .
+
+![](img_sequencing/library_prep.png){fig-align="center"}
+
+::: legend2
+This procedure is called **library prep**,
+and is typically done for you by a sequencing facility or company.
+:::
 
 . . .
 
 ::: {.callout-tip appearance="minimal"}
-Different library prep procedures are used depending on the type of sequencing (WGS, RAD-seq, RNA-seq, etc.) and HTS technology — and some include more specific fragment generation or selection. We'll see the specific library prep steps for RNA-seq next week.
+Different library prep procedures are used depending on the type of sequencing (WGS, RAD-seq, RNA-seq, etc.) and HTS technology — and some include more specific fragment generation or selection.\
+*We'll see the specific library prep steps for RNA-seq next week.*
 :::
 
 ## Libraries and library prep (cont.)
@@ -283,25 +307,27 @@ After library prep (here, for Illumina sequencing), each DNA fragment is flanked
 
 <br>
 
-After talking about paired-end vs. single-end sequencing and the way Illumina sequencing works, we'll take a closer look at the adapter components.
+After talking about paired-end vs. single-end sequencing and the way Illumina sequencing works, we'll take a closer look at the individual components of adapters.
 
 ## Paired-end vs. single-end sequencing
 
-In Illumina sequencing, DNA fragments can be sequenced from both ends as shown below — this is called **"paired-end" (PE) sequencing**[^4]:
-
-[^4]: As the image suggests, the reverse read is read from the other direction and the other strand (so if the forward and reverse reads fully overlapped, they would be "reverse complements").
+In Illumina sequencing, DNA fragments can be sequenced from both ends as shown below —  
+this is called **"paired-end" (PE) sequencing**:
 
 ![](img_sequencing/pairedend.png){fig-align="center"}
 
 . . .
 
-When sequencing is instead **single-end (SE)**, it simply means that there is no reverse read:
+<hr style="height:1pt; visibility:hidden;" />
+
+When sequencing is instead **single-end (SE)**, no reverse read is produced:
 
 ![](img_sequencing/singleend.png){fig-align="center"}
 
 ## Paired-end sequencing
 
--   Paired-end sequencing is a way to **effectively increase the read length**. (In the resulting sequence files, the two reads in each pair are separate, but can be matched thanks to shared read IDs.)
+-   Paired-end sequencing is a way to **effectively increase the read length**.
+    (In the resulting sequence files, the two reads in each pair are separate, but they can be matched thanks to shared read IDs.)
 
 -   Earlier, we saw that the maximum read length of Illumina is 300 bp but in paired-end sequencing, this becomes "**2 x 300 bp**", etc.
 
@@ -313,16 +339,19 @@ When sequencing is instead **single-end (SE)**, it simply means that there is no
 
 ## Insert size variation
 
-The insert size varies — because the library prep protocol can aim for various sizes, and because of variation due to limited precision in size selection. It can be:
+Insert size varies — because the library prep protocol can aim for various sizes, and because of variation due to limited precision in size selection.
+In some case, the insert size can be:
 
--   Shorter than the *combined* read length, leading to **overlapping reads**:
+-   Shorter than the *combined* read length, leading to **overlapping reads**
+    (this can be useful):
 
 ![](img_sequencing/insert_size_overlap.png){fig-align="center" width="70%"}
 
 . . .
 
 -   Shorter than the *single* read length, leading to "**adapter read-through**"\
-    (i.e., the ends of the resulting reads will consist of adapter sequence):
+    (i.e., the ends of the resulting reads will consist of adapter sequence,
+    which should be removed):
 
 ![](img_sequencing/insert_size_adapter-read-through.png){fig-align="center" width="58%"}
 
@@ -352,7 +381,7 @@ Then, sequencing is performed by synthesizing a new strand using fluorescently-l
 
 ## How Illumina sequencing works (cont.)
 
-![](img_sequencing/illumina_seq3.png){fig-align="center"}
+![](img_sequencing/illumina_seq3_2.png){fig-align="center"}
 
 ## How errors come about in Illumina
 
@@ -363,6 +392,8 @@ Then, sequencing is performed by synthesizing a new strand using fluorescently-l
     -   They miss a base incorporation
 
     -   They incorporate two bases at once
+
+<br>
 
 -   Base incorporation may also terminate before the end of the template is reached
 :::
@@ -379,7 +410,7 @@ Then, sequencing is performed by synthesizing a new strand using fluorescently-l
 
 -   There are hard limits on read lengths
 
--   Base quality scores decrease along the read
+-   Base quality scores typically decrease along the read
 :::
 
 ## How Illumina sequencing works: Zooming out
@@ -392,13 +423,37 @@ Then, sequencing is performed by synthesizing a new strand using fluorescently-l
 
 ## A closer look at the adapter components
 
-Now that you have a better idea of how Illumina sequencing works, let's take a closer look at the different components of the adapters flanking the DNA:
+Now that you have a better idea of how Illumina sequencing works,
+let's briefly revisit the adapters flanking the DNA, and see their different components:
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
-. . .
+![](img_sequencing/adapters4.png){fig-align="center" width="90%"}
 
-![Modified after http://nextgen.mgh.harvard.edu/IlluminaChemistry.html](img_sequencing/adapters3.png){fig-align="center"}
+::: legend2
+Modified after <http://nextgen.mgh.harvard.edu/IlluminaChemistry.html>
+:::
+
+## A closer look at the adapter components
+
+Now that you have a better idea of how Illumina sequencing works,
+let's briefly revisit the adapters flanking the DNA, and see their different components:
+
+<hr style="height:1pt; visibility:hidden;" />
+
+![](img_sequencing/adapters3.png){fig-align="center" width="90%"}
+
+::: legend2
+Modified after <http://nextgen.mgh.harvard.edu/IlluminaChemistry.html>
+:::
+
+::: callout-note
+## Multiplexing!
+
+Using the indices/barcodes in adapters, up to 96 samples can be multiplexed into a single library.
+:::
+
+# Long-read HTS {background-color="dimgray"}
 
 ## Long-read HTS
 
@@ -409,9 +464,8 @@ The technologies underlying the two main long-read HTS technologies are very dif
 <hr style="height:1pt; visibility:hidden;" />
 
 -   Perform **"single-molecule" sequencing** (no PCR amplification of library fragments)
--   Require higher quality & quantity DNA
+-   Therefore require higher quality & quantity of DNA
 -   Can detect some **base modifications**, like methyl groups
--   Can **sequence RNA** directly
 
 . . .
 
@@ -428,9 +482,15 @@ However, error rates in one type of PacBio sequencing where individual fragments
 ## Nanopore sequencing
 
 **A single strand of DNA passes through a nanopore** —\
-what is measured is the electrical current, which depends on which combination of bases passes through:
+the _electrical current_ is measured, which depends on the combination of bases passes in the pore:
 
-[![https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing](img_sequencing/Nanopore-sequencing_crop.jpg){fig-align="center" width="80%"}](https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing)
+[![](img_sequencing/Nanopore-sequencing_crop.jpg){fig-align="center" width="80%"}](https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing)
+
+::: legend2
+https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing
+
+See also this short video: <https://www.youtube.com/watch?v=RcP85JHLmnI>
+:::
 
 ## ONT (Nanopore) sequencers
 
@@ -441,9 +501,9 @@ what is measured is the electrical current, which depends on which combination o
 ::: callout-caution
 ## Under development!
 
-ONT constantly releases new flow cells with updated technology, which have led to large decreases in error rates over the past decade and even over the past two or so years.
+ONT constantly releases new flow cells with updated technology, which have led to large decreases in error rates over the past decade --- and even over the past two or so years.
 
-At the same time, there is also a lot of development in the base-calling software. Unlike with Illumina or PacBio, it is common & useful to receive raw, not-basecalled data files: re-basecalling the same data a few years later with new software (versions) can make a substantial difference.
+There is also a lot of development in ONT base-calling software so it is useful to receive and keep pre-basecall files: re-basecalling a few years later with updated software can make a difference.
 :::
 
 ## ONT vs. PacBIO
@@ -456,6 +516,8 @@ At the same time, there is also a lot of development in the base-calling softwar
 
 -   Lower cost per base
 
+-   Can sequence RNA directly (but still under development)
+
 <br>
 
 . . .
@@ -466,7 +528,7 @@ At the same time, there is also a lot of development in the base-calling softwar
 
 -   Some systematic errors (e.g. homopolymers)
 
-# Genomes
+# (Reference) Genomes
 
 ## Genomes
 
@@ -476,7 +538,7 @@ As methods facilitating genomics and transcriptomics research, genomes loom larg
 
 <hr style="height:1pt; visibility:hidden;" />
 
-What exactly does "reference genome" refer to? Three components to this phrase:
+What exactly does "reference genome" refer to? We'll discuss three components to this phrase:
 
 -   **Assembly**\
     It includes a representation of most of the genome DNA sequence: the genome assembly
@@ -484,16 +546,18 @@ What exactly does "reference genome" refer to? Three components to this phrase:
 . . .
 
 -   **Annotation**\
-    It (preferably) includes an "annotation" that provides the locations of genes and other genomic features, as well as functional information on these features
+    It (preferably) includes an "annotation" that provides the
+    _locations of genes and other genomic features_,
+    as well as functional information on these features
 
 . . .
 
 -   **Taxonomic identity**\
-    This is typically considered at the **species level**, in which case it should involve the focal species. But:
+    Typically considered at the **species level**, so then it should involve the focal species. But:
 
     -   If necessary, it is often possible to work with reference genomes of closely related species
 
-    -   Conversely, different reference genomes may exist for different subspecies/populations within a species
+    -   Conversely, multiple reference genomes may exist, e.g. for different subspecies/populations
 
 ## Genome size variation
 
@@ -503,7 +567,11 @@ What exactly does "reference genome" refer to? Three components to this phrase:
 
 ::: columns
 ::: {.column width="75%"}
-![https://en.wikipedia.org/wiki/Karyotype](img_sequencing/DNA_human_male_chromosomes.gif){fig-align="center" width="90%"}
+![](img_sequencing/DNA_human_male_chromosomes.gif){fig-align="center" width="85%"}
+
+::: legend2
+https://en.wikipedi.org/wiki/Karyotype
+:::
 :::
 
 ::: {.column width="25%"}
@@ -517,37 +585,55 @@ Key features:
 :::
 :::
 
-## Genome assembly & annotation
+## Growth of genome databases
 
-Creating a reference genome has two main steps: assembly and annotation.
+![[Konkel & Slot 2023](https://www.biorxiv.org/content/10.1101/2023.09.08.556886v1)](img_sequencing/genomes_genbank.png){fig-align="center" width="75%"}
 
-<br>
-
-**A few notes on genome assembly**:
+## Genome assemblies
 
 ::: incremental
--   Most assemblies are not "chromosome-level", i.e. they don't have one contiguous sequence for each chromosome. Instead, they consist of contigs and scaffolds, which can number in the thousands.
-
--   Even chromosome-level assemblies are not 100% complete
-
 -   With increasing usage & quality of long-read HTS, we are generating better assemblies
 
--   To create chromosome-level assemblies, other technologies typically also needed (Hi-C, optical mapping)
-:::
+-   For chromosome-level assemblies, i.e. with one contiguous sequence for each chromosome, additional technologies than sequencing are often needed (e.g. Hi-C, optical mapping)
 
-## Genome assembly & annotation
+-   Many assemblies are not "chromosome-level", but consist of --often 1000s of-- contigs and scaffolds.
 
-**A few notes on genome annotation**:
-
-::: incremental
--   The first step is **structural annotation**: the identification of genes and other genomic features within the genome sequence
-
--   The second step is **functional annotation**: giving names and assigning functions to (mostly) genes
-
--   Whereas genome assembly typically does not borrow information from other organisms, genome annotation very heavily relies on that, based on the concept of sequence **homology**.
+-   Even chromosome-level assemblies are not 100% complete (and contain "unplaced" scaffolds)
 :::
 
 <br>
+
+. . .
+
+<details>
+
+<summary>Question: Contigs vs. scaffolds?</summary>
+
+**Contigs** are contiguous, known stretches of DNA created by the assembly process, basically by overlapping reads.
+
+Often, the order and orientation of two or more contigs is known, but there is a gap of unknown size between them. Such contigs are connected into **scaffolds** with a stretch of `N`s in between.
+
+</details>
+
+## Genome annotations
+
+::: incremental
+-   Annotating a genome consists of two main steps:
+
+    -   **Structural annotation**\
+        The identification of genes and other genomic features within the genome sequence
+
+    -   **Functional annotation\
+        **Giving names & assigning functions to (mostly) genes
+
+-   Genome annotation heavily relies on **information from other organisms' genomes**,
+    lifting over annotations based on the concept of *sequence homology*.
+
+-   Genome annotation files contain, for each genomic feature like a gene,
+    its genomic coordinates alongside information like the name.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
 
 . . .
 

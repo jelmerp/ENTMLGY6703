@@ -15,9 +15,9 @@ In today's lab:
 - We will start with learning about a typical "computational infrastructure"
   to analyze high-throughput sequencing (HTS) data --- **this page**.
   
-- We will then use said infrastructure to start the exploration of an HTS dataset.
-  We'll check out reference genome and HTS read (FASTQ) files,
-  and perform FASTQ quality control -- **[the next page](/labs/data.html)**.
+- We will then use that infrastructure to start the exploration of an HTS dataset.
+  We'll check out reference genome and HTS read files,
+  and perform read quality control -- **[the next page](/labs/data.html)**.
 
 <br>
 
@@ -48,7 +48,7 @@ expression analysis.
 [^1]: Cloud computing is an alternative, but won't be covered here.
 
 ::: {.callout-warning collapse="true"}
-#### Side note: I don't think I like coding. Can I avoid all of this? _(Click to expand)_
+#### Side note: "I don't think I like coding. Can I avoid all of this?" _(Click to expand)_
 
 If you will often be doing genomics projects like the ones mentioned above,
 it's hard to avoid using this (kind of) infrastructure.
@@ -59,11 +59,11 @@ But here are some conditions in which you might reasonably avoid it:
 
 Note that for several types of HTS projects,
 including those involving metabarcoding or RNA-seq data (as we'll see next week),
-the analysis can be said to consist of two distinct parts:
+the analysis consists of two distinct parts:
 
 1. The first is compute-heavy and involves command-line programs;
   it is also quite standardized, and therefore suitable to be outsourced.
-2. The second can be done on a laptop and only requires some R coding.
+2. The second can be done on a laptop and in terms of coding only requires R
 
 You could also try a platform like [**_Galaxy_**](https://usegalaxy.org),
 which has a web browser interface and doesn't require coding ---
@@ -91,8 +91,6 @@ Advantages of Command-Line Interfaces (CLIs) over "Graphical User Interfaces" (G
 
 ### Introduction to supercomputers
 
-#### What is a supercomputer?
-
 A supercomputer is a highly interconnected set of many computer processors and storage units.
 You can think of it simply as a **network of computers** ---
 with individual computers called "nodes".
@@ -104,7 +102,7 @@ This is what Owens, one of the OSC supercomputers, physically looks like:
 
 <p align="center"><img src=img_hts/owens.jpg width="50%"></p>
 
-#### Why do I need a supercomputer?
+Why you might need a supercomputer:
 
 - Often, your genomics **dataset is too large** to be handled efficiently,
   or at all, by a laptop/desktop computer.
@@ -123,9 +121,8 @@ The **Ohio Supercomputer Center (OSC)** provides computing
 resources to researchers (and others) across Ohio.
 OSC has two supercomputers/clusters (named **Owens** and **Pitzer**),
 and lots of infrastructure for their usage.
-
 Research usage is charged at [subsidized rates](https://www.osc.edu/content/academic_fee_model_faq),
-and in most case, these costs are absorbed at the college level (!).
+and in most case, these costs are absorbed at the college level.
   
 #### The structure of an OSC supercomputer
 
@@ -191,7 +188,7 @@ a scratch and a project directory is added]:
 
 Select the `PAS2250` scratch directory, `/fs/scratch/PAS2250`, where we'll be working:
 
-<p align="center"><img src=img_hts/ondemand_files_PAS2250.png width="35%"></p>
+<p align="center"><img src=img_hts/ondemand_files_PAS2250.png width="45%"></p>
   
 Once there, you should see a list of directories and files (here: just a single dir),
 and you can click on the directories to explore the contents further:
@@ -272,7 +269,7 @@ For our purposes:
 
 Because "Interactive Apps" like VS Code and RStudio **run on compute nodes**,
 and compute nodes need to be "reserved",
-we need to fill out a form and specify the following details:
+we have to fill out a form and specify the following details:
 
 - The _OSC Project_ that should be billed for the compute resource usage: `PAS2250`
 - The _amount of time_ in hours we want to make a reservation for ^[Note that we'll be kicked off as soon as that amount of time has passed!]: `4`
@@ -369,8 +366,8 @@ which include Mac and Linux (but not Windows).
 We'll now learn a couple of Unix shell commands, to familiarize yourself
 with working in this environment.
 
-This is also useful because in many ways,
-you can think of using a command-line bioinformatics program as using just another command.
+Doing so is also useful because in many ways,
+you can think of using a command-line bioinformatics program as using just another Unix command.
 Therefore, our skills with Unix commands will extend to using
 command-line bioinformatics tools!
 :::
@@ -382,7 +379,7 @@ command-line bioinformatics tools!
 #### The prompt
 
 Inside your terminal, the "prompt" indicates that the shell is ready for a command.
-Our prompt at OSC should show the following pieces of information like so:
+Your prompt at OSC should show the following pieces of information:
 
 ```bash
 [<username>@<node-name> <working-dir>]$
@@ -394,7 +391,7 @@ For example:
 [jelmer@p0080 jelmer]$ 
 ```
 
-We type our commands **after the dollar sign** `$`,
+You type your commands **after the dollar sign** `$`,
 and then press <kbd>Enter</kbd> to execute the command.
 When the command has finished executing,
 we'll get our prompt back and can type a new command.
@@ -468,8 +465,6 @@ which is the default behavior for nearly every Unix command.
 
 - **Avoid spaces** in file and dir names!
   Use e.g. underscores or capitalization to distinguish words.
-  
-- Anything after a `#` is considered a _comment_ and will be ignored by the shell. 
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -665,7 +660,7 @@ total 941M
 
 <hr style="height:1pt; visibility:hidden;" />
 
-### More general shell tips
+### A few more general shell tips
 
 - **Command history:** If you hit the <kbd>&#8679;</kbd> (up arrow) once, you'll retrieve your most recent command,
   and if you keep hitting it, you'll go further back.

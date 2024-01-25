@@ -11,7 +11,8 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        icon: house
+        text: " "
       - text: "Week 3: HTS"
         menu: 
           - text: "Lecture: High-throughput Sequencing & Genomes"

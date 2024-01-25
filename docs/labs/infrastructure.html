@@ -120,8 +120,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html" rel="" target=""><i class="bi bi-house" role="img">
+</i> 
+ <span class="menu-text"> </span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-3-hts" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
@@ -147,14 +148,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Week 4: RNA-seq</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
-        <li>
-    <a class="dropdown-item" href="../lectures/rnaseq.html" rel="" target="">
- <span class="dropdown-text">Lecture: RNA-seq</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../labs/DE.html" rel="" target="">
- <span class="dropdown-text">Lab: Differential expression analysis</span></a>
-  </li>  
+        <li class="dropdown-header">Lecture: RNA-seq</li>
+        <li class="dropdown-header">Lab: Differential expression analysis</li>
     </ul>
   </li>
 </ul>
@@ -214,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#first-steps-in-the-unix-shell" id="toc-first-steps-in-the-unix-shell" class="nav-link" data-scroll-target="#first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</a></li>
   <li><a href="#cd-and-command-actions-and-arguments" id="toc-cd-and-command-actions-and-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-and-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions and arguments</a></li>
   <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">5.4</span> <code>ls</code> and command <em>options</em></a></li>
-  <li><a href="#more-general-shell-tips" id="toc-more-general-shell-tips" class="nav-link" data-scroll-target="#more-general-shell-tips"><span class="header-section-number">5.5</span> More general shell tips</a></li>
+  <li><a href="#a-few-more-general-shell-tips" id="toc-a-few-more-general-shell-tips" class="nav-link" data-scroll-target="#a-few-more-general-shell-tips"><span class="header-section-number">5.5</span> A few more general shell tips</a></li>
   </ul></li>
   <li><a href="#appendix-further-learning" id="toc-appendix-further-learning" class="nav-link" data-scroll-target="#appendix-further-learning"><span class="header-section-number">6</span> Appendix: Further learning</a></li>
   </ul>
@@ -258,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In today’s lab:</p>
 <ul>
 <li><p>We will start with learning about a typical “computational infrastructure” to analyze high-throughput sequencing (HTS) data — <strong>this page</strong>.</p></li>
-<li><p>We will then use said infrastructure to start the exploration of an HTS dataset. We’ll check out reference genome and HTS read (FASTQ) files, and perform FASTQ quality control – <strong><a href="../labs/data.html">the next page</a></strong>.</p></li>
+<li><p>We will then use that infrastructure to start the exploration of an HTS dataset. We’ll check out reference genome and HTS read files, and perform read quality control – <strong><a href="../labs/data.html">the next page</a></strong>.</p></li>
 </ul>
 <p><br></p>
 </section>
@@ -281,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Side note: I don’t think I like coding. Can I avoid all of this? <em>(Click to expand)</em>
+Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -292,10 +287,10 @@ Side note: I don’t think I like coding. Can I avoid all of this? <em>(Click to
 <li>You’re doing a single genomics project, your main research focus is elsewhere</li>
 <li>You’re willing to outsource part of the analysis</li>
 </ul>
-<p>Note that for several types of HTS projects, including those involving metabarcoding or RNA-seq data (as we’ll see next week), the analysis can be said to consist of two distinct parts:</p>
+<p>Note that for several types of HTS projects, including those involving metabarcoding or RNA-seq data (as we’ll see next week), the analysis consists of two distinct parts:</p>
 <ol type="1">
 <li>The first is compute-heavy and involves command-line programs; it is also quite standardized, and therefore suitable to be outsourced.</li>
-<li>The second can be done on a laptop and only requires some R coding.</li>
+<li>The second can be done on a laptop and in terms of coding only requires R</li>
 </ol>
 <p>You could also try a platform like <a href="https://usegalaxy.org"><strong><em>Galaxy</em></strong></a>, which has a web browser interface and doesn’t require coding — but I wouldn’t recommend this if you’re going to do multiple genomics projects.</p>
 </div>
@@ -328,16 +323,12 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <h2 data-number="3" class="anchored" data-anchor-id="the-ohio-supercomputer-center-osc"><span class="header-section-number">3</span> The Ohio Supercomputer Center (OSC)</h2>
 <section id="introduction-to-supercomputers" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="introduction-to-supercomputers"><span class="header-section-number">3.1</span> Introduction to supercomputers</h3>
-<section id="what-is-a-supercomputer" class="level4">
-<h4 class="anchored" data-anchor-id="what-is-a-supercomputer">What is a supercomputer?</h4>
 <p>A supercomputer is a highly interconnected set of many computer processors and storage units. You can think of it simply as a <strong>network of computers</strong> — with individual computers called “nodes”.</p>
 <p>Supercomputers are also commonly referred to as <em>High-Performance Computing (<strong>HPC</strong>) clusters</em> or simply <strong>compute clusters</strong>. This is what Owens, one of the OSC supercomputers, physically looks like:</p>
 <p align="center">
 <img src="img_hts/owens.jpg" width="50%">
 </p>
-</section>
-<section id="why-do-i-need-a-supercomputer" class="level4">
-<h4 class="anchored" data-anchor-id="why-do-i-need-a-supercomputer">Why do I need a supercomputer?</h4>
+<p>Why you might need a supercomputer:</p>
 <ul>
 <li>Often, your genomics <strong>dataset is too large</strong> to be handled efficiently, or at all, by a laptop/desktop computer.</li>
 <li>To <strong>speed up</strong> <em>long-running analyses</em> by using more computing power, and <em>repeated analyses</em> (like the independent alignment of reads for different samples) by running them in parallel.</li>
@@ -345,14 +336,12 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 </ul>
 <hr style="height:1pt; visibility:hidden;">
 </section>
-</section>
 <section id="introduction-to-osc" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</h3>
 <p align="center">
 <img src="img_hts/osc_logo.png" width="70%">
 </p>
-<p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers (and others) across Ohio. OSC has two supercomputers/clusters (named <strong>Owens</strong> and <strong>Pitzer</strong>), and lots of infrastructure for their usage.</p>
-<p>Research usage is charged at <a href="https://www.osc.edu/content/academic_fee_model_faq">subsidized rates</a>, and in most case, these costs are absorbed at the college level (!).</p>
+<p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers (and others) across Ohio. OSC has two supercomputers/clusters (named <strong>Owens</strong> and <strong>Pitzer</strong>), and lots of infrastructure for their usage. Research usage is charged at <a href="https://www.osc.edu/content/academic_fee_model_faq">subsidized rates</a>, and in most case, these costs are absorbed at the college level.</p>
 <section id="the-structure-of-an-osc-supercomputer" class="level4">
 <h4 class="anchored" data-anchor-id="the-structure-of-an-osc-supercomputer">The structure of an OSC supercomputer</h4>
 <p>We can think of a supercomputer as having three main parts:</p>
@@ -417,7 +406,7 @@ Supercomputers run on the Linux operating system</li>
 </ol>
 <p>Select the <code>PAS2250</code> scratch directory, <code>/fs/scratch/PAS2250</code>, where we’ll be working:</p>
 <p align="center">
-<img src="img_hts/ondemand_files_PAS2250.png" width="35%">
+<img src="img_hts/ondemand_files_PAS2250.png" width="45%">
 </p>
 <p>Once there, you should see a list of directories and files (here: just a single dir), and you can click on the directories to explore the contents further:</p>
 <p align="center">
@@ -476,7 +465,7 @@ Supercomputers run on the Linux operating system</li>
 </section>
 <section id="connecting-to-vs-code" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="connecting-to-vs-code"><span class="header-section-number">4.2</span> Connecting to VS Code</h3>
-<p>Because “Interactive Apps” like VS Code and RStudio <strong>run on compute nodes</strong>, and compute nodes need to be “reserved”, we need to fill out a form and specify the following details:</p>
+<p>Because “Interactive Apps” like VS Code and RStudio <strong>run on compute nodes</strong>, and compute nodes need to be “reserved”, we have to fill out a form and specify the following details:</p>
 <ul>
 <li>The <em>OSC Project</em> that should be billed for the compute resource usage: <code>PAS2250</code></li>
 <li>The <em>amount of time</em> in hours we want to make a reservation for <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>: <code>4</code></li>
@@ -560,7 +549,7 @@ Many bioinformatics programs are basically specialized commands
 </div>
 <div class="callout-body-container callout-body">
 <p>We’ll now learn a couple of Unix shell commands, to familiarize yourself with working in this environment.</p>
-<p>This is also useful because in many ways, you can think of using a command-line bioinformatics program as using just another command. Therefore, our skills with Unix commands will extend to using command-line bioinformatics tools!</p>
+<p>Doing so is also useful because in many ways, you can think of using a command-line bioinformatics program as using just another Unix command. Therefore, our skills with Unix commands will extend to using command-line bioinformatics tools!</p>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
@@ -569,11 +558,11 @@ Many bioinformatics programs are basically specialized commands
 <h3 data-number="5.2" class="anchored" data-anchor-id="first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</h3>
 <section id="the-prompt" class="level4">
 <h4 class="anchored" data-anchor-id="the-prompt">The prompt</h4>
-<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. Our prompt at OSC should show the following pieces of information like so:</p>
+<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. Your prompt at OSC should show the following pieces of information:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="op">&lt;</span>username<span class="op">&gt;</span>@<span class="op">&lt;</span>node-name<span class="op">&gt;</span> <span class="op">&lt;</span>working-dir<span class="op">&gt;</span>]$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[jelmer@p0080</span> jelmer]$ </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We type our commands <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we’ll get our prompt back and can type a new command.</p>
+<p>You type your commands <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we’ll get our prompt back and can type a new command.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -640,7 +629,6 @@ General shell tips
 <ul>
 <li><p>Everything in the shell is <strong>case-sensitive</strong>, including commands and file names.</p></li>
 <li><p><strong>Avoid spaces</strong> in file and dir names! Use e.g.&nbsp;underscores or capitalization to distinguish words.</p></li>
-<li><p>Anything after a <code>#</code> is considered a <em>comment</em> and will be ignored by the shell.</p></li>
 </ul>
 </div>
 </div>
@@ -772,8 +760,8 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 <hr style="height:1pt; visibility:hidden;">
 </section>
 </section>
-<section id="more-general-shell-tips" class="level3" data-number="5.5">
-<h3 data-number="5.5" class="anchored" data-anchor-id="more-general-shell-tips"><span class="header-section-number">5.5</span> More general shell tips</h3>
+<section id="a-few-more-general-shell-tips" class="level3" data-number="5.5">
+<h3 data-number="5.5" class="anchored" data-anchor-id="a-few-more-general-shell-tips"><span class="header-section-number">5.5</span> A few more general shell tips</h3>
 <ul>
 <li><p><strong>Command history:</strong> If you hit the <kbd>⇧</kbd> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.</p></li>
 <li><p>Your cursor can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
