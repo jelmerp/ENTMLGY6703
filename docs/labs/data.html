@@ -286,11 +286,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What we won’t do
+What we won’t do in either week’s lab
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Next week’s differential expression analysis (in R) will start with a “gene count table”. Several steps are needed to produce that count table from the FASTQ files that we’ll explore today — next week, you’ll learn a bit more about what those steps are, but we won’t run them ourselves in the interest of time.</p>
+<p>Next week’s differential expression analysis (in R) will start with a “gene count table”. Several steps are needed to produce that count table from the FASTQ files that we’ll explore today — next week, you’ll learn more about what those steps are, but in the interest of time, we won’t run them ourselves.</p>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
@@ -299,14 +299,14 @@ What we won’t do
 <h3 data-number="1.3" class="anchored" data-anchor-id="getting-your-own-copy-of-the-files"><span class="header-section-number">1.3</span> Getting your own copy of the files</h3>
 <p>The main data files in a reference-based HTS project are reference genome files and sequence reads. We’ll discuss those files in more detail below — first, let’s get everyone their own copy of the data.</p>
 <ul>
-<li>Check you’re in your personal dir in <code>/fs/scratch/PAS2250/ENT6703</code> (use <code>cd</code> to change if needed):</li>
+<li>Go to your personal dir in <code>/fs/scratch/PAS2250/ENT6703</code>:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2250/ENT6703/jelmer</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace `jelmer` with your personal dir's name!</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/ENT6703/jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Then, use the Unix copy command <code>cp</code> as follows (yes, there’s a space + period at the end!):</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-rv</span> /fs/scratch/PAS2250/ENT6703/share/data .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-rv</span> ../share/data .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>‘/fs/scratch/PAS2250/ENT6703/share/data’ -&gt; ‘./data’
 ‘/fs/scratch/PAS2250/ENT6703/share/data/meta’ -&gt; ‘./data/meta’
 ‘/fs/scratch/PAS2250/ENT6703/share/data/meta/metadata.tsv’ -&gt; ‘./data/meta/metadata.tsv’
@@ -332,13 +332,15 @@ In the command above:
 <ul>
 <li>Option <code>-r</code> will enable “<strong>r</strong>ecursive” (=dirs, not just files) copying</li>
 <li>Option <code>-v</code> will turn on “<strong>v</strong>erbose” output: it will report what it’s copying</li>
-<li>The first argument (the <code>/fs/</code> path) is the source directory</li>
+<li>The first argument (<code>../share/data</code>) is the source directory, with <code>..</code> meaning one dir “up”</li>
 <li>The second argument is the target directory: <code>.</code> means the current working dir</li>
 </ul>
 </div>
 </div>
-<p>Use the <code>tree</code> command (with <code>-C</code> to show colors) to recursively list files in a way that gives a nice overview:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Now, use the <code>tree</code> command (<code>-C</code> to show colors) to recursively list files your newly copied files in a way that gives a nice overview:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>.
 └── data
     ├── fastq
@@ -353,17 +355,17 @@ In the command above:
         ├── GCF_016801865.2.fna
         └── GCF_016801865.2.gtf
 4 directories, 47 files</code></pre>
-<p>As we saw earlier, we have a whole bunch of FASTQ files (<code>.fastq.gz</code> extension, the reads), a metadata file, and two reference genomes files (<code>.fna</code> and <code>.gtf</code>). You’ll take a closer look at each of those below.</p>
+<p>As we saw earlier, we have a whole bunch of FASTQ files (<code>.fastq.gz</code> extension, the HTS reads), a metadata file, and two reference genomes files (<code>.fna</code> and <code>.gtf</code>). You’ll take a closer look at each of those below.</p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="viewing-the-metadata" class="level3" data-number="1.4">
 <h3 data-number="1.4" class="anchored" data-anchor-id="viewing-the-metadata"><span class="header-section-number">1.4</span> Viewing the metadata</h3>
-<p>You will first take a look at the “metadata” associated with the samples analyzed in this paper, such as the treatment information for each sample, and a sample ID that we can link to the files with reads.</p>
+<p>You’ll first look at the “metadata” associated with the samples analyzed in this paper, such as the treatment information for each sample, and a sample ID that can be used to match them to the files with reads.</p>
 <p>The metadata file <code>metadata.tsv</code> (<code>tsv</code> for “tab-separated values”) is in the folder <code>data/meta</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 644 Jan 21 09:15 metadata.tsv</code></pre>
 <p>You can find this file in the VS Code side bar and click on it to open it in the editor. Alternatively, you could use the <code>cat</code> command to show the file contents in the shell:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/meta/metadata.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/meta/metadata.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>sample_id    time     treatment
 ERR10802882  10_days  cathemerium
 ERR10802875  10_days  cathemerium
@@ -422,7 +424,7 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <blockquote class="blockquote">
 <p>Raw sequences generated in this study have been submitted to the European Nucleotide Archive ENA database (<a href="https://www.ebi.ac.uk/ena/browser/home" class="uri">https://www.ebi.ac.uk/ena/browser/home</a>) under project accession number PRJEB41609, Study ERP125411. Sample metadata are available at <a href="https://doi.org/10.20350/digitalCSIC/15708" class="uri">https://doi.org/10.20350/digitalCSIC/15708</a>.</p>
 </blockquote>
-<p>I used the second link above to download the metadata, which I slightly edit to simplify. I used the project accession number <code>PRJEB41609</code> to directly download the raw sequences (i.e., the FASTQ files we’ll explore below) to OSC using a command-line tool called <a href="https://github.com/rpetit3/fastq-dl">fastq-dl</a>.</p>
+<p>I used the second link above to download the metadata, which I slightly edited to simplify. I used the project accession number <code>PRJEB41609</code> to directly download the raw sequences (i.e., the FASTQ files we’ll explore below) to OSC using a command-line tool called <a href="https://github.com/rpetit3/fastq-dl">fastq-dl</a>.</p>
 </div>
 </div>
 </div>
@@ -433,18 +435,18 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <h2 data-number="2" class="anchored" data-anchor-id="reference-genome-files"><span class="header-section-number">2</span> Reference genome files</h2>
 <p>We’ll cover the two main types of reference genome files you need in a HTS project like reference-based RNA-seq:</p>
 <ul>
-<li><strong>FASTA</strong> files: Files with just sequences and their IDs. Your reference genome assembly will be in this format.</li>
+<li><strong>FASTA</strong> files: Files with just sequences and their IDs. Your reference genome assembly is in this format.</li>
 <li><strong>GTF</strong> (&amp; <strong>GFF</strong>) files: These contain annotations in a tabular format, e.g.&nbsp;the start &amp; stop position of each gene.</li>
 </ul>
 <section id="finding-your-reference-genome" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="finding-your-reference-genome"><span class="header-section-number">2.1</span> Finding your reference genome</h3>
-<p>Imagine that you are one of the researchers involved in the <em>Culex</em> study, or alternatively, that you are still you, but you just want to redo their analysis.</p>
+<p>Imagine that you are one of the researchers involved in the <em>Culex</em> study — or alternatively, that you are still you, but you just want to redo their analysis.</p>
 <p>You’ll want to see if there’s a <em>Cx. pipiens</em> reference genome available, and if so, download the relevant files. The authors state the following in the paper (section 2.3, “Data analysis”):</p>
 <blockquote class="blockquote">
 <p>Because the reference genome and annotations of <em>Cx. pipiens</em> are not published yet, we used the reference genome and annotations of phylogenetically closest species that were available in Ensembl, <em>Cx. quinquefasciatus</em>.</p>
 </blockquote>
 <p>But perhaps that genome of <em>Cx. pipiens</em> has been published in the meantime?</p>
-<p>Generally, the first place to look reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov/" class="uri">https://ncbi.nlm.nih.gov/</a>, where you can start by simply typing the name of your organism in the search box at the home page, like so — by means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
+<p>Generally, the first place to look reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page — by means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img_HTS/refgenome_search.png" class="img-fluid figure-img" style="width:75.0%"></p>
@@ -496,7 +498,7 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>So:</p>
 <ul>
 <li>It is 566.3 Mb (Megabases)</li>
-<li>It contains 3 chromosomes and 289 scaffolds</li>
+<li>It contains 3 chromosomes and 289 unplaced scaffolds</li>
 <li>It has 16,297 protein-coding genes</li>
 </ul>
 </details>
@@ -512,15 +514,15 @@ Side note: Downloading the reference genome files <em>(Click to expand)</em>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>To download the reference genome files fom the NCBI website, you can either select an assembly in the overview table and click the <code>Download</code> button, or click the <code>Download</code> button at the top of the page for a specific assembly. That should get you the following pop-up window:</p>
+<p>If you wanted to download the reference genome files from the NCBI website, you could either select an assembly in the overview table and click the <code>Download</code> button, or click the <code>Download</code> button at the top of the page for a specific assembly. That should get you the following pop-up window:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img_HTS/refgenome_download.png" class="img-fluid figure-img" style="width:55.0%"></p>
 </figure>
 </div>
 <p>You’ll want to select at least the “<em>Genome sequences (FASTA)</em>” and one or both of the “<em>Annotation features</em>” files (GTF is often preferred with RNA-seq).</p>
-<p>This allows you to download the data to your computer, and you could then upload it OSC. (Though a faster and more reproducible solution would be to use a <em>command</em> to directly download these — the <code>datasets</code> and <code>curl</code> buttons next to the <code>Download</code> one a genome’s page help with that.)</p>
-<p>Finally, if a “RefSeq” assembly is available, like it is for this genome, you’ll want to select that, as it has been curated and standardized by NCBI (whereas “GenBank” entries are exactly as submitted by researchers). This mostly makes a different for the annotation rather than the assembly itself.</p>
+<p>This allows you to download the data to your computer, and you could then upload it OSC. (Though a faster and more reproducible solution would be to use a <em>command</em> in your OSC shell to directly download these — the <code>datasets</code> and <code>curl</code> buttons next to the <code>Download</code> one a genome’s page help with that.)</p>
+<p>Finally, if a “RefSeq” assembly is available, like it is for this genome, you’ll want to select that, as it has been curated and standardized by NCBI (whereas “GenBank” entries are exactly as submitted by researchers). This mostly makes a difference for the <em>annotation</em> rather than the assembly itself.</p>
 </div>
 </div>
 </div>
@@ -539,8 +541,8 @@ Side note: Reference genome complications <em>(Click to expand)</em>
 <p>Other useful database for reference genomes are <a href="https://ensembl.org">Ensembl</a> and the specialized databases that exist for certain organisms, like <a href="https://flybase.org/">FlyBase</a> for <em>Drosophila</em>, <a href="https://vectorbase.org/">VectorBase</a> mostly for mosquitos, and <a href="https://phytozome-next.jgi.doe.gov/">JGI Phytozome</a> for plants.</p>
 <p>In many cases, these databases <em>don’t contain the exact same reference genome files than NCBI</em>. Often, at least the annotation is different (and actually the product of an independent annotation effort), but even the assembly may have small differences including in chromosome/scaffold names, which can make these files completely incompatible. And to make matters even more complicated, it is not always clear which database is the best source for your genome.</p>
 <hr style="height:1pt; visibility:hidden;">
-<p>Interestingly, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7936019/">the paper with the <em>Cx. pipiens</em> reference genome</a> that we just found was already published in 2021, well before our focal paper.</p>
-<p>And when we take a closer look at the quote from the paper, they say no genome for <em>Cx. pipiens</em> is “available in Ensembl” — which is in fact still the case. Could it be that the authors preferred the Ensembl genome from <em>Cx. quinquefasciatus</em> over the NCBI genome of <em>Cx. pipiens</em>? Or perhaps they did their analyses years ago?</p>
+<p>Interestingly, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7936019/">the paper with the <em>Cx. pipiens</em> reference genome</a> that we just found was already published in 2021, well <em>before</em> our focal Molecular Ecology paper.</p>
+<p>And when we take a closer look at the quote from the paper, they say no genome for <em>Cx. pipiens</em> is “available in Ensembl” — which is in fact still the case. Could it be that the authors preferred the Ensembl genome from <em>Cx. quinquefasciatus</em> over the NCBI genome of <em>Cx. pipiens</em>? Or perhaps they just did their analyses already several years ago?</p>
 </div>
 </div>
 </div>
@@ -557,24 +559,22 @@ Side note: Reference genome complications <em>(Click to expand)</em>
 <li>Sequence downloads from NCBI such as a single gene/protein or other GenBank entry</li>
 </ul>
 <p>The following example FASTA file contains two entries:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>unique_sequence_ID <span class="ex">Optional</span> description</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>unique_sequence_ID2</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each entry contains a <strong>header</strong> and the <strong>sequence</strong> itself, and:</p>
-<ul>
-<li>Header lines <strong>start with a <code>&gt;</code></strong> and are otherwise “free form” but should provide an identifier for the sequence</li>
-<li>A single sequence entry is often not on a single line, but spread across multiple lines with a fixed width</li>
-</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>unique_sequence_ID <span class="ex">Optional</span> description</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>unique_sequence_ID2</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each entry consists of a <strong>header</strong> line and the <strong>sequence</strong> itself. Header lines <strong>start with a <code>&gt;</code></strong> (greater-than sign) and are otherwise “free form”, though the idea is that they provide an identifier for the sequence that follows.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-FASTA file name extensions are variable
+FASTA file name extensions are variable: <code>.fa</code>, <code>.fasta</code>, <code>.fna</code>, <code>.faa</code> (<em>Click to expand</em>)
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>“Generic” extensions are <code>.fasta</code> and <code>.fa</code> (e.g: <code>culex_assembly.fasta</code>)</li>
@@ -582,16 +582,17 @@ FASTA file name extensions are variable
 </ul>
 </div>
 </div>
+</div>
 </section>
 <section id="your-culex-genome-assembly-fasta" class="level4">
 <h4 class="anchored" data-anchor-id="your-culex-genome-assembly-fasta">Your <em>Culex</em> genome assembly FASTA</h4>
 <p>Your reference genome files are in <code>data/ref</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw------- 1 jelmer PAS0471 547M Jan 22 12:34 GCF_016801865.2.fna
 -rw------- 1 jelmer PAS0471 123M Jan 22 12:34 GCF_016801865.2.gtf</code></pre>
 <p>While we can easily open small to medium-size files in the editor pane, “visual editors” like that do not work well for larger files like these.</p>
 <p>A handy command to view text files of any size is <strong><code>less</code></strong>, which opens them up in a “pager” within your shell – you’ll see what that means if you try it with one of the assembly FASTA file:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/ref/GCF_016801865.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/ref/GCF_016801865.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>&gt;NC_068937.1 Culex pipiens pallens isolate TS chromosome 1, TS_CPP_V2, whole genome shotgun sequence
 aagcccttttatggtcaaaaatatcgtttaacttgaatatttttccttaaaaaataaataaatttaagcaaacagctgag
 tagatgtcatctactcaaatctacccataagcacacccctgttcaatttttttttcagccataagggcgcctccagtcaa
@@ -609,9 +610,10 @@ aaaatattgaTAGAATGAAAGATGCAAGTCccaaaaattttaagtaaatgaATAGTAATCATAAAGATAActgatgatga
 <summary>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Explore the file with <code>less</code> <em>(Click to see the instructions)</em>
 </summary>
-<p>You can move around in the file by scrolling with your mouse, with up and down arrows and, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).</p>
+<p>After running the command above, the file should have “opened” inside the <code>less</code> pager.</p>
+<p>You can move around in the file in several ways: by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).</p>
 <p>If you find yourself scrolling down and down to try and reach the <strong>end of the file</strong>, you can instead press <kbd>G</kbd> to go to the very end right away (and <kbd>g</kbd> to go back to the top).</p>
-<p>Notice that you are “inside” a pager and don’t have your shell prompt: <strong>press <kbd>q</kbd> to quit <code>less</code>.</strong></p>
+<p>Notice that you are “inside” this pager and won’t have your shell prompt back until you <strong>press <kbd>q</kbd> to quit <code>less</code>.</strong></p>
 </details>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -625,8 +627,8 @@ Side note: Lowercase vs.&nbsp;uppercase nucleotide letters? <em>(Click to expand
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>As you have probably noticed, nucleotide bases are typically in typed in uppercase (<code>A</code>, <code>C</code>, <code>G</code>, <code>T</code>). What does the mixture of lowercase and uppercase bases in the <em>Cx. pipiens</em> assembly FASTA mean, then?</p>
-<p>Lowercase bases are what is called “soft-masked”: they are repetitive sequences, and bioinformatics programs will treat them differently than non-repetitive sequenced which are in uppercase.</p>
+<p>As you have probably noticed, nucleotide bases are typically typed in uppercase (<code>A</code>, <code>C</code>, <code>G</code>, <code>T</code>). What does the mixture of lowercase and uppercase bases in the <em>Cx. pipiens</em> assembly FASTA mean, then?</p>
+<p>Lowercase bases are what is called “soft-masked”: they are repetitive sequences, and bioinformatics programs will treat them differently than non-repetitive sequences, which are in uppercase.</p>
 </div>
 </div>
 </div>
@@ -637,7 +639,7 @@ Side note: Lowercase vs.&nbsp;uppercase nucleotide letters? <em>(Click to expand
 <h3 data-number="2.3" class="anchored" data-anchor-id="reference-genome-files-ii-gffgtf"><span class="header-section-number">2.3</span> Reference genome files II: GFF/GTF</h3>
 <section id="the-gffgtf-format" class="level4">
 <h4 class="anchored" data-anchor-id="the-gffgtf-format">The GFF/GTF format</h4>
-<p>The GTF and GFF formats are tab-delimited <strong>tabular</strong> <strong>files</strong> that contain <strong>genome annotations</strong>, with:</p>
+<p>The GTF and GFF formats are very similar tab-delimited <strong>tabular</strong> <strong>files</strong> that contain <strong>genome annotations</strong>, with:</p>
 <ul>
 <li>One row for each annotated “<strong>genomic feature</strong>” (gene, exon, etc.)</li>
 <li>One column for each piece of information about a feature, like its genomic coordinates</li>
@@ -648,17 +650,18 @@ NC_000001   RefSeq  gene    11874   14409   .       +       .       gene_id "DDX
 NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX11L1"; transcript_id "NR_046018.2"; db_xref "GeneID:100287102"; gene "DDX11L1"; product "DEAD/H-box helicase 11 like 1 (pseudogene)"; pseudo "true"; </code></pre>
 <p>Some details on the more important/interesting columns:</p>
 <ul>
-<li><strong><em>seqname</em></strong> — Name of the chromosome, scaffold, or contig</li>
-<li><strong><em>feature</em></strong> — Name of the feature type, e.g.&nbsp;“gene”, “exon”, “intron”, “CDS”</li>
-<li><strong><em>start</em></strong> &amp; <strong>end</strong>— Start &amp; end position of the feature</li>
-<li><strong><em>strand</em></strong> — Whether the feature is on the <code>+</code> (forward) or <code>-</code> (reverse) strand</li>
-<li><strong><em>attribute</em></strong> — A semicolon-separated list of tag-value pairs with additional information</li>
+<li><code>seqname</code> — Name of the chromosome, scaffold, or contig</li>
+<li><code>feature</code> — Name of the feature type, e.g.&nbsp;“gene”, “exon”, “intron”, “CDS”</li>
+<li><code>start</code> &amp; <code>end</code> — Start &amp; end position of the feature</li>
+<li><code>strand</code> — Whether the feature is on the <code>+</code> (forward) or <code>-</code> (reverse) strand</li>
+<li><code>attribute</code> — A semicolon-separated list of tag-value pairs with additional information</li>
 </ul>
 </section>
 <section id="your-culex-gtf-file" class="level4">
 <h4 class="anchored" data-anchor-id="your-culex-gtf-file">Your <em>Culex</em> GTF file</h4>
-<p>Take a look at your <em>Cx. pipiens</em> GTF file:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/ref/GCF_016801865.2.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For our <em>Cx. pipiens</em> reference genome, we only have a GTF file.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a><br>
+Take a look at it, again with <code>less</code>, but now with the <code>-S</code> option:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/ref/GCF_016801865.2.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>#gtf-version 2.2
 #!genome-build TS_CPP_V2
 #!genome-build-accession NCBI_Assembly:GCF_016801865.2
@@ -680,13 +683,12 @@ Avoid line-wrapping with <code>less -S</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Lines in a file may contain too many characters to fit on your screen, as will be the case for this GTF file. <code>less</code> will by default “wrap” such lines onto the next line on your screen, but this is often confusing for files like FASTQ and tabular files like GTF.</p>
-<p>Therefore, we turned off line-wrapping above by using the <code>-S</code> option to <code>less</code>.</p>
+<p>Lines in a file may contain too many characters to fit on your screen, as will be the case for this GTF file. <code>less</code> will by default “wrap” such lines onto the next line on your screen, but this is often confusing for files like FASTQ and tabular files like GTF. Therefore, we turned off line-wrapping above by using the <code>-S</code> option to <code>less</code>.</p>
 </div>
 </div>
 <details>
 <summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: The GTF file is sorted and all entries from the first line of the table until you again see “gene” in the third column belong to the first gene. Can you make sense of this, given what you know of gene structures? How many transcripts does the first gene have? <em>(Click to see some pointers)</em>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: The GTF file is sorted: all entries from the first line of the table, until you again see “gene” in the third column, belong to the first gene. Can you make sense of all these entries for this gene, given what you know of gene structures? How many transcripts does this gene have? <em>(Click to see some pointers)</em>
 </summary>
 <ul>
 <li>The first gene (“LOC120427725”) has 3 transcripts.</li>
@@ -842,7 +844,7 @@ Side note: FASTQ quality scores <em>(Click to expand)</em>
 </tr>
 </tbody>
 </table>
-<p>In practice, you almost never have to manually check the quality scores of bases in FASTQ files, but if you do, a rule of thumb is that letter characters are good (Phred of 32 and up).</p>
+<p>In practice, you almost never have to manually check the quality scores of bases in FASTQ files, but if you do, a rule of thumb is that letter characters are good (Phred of 32 and up). For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score.html">here is a complete lookup table</a> (look at the top table (<code>BASE=33</code>)).</p>
 </div>
 </div>
 </div>
@@ -851,24 +853,22 @@ Side note: FASTQ quality scores <em>(Click to expand)</em>
 <section id="listing-your-fastq-files" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="listing-your-fastq-files"><span class="header-section-number">3.2</span> Listing your FASTQ files</h3>
 <p>First, let’s take another look at your list of FASTQ files:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802863_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802863_R2.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802864_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802864_R2.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802865_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802866_R2.fastq.gz
 [...truncated...]</code></pre>
 <p>In the file listing above:</p>
 <ul>
-<li><p>First, take note of the file sizes. They are “only” about 22 Mb in size, and all have a very similar size. This is because I “subsampled” the FASTQ files to only have 500,000 reads per file. The original files were on average over 1 Gb in size with about 30 million reads (but quite a lot of variation in number of reads, as is normal).</p></li>
+<li><p>First, take note of the file sizes. They are “only” about 22 Mb in size, and all have a very similar size. This is because I “subsampled” the FASTQ files to only have 500,000 reads per file. The original files were on average over 1 Gb in size with about 30 million reads.</p></li>
 <li><p>Second, if you look closely at the file names, it looks like we have two FASTQ files per sample: one with <code>_R1</code> at the end of the file name, and one with <code>_R2</code>.</p></li>
 </ul>
 <details>
 <summary>
-<strong>Your Turn</strong>: Can you think of what each of the two files represents/contains? <em>(Click for the solution)</em>
+<strong>Your Turn</strong>: What might each of the two files per sample represents/contains? <em>(Click for the solution)</em>
 </summary>
 <p>These contain the forward reads (<code>_R1.fastq.gz</code>) vs.&nbsp;the reverse reads (<code>_R2.fastq.gz</code>).</p>
 </details>
@@ -883,7 +883,7 @@ Side note: FASTQ quality scores <em>(Click to expand)</em>
 <section id="viewing-your-fastq-files" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="viewing-your-fastq-files"><span class="header-section-number">3.3</span> Viewing your FASTQ files</h3>
 <p>Despite the gzip-compression, we can simply use the <code>less</code> command as before to view the FASTQ files (!):</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>@ERR10802863.8435456 8435456 length=74
 CAACGAATACATCATGTTTGCGAAACTACTCCTCCTCGCCTTGGTGGGGATCAGTACTGCGTACCAGTATGAGT
 +
@@ -902,25 +902,37 @@ Different header lines
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that the header lines (those starting with <code>@</code>) are quite different from the example shown above. This is because these files were downloaded from SRA. When you get files directly from a (Illumina) sequencer, they will have headers much like the earlier example.</p>
+<p>The header lines (starting with <code>@</code>) are quite different from the earlier example, because these files were downloaded from SRA. When you get files directly from a (Illumina) sequencer, they will have headers much like the earlier example.</p>
 </div>
 </div>
 <p>In practice, we don’t often have to closely look at the contents of our FASTQ files ourselves. There are simply too many reads to make sense of!</p>
 <p>Instead, we’ll have specialized tools like FastQC summarize them for us: e.g.&nbsp;how many sequences there are, what the quality scores look like, and if there are adapter sequences. We’ll run FastQC below.</p>
+<details>
+<summary>
+<strong>Your Turn</strong>: All of that said, in this case, you should be able to spot some very different-looking reads very soon when looking at the file with <code>less</code>. What are they? <em>(Click for the solution)</em>
+</summary>
+<p>The 5<sup>th</sup> read looks as follows — and if you scroll down you should quickly see several more reads like this:</p>
+<pre class="{bash-out-single}"><code>@ERR10802863.11918285 11918285 length=35
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
++
+###################################</code></pre>
+<p>These only consists of <code>N</code> bases (and they are also shorter than the other reads), and are therefore completely useless!</p>
+<p>FYI: It <em>not</em> common to run into these kinds of failed reads as easily!</p>
+</details>
 <p><br></p>
 </section>
 </section>
 <section id="quality-control-with-fastqc" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="quality-control-with-fastqc"><span class="header-section-number">4</span> Quality control with FastQC</h2>
-<p>A useful example of a genomics tool with a command-line interface is FastQC, for <strong>quality control of FASTQ files</strong>. It is ubiquitous because nearly all HTS data comes in FASTQ files, and your first step is always to check the quality of the reads.</p>
-<hr style="height:1pt; visibility:hidden;">
+<p>A good example of a tool with a command-line interface is FastQC, for <strong>quality control of FASTQ files</strong>. FastQC is ubiquitous: nearly all HTS data comes in FASTQ files, and the first step is always to check the read quality.</p>
 <section id="running-fastqc" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="running-fastqc"><span class="header-section-number">4.1</span> Running FastQC</h3>
 <p>To run FastQC, use the command <code>fastqc</code>.</p>
-<p>If you want to analyze one of your FASTQ files with default FastQC settings, a complete FastQC command to do so would simply be <code>fastqc</code> followed by the name of the file<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>However, an annoying default behavior by FastQC is that it writes its output files in the same dir as where the input files are — in general, it’s not great practice to directly mix your primary data and results like that.</p>
-<p>To figure out how we can change that behavior, first consider that many commands and bioinformatics tools alike have an option <code>-h</code> and/or <code>--help</code> that will print some usage information to the screen.</p>
+<p>If you want to analyze one of your FASTQ files with default FastQC settings, a complete FastQC command to do so would simply be <code>fastqc</code> followed by the name of the file<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Don't run this)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, an annoying default behavior by FastQC is that it writes its output files in the dir where the input files are — in general, it’s not great practice to directly mix your primary data and results like that!</p>
+<p>To figure out how we can change that behavior, first consider that many commands and bioinformatics tools alike have an <strong>option <code>-h</code> and/or <code>--help</code></strong> to print usage information to the screen.</p>
 <details>
 <summary>
 <strong>Your Turn</strong>: Try to print FastQC’s help info, and figure out which option you can use to specify an output directory of your choice. <em>(Click for the solution)</em>
@@ -937,8 +949,8 @@ Different header lines
 </details>
 <p>Now, let’s try to run FastQC and tell it to use the output dir <code>results/fastqc</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> results/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>fastqc: command not found</code></pre>
-<p>However, there is a wrinkle, as you can see above. It turns out that a FastQC installation <em>is</em> already available to us at OSC<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, but we do have to <strong>load it</strong> before we can use it. Without going into further details about software usage at OSC, please accept that we load FastQC as follows:</p>
+<pre class="bash-out"><code>bash: fastqc: command not found...</code></pre>
+<p>However, there is a wrinkle, as you can see above. It turns out that FastQC <em>is</em> installed at OSC<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, but we have to <strong>“load it”</strong> before we can use it. Without having time to go into further details about software usage at OSC, please accept that we can load FastQC as follows:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now, let’s try again:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> results/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -946,9 +958,9 @@ Different header lines
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: What is going on here? Had you perhaps seen this coming given the help text we saw earlier? Can you try to fix the problem? <em>(Click here for hints)</em>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Now what is going on this time? (Or had you perhaps seen this coming given the help text we saw earlier?) Can you try to fix the problem? <em>(Click here for hints)</em>
 </summary>
-<p>You can create a new directory by using the buttons in the VS Code side bar, or using the <code>mkdir</code> command — here, try it as <strong><code>mkdir -p</code></strong> followed by the name (path) of the directory you want to create.</p>
+<p>You’ll need to create a new directory, which you can do either by using the buttons in the VS Code side bar, or with the <code>mkdir</code> command — here, try it as <strong><code>mkdir -p</code></strong> followed by the name (path) of the directory you want to create.</p>
 </details>
 <details>
 <summary>
@@ -960,7 +972,7 @@ Different header lines
 </ul>
 <div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<p>And for our final try before we give up and throw our laptop out the window:</p>
+<p>And for our final try before we give up and throw our laptop out the window (make sure to run the code in the exercise solution before you retry!):</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> results/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Started analysis of ERR10802863_R1.fastq.gz
 Approx 5% complete for ERR10802863_R1.fastq.gz
@@ -968,15 +980,15 @@ Approx 10% complete for ERR10802863_R1.fastq.gz
 Approx 15% complete for ERR10802863_R1.fastq.gz
 [...truncated...]
 Analysis complete for ERR10802863_R1.fastq.gz</code></pre>
-<p>Success!!</p>
+<p><strong>Success!!</strong> (That should have taken just a few seconds with our subsampled FASTQ files.)</p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="fastqc-output-files" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="fastqc-output-files"><span class="header-section-number">4.2</span> FastQC output files</h3>
 <p>Let’s take a look at the files in the output dir we specified:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> results/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
--rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip</code></pre>
+<pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 25 15:50 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 256K Jan 25 15:50 ERR10802863_R1_fastqc.zip</code></pre>
 <ul>
 <li>There is a <code>.zip</code> file, which contains <strong>tables</strong> with FastQC’s data summaries</li>
 <li>There is an <code>.html</code> (HTML) file, which contains <strong>plots</strong> — this is what we’ll look at next</li>
@@ -986,7 +998,7 @@ Analysis complete for ERR10802863_R1.fastq.gz</code></pre>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Run FastQC for the corresponding R2 file. Would you use the same output dir? <em>(Click for the solution)</em>
 </summary>
 <p>Yes, it makes sense to use the same output dir, since as you could see above, the output file names have the input file identifiers in them. As such, we don’t need to worry about overwriting files, and it will be easier to have all the results in a single dir.</p>
-<p>To run FastQC for the R2 file:</p>
+<p>To run FastQC for the R2 (=reverse-read) file:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> results/fastqc ERR10802863_R2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Started analysis of ERR10802863_R2.fastq.gz
 Approx 5% complete for ERR10802863_R2.fastq.gz
@@ -999,28 +1011,29 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 -rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip
 -rw-r--r-- 1 jelmer PAS0471 234K Jan 21 21:53 ERR10802863_R2_fastqc.html
 -rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip</code></pre>
+<p>Now, we have four files: two for each of our preceding successful FastQC runs.</p>
 </details>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="interpreting-fastqcs-output" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="interpreting-fastqcs-output"><span class="header-section-number">4.3</span> Interpreting FastQC’s output</h3>
-<p>First, we’ll unfortunately have to download FastQC’s output HTML files<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
+<p>First, we’ll unfortunately have to download FastQC’s output HTML files<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>:</p>
 <ul>
 <li>Find the FastQC HTML files in the file explorer in the VS Code side bar.</li>
 <li>Right-click on one of them, click <code>Download...</code> and follow the prompt to download the file somewhere to your computer (doesn’t matter where, just make sure you see where it goes).</li>
 <li>Repeat this for the second file</li>
 <li>Then, open your computer’s file browser, find the downloaded files, and double-click on one. It should be <strong>opened in your default web browser</strong>.</li>
 </ul>
-<p>Now, we’ll go through a couple of the FastQC plots/modules, first seeing some example plots with good/bad results for reference.</p>
+<p>We’ll now go through a couple of the FastQC plots/modules, with first some example plots with good/bad results for reference.</p>
 <hr style="height:1pt; visibility:hidden;">
 <section id="overview-of-module-results" class="level4">
 <h4 class="anchored" data-anchor-id="overview-of-module-results">Overview of module results</h4>
 <p>FastQC has “<strong>pass</strong>” (checkmark in green), “<strong>warning</strong>” (exclamation mark in orange), and “<strong>fail</strong>” (cross in red) assessments for each module, as you can see below.</p>
-<p>These are handy and typically at least somewhat meaningful, but it is important to realize that a “warning” or a “fail” is not necessarily the bad news that it may appear to be, because, e.g.:</p>
+<p>These are handy and typically at least somewhat meaningful, but it is important to realize <em>that a “warning” or a “fail” is not necessarily the bad news that it may appear to be,</em> because, e.g.:</p>
 <ul>
 <li>Some of these modules could perhaps be called overly strict.</li>
 <li>Some warnings and fails are easily remedied or simply not a very big deal.</li>
-<li>FastQC assumes that your data is derived from whole-genome shotgun sequencing, and other types of data, like RNA-seq data, will always trigger a couple of warnings and files based on their characteristics.</li>
+<li>FastQC assumes that your data is derived from whole-genome shotgun sequencing — some other types of data like RNA-seq data will always trigger a couple of warnings and files based on expected differences.</li>
 </ul>
 <p align="center">
 <img src="img_HTS/fastqc_summary2.png" width="30%">
@@ -1167,7 +1180,7 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Side note: scaling the analysis &amp; next step for real projects (Click to expand)
+Side note: scaling the analysis &amp; next steps for real projects (Click to expand)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1251,9 +1264,11 @@ TAAGTAGATACCGATACGACGGGGCGGCATTCATGCTGCTACAGGGCTCAGCGGACCGACAAGCGACTGTGAAACGCAGC
 
 <ol>
 <li id="fn1"><p>But see the box below for more info/context<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p> Just like with, say, the <code>ls</code> command!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>The installed version of VS Code does not allow us to view HTML files<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Note that because individual sequence entries are commonly spread across multiple lines, FASTA entries do not necessarily cover 2 lines (cf.&nbsp;FASTQ).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A GFF file would contain the same information but in a slightly different format. For programs used in RNA-seq analysis, GTF files tend to be the preferred format.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p> Note that this is very similar to running, say, the <code>ls</code> command!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The installed version of VS Code does not allow us to view HTML files<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

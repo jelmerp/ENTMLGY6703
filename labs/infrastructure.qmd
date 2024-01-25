@@ -174,19 +174,18 @@ You should see a landing page similar to the one below:
 
 We will now go through some of the dropdown menus in the **blue bar along the top**.
 
-#### Files: File system access
+#### **Files**: File system access
 
-Let's start with **Files**.
-Hovering over this dropdown menu gives a list of directories you have access to.
-If your account is brand new, you should only have three
-^[You can be associated with multiple `PAS` projects and for each one,
-a scratch and a project directory is added]:
+Hovering over the **Files** dropdown menu gives a list of directories
+(=folders, and "dir" for short) that you have access to.
+If your account is brand new, you should only have three directories listed^[You can be associated with multiple `PAS` projects and for each one, a scratch and a project directory is added]:
 
 1. A **Home** directory (starts with `/users/`)
 2. A "**project**" directory (starts with `/fs/ess/`) for `PAS2250` --- permanent, backed-up storage
 3. A "**scratch**" directory (starts with `/fs/scratch/`) `PAS2250` --- temporary storage
 
-Select the `PAS2250` scratch directory, `/fs/scratch/PAS2250`, where we'll be working:
+Select the `PAS2250` scratch directory, `/fs/scratch/PAS2250`, where we'll be working
+today and next week:
 
 <p align="center"><img src=img_hts/ondemand_files_PAS2250.png width="45%"></p>
   
@@ -220,7 +219,7 @@ _(You can see what your username is by looking at the right side of the blue top
 
 </details>
 
-#### Clusters: Unix shell access
+#### **Clusters**: Unix shell access
 
 Interacting with a supercomputer is most commonly done using a Unix shell,
 and we'll learn about the basics of doing so soon.
@@ -267,15 +266,16 @@ For our purposes:
 
 ### Connecting to VS Code
 
-Because "Interactive Apps" like VS Code and RStudio **run on compute nodes**,
-and compute nodes need to be "reserved",
-we have to fill out a form and specify the following details:
+Because Interactive Apps like VS Code and RStudio **run on compute nodes**
+(not login nodes), which need to be "reserved",
+we have to fill out a form and specify the following details (see also the screenshot below):
 
-- The _OSC Project_ that should be billed for the compute resource usage: `PAS2250`
-- The _amount of time_ in hours we want to make a reservation for ^[Note that we'll be kicked off as soon as that amount of time has passed!]: `4`
-- The _"working directory"_^[This is the starting location in the file system] for the program:
-  your newly-created folder in `/fs/scratch/PAS2250/ENT6703`
-- The _version_ of VS Code: `4.8`
+| Option  | Value     |
+|---------|------|
+| The OSC `Project` that should be billed for the compute resource usage        | `PAS2250` |
+| The `Number of hours` we want to make a reservation for^[Note that we'll be kicked off as soon as that amount of time has passed!] | `4` |
+| The `Working Directory`^[This will be your starting location in the file system, we'll talk more about working dirs in a little bit.] for the program | your newly-created personal folder in `/fs/scratch/PAS2250/ENT6703` (e.g. `/fs/scratch/PAS2250/ENT6703/jelmer`) |
+| The `Codeserver Version` | `4.8` |
 
 <p align="center"><img src=img_hts/ondemand_vscode_form2.png width="60%"></p>
  
@@ -326,8 +326,8 @@ The **Activity Bar** (narrow side bar) on the far left has:
 
 #### Editor pane and `Welcome` document
 
-The main part of the VS Code is the _editor pane_.
-Here, we can open files like text files including scripts, and images.
+The main part of the VS Code is the **editor pane**.
+Here, we can open files like scripts and other types of text files, and images.
 (Whenever you open VS Code,
 an editor tab with a `Welcome` document is automatically opened.
 This provides some help and some shortcuts like to recently opened files and folders.)
@@ -352,7 +352,7 @@ This provides some help and some shortcuts like to recently opened files and fol
 
 ### What is the Unix shell?
 
-A computer's **shell** is the interface, inside a Terminal window, that allows you to
+A computer's **shell** is an interface inside a Terminal window that allows you to
 interact with your computer by _typing commands_.
 It is also referred to as the the "**command line**" ---
 with "command-line tools/programs" being software that is run using shell commands. 
@@ -391,10 +391,9 @@ For example:
 [jelmer@p0080 jelmer]$ 
 ```
 
-You type your commands **after the dollar sign** `$`,
-and then press <kbd>Enter</kbd> to execute the command.
-When the command has finished executing,
-we'll get our prompt back and can type a new command.
+You type your command line expressions **after the dollar sign** `$`,
+and then press <kbd>Enter</kbd> to execute them.
+When it has finished executing, we'll get our prompt back and can type a new command.
 
 ::: {.callout-tip}
 #### How shell code is shown on this website
@@ -411,8 +410,11 @@ we'll get our prompt back and can type a new command.
 
 #### A few simple commands: `date`, `whoami`, `pwd`
 
-The Unix shell comes with hundreds of commands.
-Let's start with a few simple ones.
+The Unix shell comes with hundreds of "commands":
+small programs that perform specific actions.
+If you're familiar with R or Python, a Unix command is like an R/Python function.
+
+Let's start with a few simple commands:
 
 - The `date` command prints the current date and time:
 
@@ -454,8 +456,8 @@ which is the default behavior for nearly every Unix command.
   and this is called your **working directory**.
   
 - In a **path** (= location of a file or directory)
-  such as that output by `pwd`, directories are separated by forward slashes `/`.
-  (With any _leading_ forward slash indicating the computer's _root directory_.)
+  such as that output by `pwd`, directories are separated by forward slashes **`/`**.
+  (And a _leading_ forward slash, if present, indicates the computer's _root directory_.)
 :::
 
 ::: {.callout-tip}
@@ -463,13 +465,13 @@ which is the default behavior for nearly every Unix command.
 
 - Everything in the shell is **case-sensitive**, including commands and file names.
 
-- **Avoid spaces** in file and dir names!
+- **Avoid spaces** in file and directory names!
   Use e.g. underscores or capitalization to distinguish words.
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
 
-### `cd` and command actions and arguments
+### `cd` and command actions & arguments
 
 In the above three command line expressions:
 
@@ -479,7 +481,7 @@ In the above three command line expressions:
 But many commands perform an **action** other than providing information.
 For example, you can use the command **`cd`** to Change Directory
 (i.e. change your _working_ dir).
-And like many commands that perform and action, it normally has **no output** at all.
+And like many commands that perform an action, `cd` normally has **no output** at all.
 
 Let's use `cd` to move to another directory by specifying the _path_ to that
 directory after the `cd` command:
@@ -614,11 +616,11 @@ instead of inside our working dir, we could type:
 ls data
 ```
 ```{.bash-out}
-fastq
+fastq  meta  ref
 ```
 
-Well, that's not much information, just another dir &mdash;
-so let's look inside that:
+The `data` dir appears to contain three (sub)dirs with different kinds of data.
+We'll talk in detail about that later, but for now let's look inside the `fastq` dir:
 
 ```bash
 ls data/fastq
@@ -635,7 +637,7 @@ Ah, FASTQ files! These contain our sequence data, and we'll go and explore them 
 
 Finally, we can **combine options and arguments**,
 and let's do so take a closer look at our dir with FASTQ files &mdash;
-now the `-h` option is especially useful to see that the files are 21-22 Mb in size:
+now the `-h` option is especially useful and allows us see that the FASTQ files are 21-22 Mb in size:
 
 ```bash
 ls -lh data/fastq
@@ -655,6 +657,19 @@ total 941M
 ```
 
 <details><summary>{{< fa user-edit >}} **Your Turn**: List the files in the `data/ref` dir. What are the file sizes? _(Click for the solution)_ </summary>
+
+```bash
+ls -lh data/ref
+```
+``` {.bash-out}
+total 670M
+-rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
+-rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf
+```
+
+The `.fna` file (this is the genome assembly nucleotide FASTA file) is
+547 Mb (not bases but bytes!),
+and the `.gtf` file (this is the annotation file) is 123 Mb.
 
 </details>
 
@@ -676,8 +691,8 @@ total 941M
 - Anything that comes after a `#` is considered a comment instead of code!
 
 ```bash
-# This entire line is a comment
-pwd # 'pwd' will be executed but everything after the '#' is ignored
+# This entire line is a comment - you can run it and nothing will happen
+pwd    # 'pwd' will be executed but everything after the '#' is ignored
 ```
 ```{.bash-out}
 /fs/ess/PAS2250/ENT6703/jelmer
@@ -694,17 +709,30 @@ cd /fs/ess/PAS2250/ENT6703/share
 
 </details>
 
-<details><summary>{{< fa user-edit >}} **Your Turn**: Use the command history (up arrows) to repeat the previous exercise.</summary>
+<details><summary>{{< fa user-edit >}} **Your Turn**: Use the command history (arrows) to repeat the previous exercise without typing anything.</summary>
 </details>
 
 <hr style="height:1pt; visibility:hidden;" />
 
-<details><summary>{{< fa user-edit >}} **Your Turn (Bonus)**: Two periods `..` means the directory "one level up" (towards the computer's root dir), so `cd ..` will move you one dir level up. Try to make use of this move into your personal dir and back to the `share` again. _(Click for the solution)_ </summary>
+<details><summary>{{< fa user-edit >}} **Your Turn (Bonus)**: Two periods `..` means the directory "one level up" (towards the computer's root dir): running `cd ..` will move you one dir level up. Try to make use of this move into your personal dir and back to `share` again, instead of using the "full paths" like above. _(Click for the solution)_ </summary>
 
 ```bash
 cd ../jelmer
 cd ../share
 ```
+
+A little more detail about this, for those that are interested:
+
+- Paths that start with a `/`, i.e. paths that start from the computer's root directory,
+  are called "absolute" or "full paths" (you can think of them as GPS coordinates,
+  they work regardless of where you are located).
+
+- Paths that do not start with `/` (are always supposed to) start from your current
+  working directory and are called "relative paths".
+  We've used them above with `ls data` and `ls data/fastq`.
+  The `..`, then, is a mechanism to go "up" in the dir hierarchy when using a relative path!
+  They work more like directions along the lines of "take the second left" in the sense
+  that they depend on your current location.
 
 </details>
 

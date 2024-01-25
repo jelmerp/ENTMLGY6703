@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#what-is-the-unix-shell" id="toc-what-is-the-unix-shell" class="nav-link" data-scroll-target="#what-is-the-unix-shell"><span class="header-section-number">5.1</span> What is the Unix shell?</a></li>
   <li><a href="#first-steps-in-the-unix-shell" id="toc-first-steps-in-the-unix-shell" class="nav-link" data-scroll-target="#first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</a></li>
-  <li><a href="#cd-and-command-actions-and-arguments" id="toc-cd-and-command-actions-and-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-and-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions and arguments</a></li>
+  <li><a href="#cd-and-command-actions-arguments" id="toc-cd-and-command-actions-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions &amp; arguments</a></li>
   <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">5.4</span> <code>ls</code> and command <em>options</em></a></li>
   <li><a href="#a-few-more-general-shell-tips" id="toc-a-few-more-general-shell-tips" class="nav-link" data-scroll-target="#a-few-more-general-shell-tips"><span class="header-section-number">5.5</span> A few more general shell tips</a></li>
   </ul></li>
@@ -397,14 +397,14 @@ Supercomputers run on the Linux operating system</li>
 </p>
 <p>We will now go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
 <section id="files-file-system-access" class="level4">
-<h4 class="anchored" data-anchor-id="files-file-system-access">Files: File system access</h4>
-<p>Let’s start with <strong>Files</strong>. Hovering over this dropdown menu gives a list of directories you have access to. If your account is brand new, you should only have three <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<h4 class="anchored" data-anchor-id="files-file-system-access"><strong>Files</strong>: File system access</h4>
+<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of directories (=folders, and “dir” for short) that you have access to. If your account is brand new, you should only have three directories listed<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <ol type="1">
 <li>A <strong>Home</strong> directory (starts with <code>/users/</code>)</li>
 <li>A “<strong>project</strong>” directory (starts with <code>/fs/ess/</code>) for <code>PAS2250</code> — permanent, backed-up storage</li>
 <li>A “<strong>scratch</strong>” directory (starts with <code>/fs/scratch/</code>) <code>PAS2250</code> — temporary storage</li>
 </ol>
-<p>Select the <code>PAS2250</code> scratch directory, <code>/fs/scratch/PAS2250</code>, where we’ll be working:</p>
+<p>Select the <code>PAS2250</code> scratch directory, <code>/fs/scratch/PAS2250</code>, where we’ll be working today and next week:</p>
 <p align="center">
 <img src="img_hts/ondemand_files_PAS2250.png" width="45%">
 </p>
@@ -430,7 +430,7 @@ Supercomputers run on the Linux operating system</li>
 </details>
 </section>
 <section id="clusters-unix-shell-access" class="level4">
-<h4 class="anchored" data-anchor-id="clusters-unix-shell-access">Clusters: Unix shell access</h4>
+<h4 class="anchored" data-anchor-id="clusters-unix-shell-access"><strong>Clusters</strong>: Unix shell access</h4>
 <p>Interacting with a supercomputer is most commonly done using a Unix shell, and we’ll learn about the basics of doing so soon. Under the <strong>Clusters</strong> dropdown menu, you can access a Unix shell either on Owens or Pitzer:</p>
 <p align="center">
 <img src="img_hts/ondemand_shell_select.png" width="50%">
@@ -465,13 +465,37 @@ Supercomputers run on the Linux operating system</li>
 </section>
 <section id="connecting-to-vs-code" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="connecting-to-vs-code"><span class="header-section-number">4.2</span> Connecting to VS Code</h3>
-<p>Because “Interactive Apps” like VS Code and RStudio <strong>run on compute nodes</strong>, and compute nodes need to be “reserved”, we have to fill out a form and specify the following details:</p>
-<ul>
-<li>The <em>OSC Project</em> that should be billed for the compute resource usage: <code>PAS2250</code></li>
-<li>The <em>amount of time</em> in hours we want to make a reservation for <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>: <code>4</code></li>
-<li>The <em>“working directory”</em><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> for the program: your newly-created folder in <code>/fs/scratch/PAS2250/ENT6703</code></li>
-<li>The <em>version</em> of VS Code: <code>4.8</code></li>
-</ul>
+<p>Because Interactive Apps like VS Code and RStudio <strong>run on compute nodes</strong> (not login nodes), which need to be “reserved”, we have to fill out a form and specify the following details (see also the screenshot below):</p>
+<table class="table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The OSC <code>Project</code> that should be billed for the compute resource usage</td>
+<td><code>PAS2250</code></td>
+</tr>
+<tr class="even">
+<td>The <code>Number of hours</code> we want to make a reservation for<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+<td><code>4</code></td>
+</tr>
+<tr class="odd">
+<td>The <code>Working Directory</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> for the program</td>
+<td>your newly-created personal folder in <code>/fs/scratch/PAS2250/ENT6703</code> (e.g.&nbsp;<code>/fs/scratch/PAS2250/ENT6703/jelmer</code>)</td>
+</tr>
+<tr class="even">
+<td>The <code>Codeserver Version</code></td>
+<td><code>4.8</code></td>
+</tr>
+</tbody>
+</table>
 <p align="center">
 <img src="img_hts/ondemand_vscode_form2.png" width="60%">
 </p>
@@ -513,7 +537,7 @@ Supercomputers run on the Linux operating system</li>
 </section>
 <section id="editor-pane-and-welcome-document" class="level4">
 <h4 class="anchored" data-anchor-id="editor-pane-and-welcome-document">Editor pane and <code>Welcome</code> document</h4>
-<p>The main part of the VS Code is the <em>editor pane</em>. Here, we can open files like text files including scripts, and images. (Whenever you open VS Code, an editor tab with a <code>Welcome</code> document is automatically opened. This provides some help and some shortcuts like to recently opened files and folders.)</p>
+<p>The main part of the VS Code is the <strong>editor pane</strong>. Here, we can open files like scripts and other types of text files, and images. (Whenever you open VS Code, an editor tab with a <code>Welcome</code> document is automatically opened. This provides some help and some shortcuts like to recently opened files and folders.)</p>
 </section>
 <section id="terminal-with-a-unix-shell" class="level4">
 <h4 class="anchored" data-anchor-id="terminal-with-a-unix-shell">Terminal (with a Unix shell)</h4>
@@ -536,7 +560,7 @@ Supercomputers run on the Linux operating system</li>
 <h2 data-number="5" class="anchored" data-anchor-id="the-unix-shell"><span class="header-section-number">5</span> The Unix shell</h2>
 <section id="what-is-the-unix-shell" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="what-is-the-unix-shell"><span class="header-section-number">5.1</span> What is the Unix shell?</h3>
-<p>A computer’s <strong>shell</strong> is the interface, inside a Terminal window, that allows you to interact with your computer by <em>typing commands</em>. It is also referred to as the the “<strong>command line</strong>” — with “command-line tools/programs” being software that is run using shell commands.</p>
+<p>A computer’s <strong>shell</strong> is an interface inside a Terminal window that allows you to interact with your computer by <em>typing commands</em>. It is also referred to as the the “<strong>command line</strong>” — with “command-line tools/programs” being software that is run using shell commands.</p>
 <p>The <strong>Unix shell</strong> is the shell of Unix-based operating systems, which include Mac and Linux (but not Windows).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -562,7 +586,7 @@ Many bioinformatics programs are basically specialized commands
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="op">&lt;</span>username<span class="op">&gt;</span>@<span class="op">&lt;</span>node-name<span class="op">&gt;</span> <span class="op">&lt;</span>working-dir<span class="op">&gt;</span>]$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[jelmer@p0080</span> jelmer]$ </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You type your commands <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute the command. When the command has finished executing, we’ll get our prompt back and can type a new command.</p>
+<p>You type your command line expressions <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute them. When it has finished executing, we’ll get our prompt back and can type a new command.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -583,7 +607,8 @@ How shell code is shown on this website
 </section>
 <section id="a-few-simple-commands-date-whoami-pwd" class="level4">
 <h4 class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd">A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h4>
-<p>The Unix shell comes with hundreds of commands. Let’s start with a few simple ones.</p>
+<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. If you’re familiar with R or Python, a Unix command is like an R/Python function.</p>
+<p>Let’s start with a few simple commands:</p>
 <ul>
 <li>The <code>date</code> command prints the current date and time:</li>
 </ul>
@@ -612,7 +637,7 @@ Working directory and paths
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>When working in a Unix shell, you are always “in” a specific directory and this is called your <strong>working directory</strong>.</p></li>
-<li><p>In a <strong>path</strong> (= location of a file or directory) such as that output by <code>pwd</code>, directories are separated by forward slashes <code>/</code>. (With any <em>leading</em> forward slash indicating the computer’s <em>root directory</em>.)</p></li>
+<li><p>In a <strong>path</strong> (= location of a file or directory) such as that output by <code>pwd</code>, directories are separated by forward slashes <strong><code>/</code></strong>. (And a <em>leading</em> forward slash, if present, indicates the computer’s <em>root directory</em>.)</p></li>
 </ul>
 </div>
 </div>
@@ -628,21 +653,21 @@ General shell tips
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>Everything in the shell is <strong>case-sensitive</strong>, including commands and file names.</p></li>
-<li><p><strong>Avoid spaces</strong> in file and dir names! Use e.g.&nbsp;underscores or capitalization to distinguish words.</p></li>
+<li><p><strong>Avoid spaces</strong> in file and directory names! Use e.g.&nbsp;underscores or capitalization to distinguish words.</p></li>
 </ul>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 </section>
-<section id="cd-and-command-actions-and-arguments" class="level3" data-number="5.3">
-<h3 data-number="5.3" class="anchored" data-anchor-id="cd-and-command-actions-and-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions and arguments</h3>
+<section id="cd-and-command-actions-arguments" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="cd-and-command-actions-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions &amp; arguments</h3>
 <p>In the above three command line expressions:</p>
 <ul>
 <li>We merely typed a command and nothing else</li>
 <li>The command provided some information, which was printed to screen</li>
 </ul>
-<p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform and action, it normally has <strong>no output</strong> at all.</p>
+<p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform an action, <code>cd</code> normally has <strong>no output</strong> at all.</p>
 <p>Let’s use <code>cd</code> to move to another directory by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -731,8 +756,8 @@ drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
 <h4 class="anchored" data-anchor-id="combining-options-and-arguments">Combining options and arguments</h4>
 <p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if we wanted to see what’s inside the <code>data</code> dir, instead of inside our working dir, we could type:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>fastq</code></pre>
-<p>Well, that’s not much information, just another dir — so let’s look inside that:</p>
+<pre class="bash-out"><code>fastq  meta  ref</code></pre>
+<p>The <code>data</code> dir appears to contain three (sub)dirs with different kinds of data. We’ll talk in detail about that later, but for now let’s look inside the <code>fastq</code> dir:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
 ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
@@ -740,7 +765,7 @@ ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10
 ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10802874_R1.fastq.gz  ERR10802876_R2.fastq.gz  ERR10802879_R1.fastq.gz  ERR10802881_R2.fastq.gz  ERR10802884_R1.fastq.gz  ERR10802886_R2.fastq.gz
 ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz</code></pre>
 <p>Ah, FASTQ files! These contain our sequence data, and we’ll go and explore them in a bit.</p>
-<p>Finally, we can <strong>combine options and arguments</strong>, and let’s do so take a closer look at our dir with FASTQ files — now the <code>-h</code> option is especially useful to see that the files are 21-22 Mb in size:</p>
+<p>Finally, we can <strong>combine options and arguments</strong>, and let’s do so take a closer look at our dir with FASTQ files — now the <code>-h</code> option is especially useful and allows us see that the FASTQ files are 21-22 Mb in size:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 941M
 -rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
@@ -756,6 +781,11 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 <summary>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: List the files in the <code>data/ref</code> dir. What are the file sizes? <em>(Click for the solution)</em>
 </summary>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 670M
+-rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
+-rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf</code></pre>
+<p>The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the <code>.gtf</code> file (this is the annotation file) is 123 Mb.</p>
 </details>
 <hr style="height:1pt; visibility:hidden;">
 </section>
@@ -768,39 +798,44 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 <li><p>If your <strong>prompt is missing</strong>, the shell is either still busy executing your command, or you typed an incomplete command. To abort in either of these two scenarios, press <kbd>Ctrl</kbd>+<kbd>C</kbd> and you’ll get your prompt back.</p></li>
 <li><p>Anything that comes after a <code>#</code> is considered a comment instead of code!</p></li>
 </ul>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span> <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>/fs/ess/PAS2250/ENT6703/jelmer</code></pre>
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Move into your personal directory, and then back into the <code>share</code> dir <em>(Click for the solution)</em>
 </summary>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/jelmer</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/jelmer</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Use the command history (up arrows) to repeat the previous exercise.
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Use the command history (arrows) to repeat the previous exercise without typing anything.
 </summary>
 </details>
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Two periods <code>..</code> means the directory “one level up” (towards the computer’s root dir), so <code>cd ..</code> will move you one dir level up. Try to make use of this move into your personal dir and back to the <code>share</code> again. <em>(Click for the solution)</em>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Two periods <code>..</code> means the directory “one level up” (towards the computer’s root dir): running <code>cd ..</code> will move you one dir level up. Try to make use of this move into your personal dir and back to <code>share</code> again, instead of using the “full paths” like above. <em>(Click for the solution)</em>
 </summary>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A little more detail about this, for those that are interested:</p>
+<ul>
+<li><p>Paths that start with a <code>/</code>, i.e.&nbsp;paths that start from the computer’s root directory, are called “absolute” or “full paths” (you can think of them as GPS coordinates, they work regardless of where you are located).</p></li>
+<li><p>Paths that do not start with <code>/</code> (are always supposed to) start from your current working directory and are called “relative paths”. We’ve used them above with <code>ls data</code> and <code>ls data/fastq</code>. The <code>..</code>, then, is a mechanism to go “up” in the dir hierarchy when using a relative path! They work more like directions along the lines of “take the second left” in the sense that they depend on your current location.</p></li>
+</ul>
 </details>
 <details>
 <summary>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn (Bonus)</strong>: Practice aborting commands (<em>Click for the instructions</em>)
 </summary>
 <p>To simulate a long-running command that we may want to abort, we can use the <code>sleep</code> command, which will make the computer wait for a specified amount of time until giving your prompt back:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 60s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 60s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Run that command and instead of waiting for the full 60 seconds, press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back sooner!</p>
 <p>Or, an example of an incomplete command (an opening parenthesis <code>(</code>):</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Run the code above, see what happens, and press <kbd>Ctrl</kbd> + <kbd>C</kbd> to get your prompt back.</p>
 </details>
 <p><br></p>
@@ -863,7 +898,7 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 <li id="fn2"><p>You can be associated with multiple <code>PAS</code> projects and for each one, a scratch and a project directory is added<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Though this is not meant for large (&gt;1 GB) transfers. Different methods are available for those but are outside the scope of this introductions.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Note that we’ll be kicked off as soon as that amount of time has passed!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>This is the starting location in the file system<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This will be your starting location in the file system, we’ll talk more about working dirs in a little bit.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

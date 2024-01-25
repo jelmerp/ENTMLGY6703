@@ -39,11 +39,11 @@ _Plasmodium_ protozoans --- specifically, it compares mosquitos according to:
 **Next week**, after covering RNA-seq methodology in the lecture, we will run a differential expression analysis.
 
 ::: {.callout-note}
-#### What we won't do
+#### What we won't do in either week's lab
 Next week's differential expression analysis (in R) will start with a "gene count table".
 Several steps are needed to produce that count table from the FASTQ files that we'll explore today ---
-next week, you'll learn a bit more about what those steps are,
-but we won't run them ourselves in the interest of time.
+next week, you'll learn more about what those steps are,
+but in the interest of time, we won't run them ourselves.
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -55,19 +55,17 @@ sequence reads.
 We'll discuss those files in more detail below —
 first, let's get everyone their own copy of the data.
 
-- Check you're in your personal dir in `/fs/scratch/PAS2250/ENT6703` (use `cd` to change if needed):
+- Go to your personal dir in `/fs/scratch/PAS2250/ENT6703`:
 
 ``` bash
-pwd
-```
-``` bash-out
-/fs/scratch/PAS2250/ENT6703/jelmer
+# Replace `jelmer` with your personal dir's name!
+cd /fs/scratch/PAS2250/ENT6703/jelmer
 ```
 
 - Then, use the Unix copy command `cp` as follows (yes, there's a space + period at the end!):
 
 ``` bash
-cp -rv /fs/scratch/PAS2250/ENT6703/share/data .
+cp -rv ../share/data .
 ```
 
 ``` bash-out
@@ -90,12 +88,12 @@ cp -rv /fs/scratch/PAS2250/ENT6703/share/data .
 
   -   Option `-r` will enable "**r**ecursive" (=dirs, not just files) copying
   -   Option `-v` will turn on "**v**erbose" output: it will report what it's copying
-  -   The first argument (the `/fs/` path) is the source directory
+  -   The first argument (`../share/data`) is the source directory, with `..` meaning one dir "up"
   -   The second argument is the target directory: `.` means the current working dir
 :::
 
-Use the `tree` command (with `-C` to show colors)
-to recursively list files in a way that gives a nice overview:
+- Now, use the `tree` command (`-C` to show colors)
+  to recursively list files your newly copied files in a way that gives a nice overview:
 
 ```bash
 tree -C
@@ -117,7 +115,7 @@ tree -C
 4 directories, 47 files
 ```
 
-As we saw earlier, we have a whole bunch of FASTQ files (`.fastq.gz` extension, the reads),
+As we saw earlier, we have a whole bunch of FASTQ files (`.fastq.gz` extension, the HTS reads),
 a metadata file, and two reference genomes files (`.fna` and `.gtf`).
 You'll take a closer look at each of those below.
 
@@ -125,9 +123,9 @@ You'll take a closer look at each of those below.
 
 ### Viewing the metadata
 
-You will first take a look at the "metadata" associated with the samples analyzed in this paper,
+You'll first look at the "metadata" associated with the samples analyzed in this paper,
 such as the treatment information for each sample,
-and a sample ID that we can link to the files with reads.
+and a sample ID that can be used to match them to the files with reads.
 
 The metadata file `metadata.tsv` (`tsv` for "tab-separated values") is in the folder `data/meta`:
 
@@ -196,7 +194,7 @@ At the end of the paper, there is a section called "Open Research" with a
 
 > Raw sequences generated in this study have been submitted to the European Nucleotide Archive ENA database (<https://www.ebi.ac.uk/ena/browser/home>) under project accession number PRJEB41609, Study ERP125411. Sample metadata are available at <https://doi.org/10.20350/digitalCSIC/15708>.
 
-I used the second link above to download the metadata, which I slightly edit to simplify.
+I used the second link above to download the metadata, which I slightly edited to simplify.
 I used the project accession number `PRJEB41609` to directly download the raw sequences
 (i.e., the FASTQ files we'll explore below) to OSC using a command-line tool
 called [fastq-dl](https://github.com/rpetit3/fastq-dl).
@@ -210,13 +208,13 @@ We'll cover the two main types of reference genome files you need in a HTS proje
 like reference-based RNA-seq:
 
 - **FASTA** files: Files with just sequences and their IDs.
-    Your reference genome assembly will be in this format.
+    Your reference genome assembly is in this format.
 -   **GTF** (& **GFF**) files: These contain annotations in a tabular format,
     e.g. the start & stop position of each gene.
 
 ### Finding your reference genome
 
-Imagine that you are one of the researchers involved in the _Culex_ study,
+Imagine that you are one of the researchers involved in the _Culex_ study ---
 or alternatively, that you are still you, but you just want to redo their analysis.
 
 You'll want to see if there's a _Cx. pipiens_ reference genome available, and if so,
@@ -227,8 +225,8 @@ The authors state the following in the paper (section 2.3, "Data analysis"):
 
 But perhaps that genome of _Cx. pipiens_ has been published in the meantime?
 
-Generally, the first place to look reference genome data is at NCBI, <https://ncbi.nlm.nih.gov/>,
-where you can start by simply typing the name of your organism in the search box at the home page, like so ---
+Generally, the first place to look reference genome data is at NCBI, <https://ncbi.nlm.nih.gov>,
+where you can start by simply typing the name of your organism in the search box at the home page ---
 by means of example, let's first search for the hoverfly *Episyrphus balteatus*:
 
 ![](img_HTS/refgenome_search.png){fig-align="center" width="75%"}
@@ -279,7 +277,7 @@ some of the information includes the following stats on the assembly and the ann
 So:
 
 - It is 566.3 Mb (Megabases)
-- It contains 3 chromosomes and 289 scaffolds
+- It contains 3 chromosomes and 289 unplaced scaffolds
 - It has 16,297 protein-coding genes
 
 </details>
@@ -287,8 +285,8 @@ So:
 ::: {.callout-note collapse="true"}
 #### Side note: Downloading the reference genome files _(Click to expand)_
 
-To download the reference genome files fom the NCBI website,
-you can either select an assembly in the overview table and click the `Download` button,
+If you wanted to download the reference genome files from the NCBI website,
+you could either select an assembly in the overview table and click the `Download` button,
 or click the `Download` button at the top of the page for a specific assembly.
 That should get you the following pop-up window:
 
@@ -298,12 +296,13 @@ You'll want to select at least the "_Genome sequences (FASTA)_" and one or both 
 "_Annotation features_" files (GTF is often preferred with RNA-seq).
 
 This allows you to download the data to your computer, and you could then upload it OSC.
-(Though a faster and more reproducible solution would be to use a *command* to directly download these — the `datasets` and `curl` buttons next to the `Download` one a genome's page help with that.)
+(Though a faster and more reproducible solution would be to use a *command* in your OSC shell to directly download these —
+the `datasets` and `curl` buttons next to the `Download` one a genome's page help with that.)
 
 Finally, if a "RefSeq" assembly is available, like it is for this genome,
 you'll want to select that, as it has been curated and standardized by NCBI
 (whereas "GenBank" entries are exactly as submitted by researchers).
-This mostly makes a different for the annotation rather than the assembly itself.
+This mostly makes a difference for the _annotation_ rather than the assembly itself.
 
 :::
 
@@ -326,14 +325,14 @@ And to make matters even more complicated, it is not always clear which database
 <hr style="height:1pt; visibility:hidden;" />
 
 Interestingly, [the paper with the _Cx. pipiens_ reference genome](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7936019/)
-that we just found was already published in 2021, well before our focal paper.
+that we just found was already published in 2021, well _before_ our focal Molecular Ecology paper.
 
 And when we take a closer look at the quote from the paper,
 they say no genome for _Cx. pipiens_ is "available in Ensembl" ---
 which is in fact still the case.
 Could it be that the authors preferred the Ensembl genome from _Cx. quinquefasciatus_
 over the NCBI genome of _Cx. pipiens_?
-Or perhaps they did their analyses years ago?
+Or perhaps they just did their analyses already several years ago?
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -359,14 +358,13 @@ ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA
 ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG
 ```
 
-Each entry contains a **header** and the **sequence** itself, and:
+Each entry consists of a **header** line and the **sequence** itself.
+Header lines **start with a `>`** (greater-than sign) and are otherwise "free form",
+though the idea is that they provide an identifier for the sequence that follows.^[Note that because
+individual sequence entries are commonly spread across multiple lines, FASTA entries do not necessarily cover 2 lines (cf. FASTQ).]
 
--   Header lines **start with a `>`** and are otherwise "free form" but should provide
-    an identifier for the sequence
--   A single sequence entry is often not on a single line, but spread across multiple lines with a fixed width
-
-::: {.callout-note}
-#### FASTA file name extensions are variable
+::: {.callout-note collapse="true"}
+#### FASTA file name extensions are variable: `.fa`, `.fasta`, `.fna`, `.faa` (_Click to expand_)
 
 -   "Generic" extensions are `.fasta` and `.fa` (e.g: `culex_assembly.fasta`)
 -   Also used are extensions that explicitly indicate whether sequences are
@@ -413,24 +411,29 @@ aaaatattgaTAGAATGAAAGATGCAAGTCccaaaaattttaagtaaatgaATAGTAATCATAAAGATAActgatgatga
 
 <details><summary>{{< fa user-edit >}} **Your Turn**: Explore the file with `less` _(Click to see the instructions)_</summary>
 
-You can move around in the file by scrolling with your mouse, with up and down arrows and, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).
+After running the command above, the file should have "opened" inside the `less` pager.
 
-If you find yourself scrolling down and down to try and reach the **end of the file**, you can instead press <kbd>G</kbd> to go to the very end right away (and <kbd>g</kbd> to go back to the top).
+You can move around in the file in several ways:
+by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys
+(also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).
 
-Notice that you are "inside" a pager and don't have your shell prompt:
+If you find yourself scrolling down and down to try and reach the **end of the file**,
+you can instead press <kbd>G</kbd> to go to the very end right away (and <kbd>g</kbd> to go back to the top).
+
+Notice that you are "inside" this pager and won't have your shell prompt back until you
 **press <kbd>q</kbd> to quit `less`.**
 
 </details>
 
 ::: {.callout-warning collapse="true"}
 #### Side note: Lowercase vs. uppercase nucleotide letters? _(Click to expand)_
-As you have probably noticed, nucleotide bases are typically in typed in uppercase
+As you have probably noticed, nucleotide bases are typically typed in uppercase
 (`A`, `C`, `G`, `T`). What does the mixture of lowercase and uppercase bases
 in the _Cx. pipiens_ assembly FASTA mean, then?
 
 Lowercase bases are what is called "soft-masked": they are repetitive sequences,
 and bioinformatics programs will treat them differently than non-repetitive
-sequenced which are in uppercase.
+sequences, which are in uppercase.
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -439,7 +442,7 @@ sequenced which are in uppercase.
 
 #### The GFF/GTF format 
 
-The GTF and GFF formats are tab-delimited **tabular** **files** that contain **genome annotations**, with:
+The GTF and GFF formats are very similar tab-delimited **tabular** **files** that contain **genome annotations**, with:
 
 -   One row for each annotated "**genomic feature**" (gene, exon, etc.)
 -   One column for each piece of information about a feature, like its genomic coordinates
@@ -454,15 +457,18 @@ NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX
 
 Some details on the more important/interesting columns:
 
--   ***seqname*** — Name of the chromosome, scaffold, or contig
--   ***feature*** — Name of the feature type, e.g. "gene", "exon", "intron", "CDS"
--   ***start*** & **end**— Start & end position of the feature
--   ***strand*** — Whether the feature is on the `+` (forward) or `-` (reverse) strand
--   ***attribute*** — A semicolon-separated list of tag-value pairs with additional information
+- `seqname` — Name of the chromosome, scaffold, or contig
+- `feature` — Name of the feature type, e.g. "gene", "exon", "intron", "CDS"
+- `start` & `end` — Start & end position of the feature
+- `strand` — Whether the feature is on the `+` (forward) or `-` (reverse) strand
+- `attribute` — A semicolon-separated list of tag-value pairs with additional information
 
 #### Your _Culex_ GTF file
 
-Take a look at your _Cx. pipiens_ GTF file:
+For our _Cx. pipiens_ reference genome, we only have a GTF file.^[A GFF file
+would contain the same information but in a slightly different format.
+For programs used in RNA-seq analysis, GTF files tend to be the preferred format.]  
+Take a look at it, again with `less`, but now with the `-S` option:
 
 ```bash
 less -S data/ref/GCF_016801865.2.gtf
@@ -488,11 +494,10 @@ Lines in a file may contain too many characters to fit on your screen,
 as will be the case for this GTF file.
 `less` will by default "wrap" such lines onto the next line on your screen,
 but this is often confusing for files like FASTQ and tabular files like GTF.
-
 Therefore, we turned off line-wrapping above by using the `-S` option to `less`.
 :::
 
-<details><summary>{{< fa user-edit >}} **Your Turn**: The GTF file is sorted and all entries from the first line of the table until you again see "gene" in the third column belong to the first gene. Can you make sense of this, given what you know of gene structures? How many transcripts does the first gene have? _(Click to see some pointers)_</summary>
+<details><summary>{{< fa user-edit >}} **Your Turn**: The GTF file is sorted: all entries from the first line of the table, until you again see "gene" in the third column, belong to the first gene. Can you make sense of all these entries for this gene, given what you know of gene structures? How many transcripts does this gene have? _(Click to see some pointers)_</summary>
 
 - The first gene ("LOC120427725") has 3 transcripts.
 - Each transcript has 6-7 exons, 5 CDSs, and a start and stop codon.
@@ -598,6 +603,8 @@ This allows for a single-character representation of each possible score — as 
 | **40**              | 1 in 10,000       | `I`             |
 
 In practice, you almost never have to manually check the quality scores of bases in FASTQ files, but if you do, a rule of thumb is that letter characters are good (Phred of 32 and up).
+For your reference, [here is a complete lookup table](https://www.drive5.com/usearch/manual/quality_score.html) (look at the top table (`BASE=33`)).
+
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -616,8 +623,6 @@ ls -lh data/fastq
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802864_R2.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802865_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802866_R2.fastq.gz
 [...truncated...]
 ```
 
@@ -626,14 +631,13 @@ In the file listing above:
 - First, take note of the file sizes.
   They are "only" about 22 Mb in size, and all have a very similar size.
   This is because I "subsampled" the FASTQ files to only have 500,000 reads per file.
-  The original files were on average over 1 Gb in size with about 30 million reads
-  (but quite a lot of variation in number of reads, as is normal).
+  The original files were on average over 1 Gb in size with about 30 million reads.
 
 - Second, if you look closely at the file names,
   it looks like we have two FASTQ files per sample:
   one with `_R1` at the end of the file name, and one with `_R2`.
 
-<details><summary>**Your Turn**: Can you think of what each of the two files represents/contains? _(Click for the solution)_</summary>
+<details><summary>**Your Turn**: What might each of the two files per sample represents/contains? _(Click for the solution)_</summary>
 
 These contain the forward reads (`_R1.fastq.gz`) vs. the reverse reads (`_R2.fastq.gz`).
 
@@ -657,7 +661,7 @@ Despite the gzip-compression, we can simply use the `less` command as before to
 view the FASTQ files (!):
 
 ```bash
-less -S data/fastq/ERR10802863_R1.fastq.gz
+less data/fastq/ERR10802863_R1.fastq.gz
 ```
 ``` bash-out
 @ERR10802863.8435456 8435456 length=74
@@ -672,8 +676,8 @@ AAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEE<EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
 ::: callout-warning
 #### Different header lines
-Note that the header lines (those starting with `@`) are quite different from
-the example shown above. This is because these files were downloaded from SRA.
+The header lines (starting with `@`) are quite different from
+the earlier example, because these files were downloaded from SRA.
 When you get files directly from a (Illumina) sequencer, they will have headers
 much like the earlier example.
 :::
@@ -685,16 +689,33 @@ Instead, we'll have specialized tools like FastQC summarize them for us:
 e.g. how many sequences there are, what the quality scores look like, and if there
 are adapter sequences. We'll run FastQC below.
 
+<details><summary>**Your Turn**: All of that said, in this case, you should be able to spot some very different-looking reads very soon when looking at the file with `less`. What are they? _(Click for the solution)_</summary>
+
+The 5^th^ read looks as follows --- and if you scroll down you should quickly
+see several more reads like this:
+
+```{bash-out-single}
+@ERR10802863.11918285 11918285 length=35
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
++
+###################################
+```
+
+These only consists of `N` bases (and they are also shorter than the other reads),
+and are therefore completely useless!
+
+FYI: It _not_ common to run into these kinds of failed reads as easily!
+
+</details>
+
 <br>
 
 ## Quality control with FastQC
 
-A useful example of a genomics tool with a command-line interface is FastQC,
+A good example of a tool with a command-line interface is FastQC,
 for **quality control of FASTQ files**.
-It is ubiquitous because nearly all HTS data comes in FASTQ files,
-and your first step is always to check the quality of the reads.
-
-<hr style="height:1pt; visibility:hidden;" />
+FastQC is ubiquitous: nearly all HTS data comes in FASTQ files,
+and the first step is always to check the read quality.
 
 ### Running FastQC
 
@@ -702,19 +723,20 @@ To run FastQC, use the command `fastqc`.
 
 If you want to analyze one of your FASTQ files with default FastQC settings,
 a complete FastQC command to do so would simply be `fastqc` followed by the name of the file^[
-Just like with, say, the `ls` command!]:
+Note that this is very similar to running, say, the `ls` command!]:
 
 ``` bash
+# (Don't run this)
 fastqc data/fastq/ERR10802863_R1.fastq.gz
 ```
 
-However, an annoying default behavior by FastQC is that it writes its output files in the same
-dir as where the input files are ---
-in general, it's not great practice to directly mix your primary data and results like that. 
+However, an annoying default behavior by FastQC is that it writes its output files in
+the dir where the input files are ---
+in general, it's not great practice to directly mix your primary data and results like that!
 
 To figure out how we can change that behavior, first consider that
-many commands and bioinformatics tools alike have an option `-h` and/or `--help`
-that will print some usage information to the screen.
+many commands and bioinformatics tools alike have an **option `-h` and/or `--help`**
+to print usage information to the screen.
 
 <details><summary>**Your Turn**: Try to print FastQC's help info, and figure out which option you can use to specify an output directory of your choice. _(Click for the solution)_</summary>
 
@@ -744,14 +766,14 @@ Now, let's try to run FastQC and tell it to use the output dir `results/fastqc`:
 fastqc --outdir results/fastqc data/fastq/ERR10802863_R1.fastq.gz
 ```
 ``` bash-out
-fastqc: command not found
+bash: fastqc: command not found...
 ```
 
 However, there is a wrinkle, as you can see above.
-It turns out that a FastQC installation *is* already available to us at OSC[^2],
-but we do have to **load it** before we can use it.
-Without going into further details about software usage at OSC,
-please accept that we load FastQC as follows:
+It turns out that FastQC _is_ installed at OSC[^2],
+but we have to **"load it"** before we can use it.
+Without having time to go into further details about software usage at OSC,
+please accept that we can load FastQC as follows:
 
 [^2]: For a full list of installed software at OSC: <https://www.osc.edu/resources/available_software/software_list>
 
@@ -769,10 +791,10 @@ Specified output directory 'results/fastqc' does not exist
 ```
 <hr style="height:1pt; visibility:hidden;" />
 
-<details><summary> {{< fa user-edit >}} **Your Turn**: What is going on here? Had you perhaps seen this coming given the help text we saw earlier? Can you try to fix the problem? _(Click here for hints)_</summary>
+<details><summary> {{< fa user-edit >}} **Your Turn**: Now what is going on this time? (Or had you perhaps seen this coming given the help text we saw earlier?) Can you try to fix the problem? _(Click here for hints)_</summary>
 
-You can create a new directory by using the buttons in the VS Code side bar,
-or using the `mkdir` command --- here, try it as **`mkdir -p`** followed by the
+You'll need to create a new directory, which you can do either by using the buttons in the VS Code side bar,
+or with the `mkdir` command --- here, try it as **`mkdir -p`** followed by the
 name (path) of the directory you want to create.
 
 </details>
@@ -795,7 +817,8 @@ mkdir -p results/fastqc
 
 </details>
 
-And for our final try before we give up and throw our laptop out the window:
+And for our final try before we give up and throw our laptop out the window
+(make sure to run the code in the exercise solution before you retry!):
 
 ``` bash
 fastqc --outdir results/fastqc data/fastq/ERR10802863_R1.fastq.gz
@@ -809,7 +832,7 @@ Approx 15% complete for ERR10802863_R1.fastq.gz
 Analysis complete for ERR10802863_R1.fastq.gz
 ```
 
-Success!!
+**Success!!** (That should have taken just a few seconds with our subsampled FASTQ files.)
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -821,8 +844,8 @@ Let's take a look at the files in the output dir we specified:
 ls -lh results/fastqc
 ```
 ``` bash-out
--rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
--rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip
+-rw-r--r-- 1 jelmer PAS0471 241K Jan 25 15:50 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 256K Jan 25 15:50 ERR10802863_R1_fastqc.zip
 ```
 
 - There is a `.zip` file, which contains **tables** with FastQC's data summaries
@@ -835,7 +858,7 @@ the output file names have the input file identifiers in them.
 As such, we don't need to worry about overwriting files, and it will be easier
 to have all the results in a single dir.
 
-To run FastQC for the R2 file:
+To run FastQC for the R2 (=reverse-read) file:
 
 ```bash
 fastqc --outdir results/fastqc ERR10802863_R2.fastq.gz
@@ -859,6 +882,8 @@ ls -lh results/fastqc
 -rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip
 ```
 
+Now, we have four files: two for each of our preceding successful FastQC runs.
+
 </details>
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -874,8 +899,8 @@ First, we'll unfortunately have to download FastQC's output HTML files^[The inst
 - Then, open your computer's file browser, find the downloaded files, and double-click on one.
   It should be **opened in your default web browser**.
 
-Now, we'll go through a couple of the FastQC plots/modules,
-first seeing some example plots with good/bad results for reference.
+We'll now go through a couple of the FastQC plots/modules,
+with first some example plots with good/bad results for reference.
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -885,14 +910,15 @@ FastQC has "**pass**" (checkmark in green), "**warning**" (exclamation mark in o
 and "**fail**" (cross in red) assessments for each module, as you can see below.
 
 These are handy and typically at least somewhat meaningful,
-but it is important to realize that a "warning" or a "fail" is not necessarily
-the bad news that it may appear to be, because, e.g.:
+but it is important to realize
+_that a "warning" or a "fail" is not necessarily the bad news that it may appear to be,_
+because, e.g.:
 
 - Some of these modules could perhaps be called overly strict.
 - Some warnings and fails are easily remedied or simply not a very big deal.
-- FastQC assumes that your data is derived from whole-genome shotgun sequencing,
-  and other types of data, like RNA-seq data, will always trigger a couple of warnings and files
-  based on their characteristics.
+- FastQC assumes that your data is derived from whole-genome shotgun sequencing ---
+  some other types of data like RNA-seq data will always trigger a couple of warnings and files
+  based on expected differences.
 
 <p align="center"><img src=img_HTS/fastqc_summary2.png width="30%"></p>
 
@@ -1016,7 +1042,7 @@ we may call "**command-line genomics**": genomics analysis using command-line to
 And we've seen a basic example of loading and running a command-line tool at OSC.
 
 ::: {.callout-note collapse="true"}
-#### Side note: scaling the analysis & next step for real projects (Click to expand)
+#### Side note: scaling the analysis & next steps for real projects (Click to expand)
 
 The missing pieces for a typical, fuller example of how such tools are run in the context
 of an actual genomics project are (if we stay with FastQC):
