@@ -135,7 +135,7 @@ We can think of a supercomputer as having three main parts:
 <p align="center"><img src=img_hts/cluster_overview_ed.png width="85%"></p>
 
 ::: {.callout-note collapse="true"}
-#### Side note: What is different on a supercomputer like at OSC? _(Click to expand)_
+#### Side note: What works differently on a supercomputer like at OSC? _(Click to expand)_
 
 Compared to command-line computing on a laptop or desktop,
 the following aspects are different when working on a supercomputer like at OSC:
@@ -206,11 +206,8 @@ see the buttons across the top.
 <details><summary>{{< fa user-edit >}} **Your Turn**: Create your own folder _(click to see instructions)_</summary>
 
 - Click your way into `ENT6703` within `/fs/scratch/PAS2250` if you're not already there.
-
 - You should (at least) see directories/folders named `share` and `jelmer`.
-  
 - Create your own folder by clicking the `New Directory` button at the top.
-
 - Please give it the **exact same name as your OSC username** (including any capitalization).
 
 _(You can see what your username is by looking at the right side of the blue top bar:)_
