@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will work with RNA-seq data from the paper “<em>Two avian Plasmodium species trigger different transcriptional responses on their vector Culex pipiens</em>”, published late last year in Molecular Ecology (<a href="https://doi.org/10.1111/mec.17240">link</a>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/paper.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="img_hts/paper.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 <p>This paper uses RNA-seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans — specifically, it compares mosquitos according to:</p>
@@ -449,19 +449,19 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>Generally, the first place to look reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page — by means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_search.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="img_hts/refgenome_search.png" class="img-fluid figure-img" style="width:75.0%"></p>
 </figure>
 </div>
 <p>For this species, we get the following “card” at the top of the results:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_result1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="img_hts/refgenome_result1.png" class="img-fluid figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 <p>If you next click on “Genomes” in the result page above, you should get the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_result2.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<p><img src="img_hts/refgenome_result2.png" class="img-fluid figure-img" style="width:95.0%"></p>
 </figure>
 </div>
 <p>So, NCBI has 3 genomes assemblies for <em>Episyrphus balteatus</em>. The top one has a green check mark next to it (which means that this genome has been designated the primary reference genome for the focal organism), and it is also the only genome with an entry in the <code>Annotation</code> column and with a “Chromosome” (vs.&nbsp;“Scaffold”) assembly <code>Level</code>. Therefore, that top assembly, <code>idEpiBalt1.1</code>, would be the one to go with.</p>
@@ -474,7 +474,7 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>You should find that there are 5 <em>Culex</em> assemblies, 2 of which are <em>Culex pipiens</em>. The first one, <code>TS_CPP_V2</code>, has the reference checkmark next to it and has an entry in the Annotation column, which the second one (<code>TS_CPM_V1</code>) doesn’t:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_culex_all.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<p><img src="img_hts/refgenome_culex_all.png" class="img-fluid figure-img" style="width:95.0%"></p>
 </figure>
 </div>
 <p><em>(These two are also from different subspecies, but as far as I could see,</em> <em>the authors of our study don’t specify the focal subspecies –</em> <em>though you could probably figure that out based on geographic range.)</em></p>
@@ -487,12 +487,12 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>On the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/">genome’s page at NCBI</a>, some of the information includes the following stats on the assembly and the annotation:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_stats.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<p><img src="img_hts/refgenome_stats.png" class="img-fluid figure-img" style="width:40.0%"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refannot_stats.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="img_hts/refannot_stats.png" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p>So:</p>
@@ -517,7 +517,7 @@ Side note: Downloading the reference genome files <em>(Click to expand)</em>
 <p>If you wanted to download the reference genome files from the NCBI website, you could either select an assembly in the overview table and click the <code>Download</code> button, or click the <code>Download</code> button at the top of the page for a specific assembly. That should get you the following pop-up window:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/hts/refgenome_download.png" class="img-fluid figure-img" style="width:55.0%"></p>
+<p><img src="img_hts/refgenome_download.png" class="img-fluid figure-img" style="width:55.0%"></p>
 </figure>
 </div>
 <p>You’ll want to select at least the “<em>Genome sequences (FASTA)</em>” and one or both of the “<em>Annotation features</em>” files (GTF is often preferred with RNA-seq).</p>
@@ -1036,7 +1036,7 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <li>FastQC assumes that your data is derived from whole-genome shotgun sequencing — some other types of data like RNA-seq data will always trigger a couple of warnings and files based on expected differences.</li>
 </ul>
 <p align="center">
-<img src="img/hts/fastqc_summary2.png" width="30%">
+<img src="img_hts/fastqc_summary2.png" width="30%">
 </p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
@@ -1044,7 +1044,7 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <h4 class="anchored" data-anchor-id="basic-statistics">Basic statistics</h4>
 <p>This shows, for example, the number of sequences (reads) and the read length range for your file:</p>
 <p align="center">
-<img src="img/hts/fastqc_mod01_basic-stats.png" width="85%">
+<img src="img_hts/fastqc_mod01_basic-stats.png" width="85%">
 </p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
@@ -1059,12 +1059,12 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <div class="column" style="width:50%;">
 <strong>Good / acceptable:</strong>
 <p align="center">
-<img src="img/hts/fastqc_good.png" width="100%">
+<img src="img_hts/fastqc_good.png" width="100%">
 </p>
 </div><div class="column" style="width:50%;">
 <strong>Bad:</strong>
 <p align="center">
-<img src="img/hts/fastqc_bad.png" width="100%">
+<img src="img_hts/fastqc_bad.png" width="100%">
 </p>
 </div>
 </div>
@@ -1109,12 +1109,12 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <div class="column" style="width:50%;">
 <strong>Good:</strong>
 <p align="center">
-<img src="img/hts/fastqc_mod04_per-seq-qual_good.png" width="100%">
+<img src="img_hts/fastqc_mod04_per-seq-qual_good.png" width="100%">
 </p>
 </div><div class="column" style="width:50%;">
 <strong>Bad:</strong>
 <p align="center">
-<img src="img/hts/fastqc_mod04_per-seq-qual_bad.png" width="100%">
+<img src="img_hts/fastqc_mod04_per-seq-qual_bad.png" width="100%">
 </p>
 </div>
 </div>
@@ -1124,7 +1124,7 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <h4 class="anchored" data-anchor-id="sequence-length-distribution">Sequence length distribution</h4>
 <p>Will throw a warning as soon as not all sequences are of the same length (like below), but this is quite normal.</p>
 <p align="center">
-<img src="img/hts/fastqc_mod08_seqlen_warning.png" width="60%">
+<img src="img_hts/fastqc_mod08_seqlen_warning.png" width="60%">
 </p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
@@ -1135,12 +1135,12 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <div class="column" style="width:50%;">
 <strong>Good:</strong>
 <p align="center">
-<img src="img/hts/fastqc_mod11_adapter_good.png" width="100%">
+<img src="img_hts/fastqc_mod11_adapter_good.png" width="100%">
 </p>
 </div><div class="column" style="width:50%;">
 <strong>Bad:</strong>
 <p align="center">
-<img src="img/hts/fastqc_mod11_adapter_bad.png" width="100%">
+<img src="img_hts/fastqc_mod11_adapter_bad.png" width="100%">
 </p>
 </div>
 </div>
