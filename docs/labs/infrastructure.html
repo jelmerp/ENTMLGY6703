@@ -623,7 +623,7 @@ How shell code is shown on this website
 <li>The <code>pwd</code> (Print Working Directory) command prints the path to the directory you are currently located in:</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/ess/PAS2250/ENT6703/jelmer</code></pre>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/ENT6703/jelmer</code></pre>
 <p>All 3 of those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for nearly every Unix command.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -669,9 +669,9 @@ General shell tips
 </ul>
 <p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform an action, <code>cd</code> normally has <strong>no output</strong> at all.</p>
 <p>Let’s use <code>cd</code> to move to another directory by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/sratch/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/ess/PAS2250/ENT6703/share</code></pre>
+<pre class="bash-out"><code>/fs/sratch/PAS2250/ENT6703/share</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -687,13 +687,13 @@ I will demonstrate “tab completion”!
 </div>
 <p>In more abstract terms, what we did above was to provide <code>cd</code> with an <strong>argument</strong>, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.</p>
 <p>As we’ve seen, then, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — it gives an error:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Ess/PAS2250</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>bash: cd: /fs/Ess/PAS2250: No such file or directory</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Scratch/PAS2250</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bash: cd: /fs/Scratch/PAS2250: No such file or directory</code></pre>
 <details>
 <summary>
 <strong>Your Turn</strong>: What was the problem with the path we specified? <em>(Click to see the answer)</em>
 </summary>
-<p>We used a capital E in <code>/Ess/</code> — this should have been <code>/ess/</code>.</p>
+<p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
 As pointed out above, paths (dir and file specifications) are <strong>case-sensitive</strong> on Unix systems!
 </details>
 <hr style="height:1pt; visibility:hidden;">
@@ -705,7 +705,7 @@ As pointed out above, paths (dir and file specifications) are <strong>case-sensi
 <p>The <code>ls</code> command, short for “list”, will list files and directories:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>data  README.md</code></pre>
-<p><em>(You should still be in <code>/fs/ess/PAS2250/ENT6703/share</code>. If not, <code>cd</code> there first.)</em></p>
+<p><em>(You should still be in <code>/fs/scratch/PAS2250/ENT6703/share</code>. If not, <code>cd</code> there first.)</em></p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -800,14 +800,14 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 </ul>
 <div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/ess/PAS2250/ENT6703/jelmer</code></pre>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/ENT6703/jelmer</code></pre>
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
 <i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Your Turn</strong>: Move into your personal directory, and then back into the <code>share</code> dir <em>(Click for the solution)</em>
 </summary>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/jelmer</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/ess/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/ENT6703/jelmer</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>

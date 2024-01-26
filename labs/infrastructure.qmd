@@ -439,7 +439,7 @@ pwd
 ```
 
 ``` {.bash-out}
-/fs/ess/PAS2250/ENT6703/jelmer
+/fs/scratch/PAS2250/ENT6703/jelmer
 ```
 
 All 3 of those commands provided us with some output.
@@ -484,14 +484,14 @@ Let's use `cd` to move to another directory by specifying the _path_ to that
 directory after the `cd` command:
 
 ```bash
-cd /fs/ess/PAS2250/ENT6703/share
+cd /fs/sratch/PAS2250/ENT6703/share
 ```
 
 ```bash
 pwd
 ```
 ```{.bash-out}
-/fs/ess/PAS2250/ENT6703/share
+/fs/sratch/PAS2250/ENT6703/share
 ```
 
 ::: {.callout-note}
@@ -508,17 +508,16 @@ But let's also see what happens when it does not succeed &mdash;
 it gives an error:
 
 ```bash
-cd /fs/Ess/PAS2250
+cd /fs/Scratch/PAS2250
 ```
 ``` {.bash-out}
-bash: cd: /fs/Ess/PAS2250: No such file or directory
+bash: cd: /fs/Scratch/PAS2250: No such file or directory
 ```
 
 <details><summary>**Your Turn**: What was the problem with the path we specified? _(Click to see the answer)_</summary>
-We used a capital E in `/Ess/` &mdash; this should have been `/ess/`.
+We used a capital S in `/Scratch/` &mdash; this should have been `/scratch/`.
 
-As pointed out above, paths (dir and file specifications) are **case-sensitive**
-on Unix systems!
+As pointed out above, paths (dir and file specifications) are **case-sensitive** on Unix systems!
 </details>
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -536,7 +535,7 @@ ls
 data  README.md
 ```
 
-_(You should still be in `/fs/ess/PAS2250/ENT6703/share`. If not, `cd` there first.)_
+_(You should still be in `/fs/scratch/PAS2250/ENT6703/share`. If not, `cd` there first.)_
 
 :::{.callout-tip collapse="true"}
 #### Side note: `ls` output colors _(click to expand)_
@@ -692,7 +691,7 @@ and the `.gtf` file (this is the annotation file) is 123 Mb.
 pwd    # 'pwd' will be executed but everything after the '#' is ignored
 ```
 ```{.bash-out}
-/fs/ess/PAS2250/ENT6703/jelmer
+/fs/scratch/PAS2250/ENT6703/jelmer
 ```
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -700,8 +699,8 @@ pwd    # 'pwd' will be executed but everything after the '#' is ignored
 <details><summary>{{< fa user-edit >}} **Your Turn**: Move into your personal directory, and then back into the `share` dir _(Click for the solution)_ </summary>
 
 ```bash
-cd /fs/ess/PAS2250/ENT6703/jelmer
-cd /fs/ess/PAS2250/ENT6703/share
+cd /fs/scratch/PAS2250/ENT6703/jelmer
+cd /fs/scratch/PAS2250/ENT6703/share
 ```
 
 </details>
