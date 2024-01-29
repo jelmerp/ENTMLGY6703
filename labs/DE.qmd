@@ -193,6 +193,8 @@ Type the code below in your R script and send it to the R console:
 ```{r, eval=FALSE}
 custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
 
+library(withr, lib.loc = custom_library)
+library(tidyr, lib.loc = custom_library)
 library(tidyverse, lib.loc = custom_library)       # Misc. data manipulation and plotting
 library(DESeq2, lib.loc = custom_library)          # Differential expression analysis
 library(EnhancedVolcano, lib.loc = custom_library) # Volcano plot

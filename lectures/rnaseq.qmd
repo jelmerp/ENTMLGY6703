@@ -280,7 +280,7 @@ When designing an RNA-seq experiment, keep the following in mind:
 
 -   **Technical replicates**  
     You won't need technical replicates that only replicate library prep and/or sequencing,
-    but depending on your experimental design, may want to tecnically replicate something else.
+    but depending on your experimental design, may want to technically replicate something else.
 
 . . .
 
