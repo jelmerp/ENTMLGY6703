@@ -11,17 +11,25 @@ editor_options:
 
 ## R homework for the week 4 lab
 
-If you have limited or no experience with R, I would highly recommend that you go through part of the Data Carpentry ["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
+If you have limited or no experience with R,
+I highly recommend that you go through part of the Data Carpentry ["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
 
-At least make your way through the [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html) and the first (["Before we start"](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html)) and second (["Introduction to R"](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html)) lessons.
+**At least** make your way through:
 
-If you have time, then you can also go through:
+- The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
+- [Episode 1 ("Before we start")](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
+- [Episode 2 ("Introduction to R")](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
+
+**If you have time**, then you can also go through:
 
 -   [Episode 3 (data frames)](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html) --- until (not including) the ["Formatting dates" section](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates).
 -   [Episode 4 (tidyverse)](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html) --- until (not including) the ["Split-apply-combine" section](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html#split-apply-combine-data-analysis-and-the-summarize-function).
 -   [Episode 5 (ggplot)](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) --- until (not including) the ["Arranging plots" section](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html#arranging-plots).
 
-*You can do this homework either with your own R & RStudio installation* *(the Carpentry lesson contains installation instructions),* *or use RStudio at the Ohio Supercomputer Center (see the instructions below).*
+_You can do this homework either with **your own R & RStudio installation** (the Carpentry lesson contains installation instructions), or use **RStudio at OSC** (see the instructions below)._
+
+If you run into any issues when going through this material, or just have questions,
+don't hesitate to [email Jelmer](poelstra.1@osu.edu).
 
 ::: callout-tip
 #### Not sure if you know enough R to skip this?
@@ -32,6 +40,9 @@ The best way to find out is to take a look at the material!
 <br>
 
 ## Start an RStudio session at OSC
+
+In case you want to use RStudio at the Ohio Supercomputer Center (OSC) for your homework,
+follow these instructions to get started:
 
 1.  Log in to OSC at <https://ondemand.osc.edu>
 
