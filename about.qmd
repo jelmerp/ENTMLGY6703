@@ -3,3 +3,5 @@ title: "About this website"
 ---
 
 This website contains the lecture slides and lab material for the guest lectures by Jelmer Poelstra (MCIC Wooster, Ohio State University) in the graduate-level ENTMLGY 6703 Spring 2024 course "Molecular Techniques & Data Analysis Syllabus" taught by Peter Piermarini and Larry Phelan at OSU.
+
+The source code for this website can be found at <https://github.com/jelmerp/ENTMLGY6703>.

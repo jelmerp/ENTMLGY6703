@@ -4,16 +4,33 @@ author: Jelmer Poelstra
 date: 2024-02-02
 editor: visual
 execute: 
-  eval: false
+  eval: true
+  cache: true
+knitr:
+  opts_chunk:
+    out.width: "85%"
 number-depth: 3
 project:
   execute-dir: project
+editor_options: 
+  chunk_output_type: console
 ---
+
+<br>
 
 ## Introduction
 
-For differential expression analysis, we will be using the popular **DESeq2**
-R/Bioconductor package
+Last week, you explored the RNA-seq reads from the 2023 Molecular Ecology paper
+["*Two avian Plasmodium species trigger different transcriptional responses on their vector Culex pipiens*"](https://doi.org/10.1111/mec.17240),
+as well as the _Culex pipiens_ reference genome files.
+
+In yesterday's lecture, you learned about the steps to generate a gene count table
+from this input data (FASTQ reads + reference genome files),
+but as mentioned, we will not go through those steps ourselves.
+
+Instead, I have generated a gene count table for you,
+and we will now be doing differential expression analysis in R,
+using the popular **DESeq2** package
 ([paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8),
 [website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)).
 
@@ -23,116 +40,326 @@ R/Bioconductor package
 
 ### Start an RStudio session at OSC
 
-<details><summary>Click to see the instructions</summary>
+1. Log in to OSC at <https://ondemand.osc.edu>
 
-1. Log in to OSC at <https://ondemand.osc.edu>.
-2. Click on `Interactive Apps` (top bar) > `RStudio Server` (all the way at the bottom)
-3. Fill out the form, selecting (also shown in the figure below):
-   - Cluster: `Pitzer`
-   - R version: `4.3.0`
-   - Project: `PAS2250`
-   - Number of hours: `4`
-   - Node type: `any`
-   - Number of cores: `2`
-4. Click the `Launch` button
+2. Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`** (all the way at the bottom)
 
-![](img_DE/rstudio_form.png){fig-align="center" width="50%"}
+3. Fill out the form as follows:
+   - Cluster: **`Pitzer`**
+   - R version: **`4.3.0`**
+   - Project: **`PAS2250`**
+   - Number of hours: **`4`**
+   - Node type: **`any`**
+   - Number of cores: **`2`**
 
-- Now, you should see a box like this:
+<details><summary>_Click to see a screenshot_</summary>
 
-<p align="center"><img src=img_DE/osc_queued.png width="700"></p>
+![](img_de/rstudio_form.png){fig-align="center" width="50%"}
 
-- Your job should start running pretty soon, and when it's ready the box should look like this: 
+</details>
+   
+4. Click the big blue **`Launch`** button at the bottom
 
-<p align="center"><img src=img_DE/osc_running.png width="700"></p>
+5. Now, you should be sent to a new page with a box at the top for your RStudio
+   Server "job", which should initially be "Queued" (waiting to start).
 
-- Click `Connect to RStudio Server` at the bottom of the box,
-  and an RStudio Server instance will open. You're ready to go!
+<details><summary>_Click to see a screenshot_</summary>
+
+![](img_de/rstudio_queued.png){fig-align="center" width="70%"}
 
 </details>
 
-### RStudio settings & Project
+6. Your job should start running very soon,
+   with the top bar of the box turning green and saying "Running".
 
-#### RStudio settings
+<details><summary>_Click to see a screenshot_</summary>
 
-- Base R pipe
-- Don't save the environment
+![](img_de/rstudio_running.png){fig-align="center" width="70%"}
 
-#### RStudio Project
+</details>
 
-Using an "RStudio Project" will most of all help with making sure your working
+7. Click **`Connect to RStudio Server`** at the bottom of the box,
+   and an RStudio Server instance will open in a new browser tab.
+   You're ready to go!
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Change two settings
+
+_First_, we'll prevent R from saving your **"Workspace"**:
+
+1. Click **`Tools`** (top bar, below your browser's address bar) > **`Global Options`**
+2. In the pop-up window (stay on the `General` tab), change the settings under the
+   "Workspace" heading to:
+   
+![](img_de/workspace.png){fig-align="center" width="45%"}
+
+::: {.callout-tip collapse="true"}
+#### Why are we doing this? _(Click to expand)_
+In short, the default behavior of saving and restoring your "Workspace", which are all the
+items (objects) that you create during an R session, is bad practice.
+Instead, you should recreate your environment from a script and/or saved files
+with individual pieces of data, as we'll do today.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+_Second_, we'll "update" our **pipe symbol** from `%>%` (the magrittr pipe that requires
+a package to work) to `|>` (the new base R pipe that does not require a package):
+
+1. Again click **`Tools`** > **`Global Options`** (you may still be there)
+2. Now go to **`Code`** tab in the side panel on the left,
+   and check the box for `Use native pipe operator, |> (requires R 4.1+)`
+3. Click **`OK`** at the bottom of the pop-up window
+
+![](img_de/rstudio_pipe.png){fig-align="center" width="70%"}
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Create a new RStudio Project
+
+Using an "RStudio Project" will most of all help to make sure your working
 directory in R is correct.
 
-Click `File` > `New Project` > `Existing Directory` (in the popup) > `Browse...`
-to browse to your personal dir in `/fs/scratch/PAS2250/ENT6703` > `Create Project`.
+To create a new RStudio Project inside your personal dir in `/fs/scratch/PAS2250/ENT6703`:
+
+1. Click **`File`** (top bar, below your browser's address bar) > **`New Project`**
+2. In the popup window, click **`Existing Directory`**.
+
+<details><summary>_Click to see a screenshot_</summary>
+
+![](img_de/rstudio_proj_existingdir.png){fig-align="center" width="40%"}
+
+</details>
+
+3. Click **`Browse...`** to select your personal dir.
+
+<details><summary>_Click to see a screenshot_</summary>
+
+![](img_de/rstudio_proj_browse.png){fig-align="center" width="40%"}
+
+</details>
+
+4. In the next window, you should be in your Home directory (abbreviated as **`~`**),
+   from which you can't click your way to `/fs/scratch`!
+   Instead, you'll first have to click on the (very small!) **`...`** highlighted in the screenshot below:
+
+![](img_de/rstudio_proj_dotdotdot_ed.png){fig-align="center" width="50%"}
+
+5. Type at least part of the path to your personal dir (which is in `/fs/scratch/PAS2250/ENT6703`),
+   e.g. as shown below, and click **`OK`**:
+
+![](img_de/rstudio_proj_path.png){fig-align="center" width="35%"}
+
+6. Now you should be able to browse/click the rest of the way to your personal directory.
+5. Click **`Choose`** to pick your selected directory.
+6. Click **`Create Project`**.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Create an R script
+
+We're going to write all our code in an R script instead of typing it directly in the console.
+This helps us to **keep track of what we've been doing**, especially in the longer run,
+and to be able to **re-run our code** after modifying input data or one of the lines of code.
+
+Create and open a new R script by clicking
+**`File`** (top menu bar) > **`New File`** > **`R Script`**.
+
+Save this new script right away by clicking **`File`** > **`Save As`**,
+then click **`New Folder`** and create a folder named "scripts".
+Inside that folder, save the script with a name like **`lab4_DE.R`**
+(the extension for R scripts is `.R`).
+
+::: callout-important
+#### Make sure to type all the R code below inside your script, and then send it to the console from there.
+You can send code to the console by pressing <kbd>**Ctrl**</kbd> **+** <kbd>**Enter**</kbd>
+on Windows, or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac.
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
 
 ### Load the necessary packages
 
-```{r, warning=FALSE, message=FALSE}
+In R, we need to use "packages" (basically, add-ons) to perform specialized tasks
+like differential expression analysis^[And even for more basic tasks, it is common to use packages that are preferred over the functionality that is by default available in R, like in the case of plotting.].
+This is quite straightforward in principle, but at OSC, there can be some hickups and
+at the very least, it will take much longer to install packages than on your own computer^[Yes, this may be surprising!].
+
+I have therefore created a "library" (a directory with a collection of packages) for you ---
+you can load the packages from that library, without needing to install them yourself.
+Type the code below in your R script and send it to the R console:
+
+```{r, eval=FALSE}
+custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
+
+library(tidyverse, lib.loc = custom_library)       # Misc. data manipulation and plotting
+library(DESeq2, lib.loc = custom_library)          # Differential expression analysis
+library(EnhancedVolcano, lib.loc = custom_library) # Volcano plot
+library(pheatmap, lib.loc = custom_library)        # Heatmap plot
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 if(! "pacman" %in% installed.packages()) install.packages("pacman")
 packages <- c("DESeq2",          # Differential expression analysis
               "tidyverse",       # Misc. data manipulation and plotting
-              "ggrepel",         # PCA with sample IDs
               "pheatmap")        # Heatmap plot
 pacman::p_load(char = packages)
-
-theme_set(theme_bw())  # Set ggplot theme
 ```
 
-### Define our inputs and outputs
+<hr style="height:1pt; visibility:hidden;" />
+
+### Define our input files
 
 For the differential expression analysis, we have the following input files:
 
-- **Gene counts table** -- produced by running the [nf-core rnaseq workflow](https://nf-co.re/rnaseq) on the input data we saw last week
-- **Metadata table** -- The metadata we saw last week, to enable between-treatment comparisons
+- **Metadata table** --- The metadata we saw last week, to enable between-treatment comparisons
+- **Gene counts table** --- Produced by running the [nf-core rnaseq workflow](https://nf-co.re/rnaseq) on the input data we saw last week
 
-```{r}
-count_table_file <- "results/counts/salmon.merged.gene_counts_length_scaled.tsv"
-metadata_file <- "data/meta/metadata.txt"
+```{r, eval=FALSE}
+count_table_file <- "../share/results/counts/salmon.merged.gene_counts_length_scaled.tsv"
+metadata_file <- "../share/data/meta/metadata.tsv"
 ```
 
-The output directory -- and we create it if it doesn't already exist:
-
-```{r}
-outdir <- "results/DE"
-dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
-```
-
-### Load input data
-
-Load the count table:
-
-```{r}
-count_mat <- read_tsv(mat_file, show_col_types = FALSE)
-```
-
-Load the metadata information:
-
-```{r}
-meta <- read_tsv(meta_file, show_col_types = FALSE)
+```{r, echo=FALSE}
+count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
+metadata_file <- here::here("data/meta/metadata.tsv")
 ```
 
 <br>
 
-## Create a DESeq2 object from the input data
+## Create a DESeq2 object
 
-Prepare the count table:
+The DESeq2 package has its own "object type" (format) and before we can do anything
+else, we need to create a DESeq2 object from three components:
+
+1. **Metadata**  
+   We should have all of our independent variables in columns in the metadata,
+   which will allow DESeq2 to compare groups of samples
+2. **Count table**  
+   DESeq2 will of course need gene counts for its analysis.
+   This table has one row per gene, and one column per sample.
+   The sample IDs in the column names should match with those in the metadata.
+3. **A statistical design**  
+   Instead of telling DESeq2 about the statistical design (i.e., which groups to compare)
+   on the fly when we run the analysis, we need to include this information in the object itself.
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Metadata
+
+First, we'll load the metadata file and take a look at the resulting dataframe:
 
 ```{r}
-count_mat <- count_mat |>
+# Read in the count table
+meta_raw <- read_tsv(metadata_file, show_col_types = FALSE)
+```
+
+```{r, eval=FALSE}
+# Take a look at the first 6 rows
+head(meta_raw)
+```
+
+<details><summary>_Click to see the result_</summary>
+
+```{r, echo=FALSE}
+# Take a look at the first 6 rows
+head(meta_raw)
+```
+
+</details>
+
+We'll make sure the data frame is sorted by sample ID,
+and that the sample IDs are contained in "row names":
+
+```{r}
+meta <- meta_raw |>
+  # Sort by the 'sample_id' column
+  arrange(sample_id) |>
+  # Turn the 'sample_id' column into row names:
+  column_to_rownames("sample_id") |>
+  # Turn the 'time' and 'treatment' columns into "factors":
+  mutate(time = factor(time, levels = c("24hpi", "10dpi")),
+         treatment = factor(treatment, levels = c("control", "cathemerium", "relictum")))
+```
+
+```{r, eval=FALSE}
+head(meta)
+```
+
+<details><summary>_Click to see the result_</summary>
+
+```{r, echo=FALSE}
+head(meta)
+```
+
+</details>
+
+We changed the two columns with the independent variables (`time` and `treatment`)
+into factors, because DESEq2 wants this --- and this also allowed us to use
+a custom, non-alphanumeric ordering where `24hpi` comes before `10dpi`:
+
+```{r}
+head(meta$time)
+```
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Count table
+
+Second, we will load the count table into R:
+
+```{r}
+# Read in the count table
+count_df <- read_tsv(count_table_file, show_col_types = FALSE)
+```
+
+```{r, eval = FALSE}
+# Take a look at the first 6 rows
+head(count_df)
+```
+
+<details><summary>_Click to see the result_</summary>
+
+```{r, echo=FALSE}
+# Take a look at the first 6 rows
+head(count_df)
+```
+
+</details>
+
+We next have to make several modifications, because DESeq2 expects an all-numeric matrix
+with whole numbers (integers) and gene IDs are "row names" rather than as a separate
+column:
+
+```{r}
+# Prepare the count table so it can be loaded into DESeq2
+count_mat <- count_df |>
+  # Turn the 'gene_id' column into row names:
   column_to_rownames("gene_id") |>
+  # Remove a remaining non-numeric column, with gene names:
   select(-gene_name) |>
+  # We should round everything to whole numbers:
   round() |>
+  # We should convert it to a formal matrix format:
   as.matrix()
 ```
 
-Prepare the metadata:
-
-```{r}
-meta <- meta |>
-  arrange(sample_id) |>
-  column_to_rownames("sample_id")
+```{r, eval=FALSE}
+# Take a look at the first 6 rows
+head(count_mat)
 ```
+
+<details><summary>_Click to see the result_</summary>
+
+```{r, echo=FALSE}
+# Take a look at the first 6 rows
+head(count_mat)
+```
+
+</details>
+
+#### Check that the sample IDs match
 
 When creating the DESeq2 object, DESeq2 assumes that sample IDs in both tables match and 
 are provided in the same order. Let's make sure this is indeed the case:
@@ -141,237 +368,384 @@ are provided in the same order. Let's make sure this is indeed the case:
 all(row.names(meta) == colnames(count_mat))
 ```
 
+<hr style="height:1pt; visibility:hidden;" />
+
+### Create the DESeq2 object
 
 We will create the DESeq2 object using the function `DESeqDataSetFromMatrix()`,
-which we will provide with three pieces of information:
+which we will provide with three arguments corresponding to the components
+discussed above:
 
-- The count data with argument `countData`.
-- The metadata with argument `colData`.
-- The model design for the DE analysis -- argument `design`.  
-  For now, we will specify `~1`, which means "no design" --
+- The metadata with argument **`colData`**.
+- The count data with argument **`countData`**.
+- The statistical design for the DE analysis with argument **`design`**.
+  For now, we will specify **`~1`**, which effectively means "no design" ---
   we will change this before the actual DE analysis.
 
 ```{r}
-dds <- DESeqDataSetFromMatrix(
-  countData = count_mat,
-  colData = meta,
-  design = ~ 1
-  )
+dds <- DESeqDataSetFromMatrix(colData = meta, countData = count_mat, design = ~ 1)
 ```
+
+<hr style="height:1pt; visibility:hidden;" />
+
+Before we will run the differential expression analysis, though, we will do
+a bit of exploratory data analysis.
 
 <br>
 
-## Explore the count data
+## Exploratory Data Analysis
+
+### Our count matrix
 
 What are number of rows and columns of the count matrix?
 
 ```{r}
-dim(counts)
+dim(count_mat)
 ```
 
 How many genes have non-zero counts?
 
 ```{r}
-dim(counts[rowSums(counts) > 0, ])
+dim(count_mat[rowSums(count_mat) > 0, ])
 ```
 
-How many genes have total counts of at least 10?
+<details><summary>**Your Turn**: How many genes have total counts of at least 10? _(Click to see the solution)_</summary>
 
 ```{r}
-dim(counts[rowSums(counts) >= 10, ])
+dim(count_mat[rowSums(count_mat) >= 10, ])
 ```
 
-### Histogram of gene counts
+</details>
 
-Let's plot a histogram of gene counts:
+How are counts distributed across samples?
+That is, we would like a sum of counts for each column:
 
 ```{r}
-theme_set(theme_bw())
+colSums(count_mat)
+```
 
-summed_gene_counts <- data.frame(gene_count = rowSums(counts)) %>%
+<details><summary>**Your Turn**: That's not that easy to read / interpret. Can you instead get these numbers in millions, rounded to whole numbers, and sorted? _(Click to see the solution)_</summary>
+
+```{r}
+sort(round(colSums(count_mat) / 1000000))
+```
+
+</details>
+
+We can also simply print the `dds` object, which will give a summary of its contents:
+
+```{r}
+dds
+```
+
+<details><summary>**Bonus section**: Histograms of gene counts _(Click to expand)_</summary>
+
+To plot a histogram of mean gene counts across samples,
+we'll first create a data frame with these mean gene counts:
+
+```{r}
+mean_counts <- rowSums(count_mat) / ncol(count_mat)
+mean_counts_df <- data.frame(mean_counts) |> 
   rownames_to_column("gene_id")
+```
 
-ggplot(data = summed_gene_counts) +
-  geom_histogram(aes(x = gene_count), binwidth = 10000) +
-  scale_y_log10(expand = c(0, 0)) +
-  scale_x_continuous(expand = c(0,0))
+Now we can make the histogram:
+
+```{r}
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  theme_minimal()
 ```
 
 Zoom in a bit:
 
 ```{r}
-ggplot(data = summed_gene_counts) +
-  geom_histogram(aes(x = gene_count), binwidth = 1000) +
-  scale_y_log10(expand = c(0, 0)) +
-  scale_x_continuous(limits = c(0, 200000), expand = c(0,0)) +
-  theme(plot.margin = margin(0.5, 0.7, 0.5, 0.5, "cm"))
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  scale_x_continuous(limits = c(0, 100000)) +
+  theme_minimal()
 ```
 
-How are counts distributed across samples?
-That is, we would like a sum of counts for each column.
-To get this, we use the `apply()` function, which can apply a function
-(in our case `sum()`) to all columns (hence `MARGIN = 2` -- for rows, use `1`)
-of our `counts` dataframe:
+Which genes have the highest counts?
 
 ```{r}
-apply(X = counts, MARGIN = 2, FUN = sum)
+sort(rowSums(count_mat) / ncol(count_mat), decreasing = TRUE)[1:10]
 ```
+
+</details>
 
 <br>
 
-## Principal Component Analysis (PCA) 
+### Principal Component Analysis (PCA) 
 
-### Run the PCA and prepare for plotting
+We will not run a Principal Component Analysis (PCA) to look for overall patterns
+of (dis)similarity among our samples.
+This will help us answer questions like:
 
-First, we normalize the count data to have even sampling across samples
-(with respect to library size) and approximately even variance:
+- Do the samples cluster by treatment (infection status) and/or timepoint?
+- Which of these two variables has a greater effect on overall levels of gene expression?
+- Is there an overall interaction between these two variables?
+  
+First, we will have to normalize the count data to have even sampling across samples
+(with respect to "library size", total number of reads per sample)
+and approximately even variance:
 
 ```{r}
-vsd <- varianceStabilizingTransformation(dds_raw, blind = TRUE)
+dds_vst <- varianceStabilizingTransformation(dds)
 ```
 
-Next, we run the PCA and retrieve the data to plot with *ggplot2*:
+::: callout-tip
+#### The authors of the study did this as well:
+> _We carried out a Variance Stabilizing Transformation (VST) of the counts to represent the samples on a PCA plot._ 
+:::
+
+Next, we run and plot the PCA with a single function call, `plotPCA` from DESeq2
+(the `ntop` argument refers to the top number of most variable genes to use for the PCA):
+
+```{r, eval=FALSE}
+plotPCA(dds_vst, ntop = 500, intgroup = c("time", "treatment"))
+```
+
+<details><summary>_Click to see the plot_</summary>
+
+```{r, eval=TRUE, echo=FALSE}
+plotPCA(dds_vst, ntop = 500, intgroup = c("time", "treatment"))
+```
+
+</details>
+
+How does this compare to the PCA plot in the paper (their Fig. 1)?
+
+<details><summary>**Your Turn**: Try to answer the three questions asked at the beginning of this PCA section. _(Click to see the solution)_</summary>
+
+</details>
+
+<details><summary>**Bonus Exercise**: Compare the plot with different values for `ntop`</summary>
+</details>
+
+<details><summary>**Bonus Section**: Customizing the PCA plot _(Click to expand)_</summary>
+
+We'll do some customization to make the plot look better.
+The biggest issue (I think) with the above plot is that each combination of 
+time point and treatment has a distinct color ---
+it would be better to use point colors only to distinguish one of the variables,
+and point shape to distinguish the others (this is also how it was done in the
+paper's Fig. 1).
+
+First, if we use 
 
 ```{r}
-pcaData <- plotPCA(vsd,
-                   ntop = 500,
-                   intgroup = c("AMF", "Treatment"),
-                   returnData = TRUE)
+pca_df <- plotPCA(dds_vst, ntop = 500, intgroup = c("time", "treatment"), returnData = TRUE)
 ```
 
-We extract the percentage of variance explained by different principal components,
+We'll extract the percentage of variance explained by different principal components,
 so we can later add this information to the plot:
 
 ```{r}
-percentVar <- round(100 * attr(pcaData, "percentVar"))
-percentVar
+pct_var <- round(100 * attr(pca_df, "percentVar"), 1)
+pct_var
 ```
-
-### Plot the PCA results
 
 ```{r}
-ggplot(pcaData,
-       aes(x = PC1, y = PC2, color = AMF, shape = Treatment)) +
-  geom_point(size = 6) +
-  xlab(paste0("PC1: ", percentVar[1], "% of variance")) +
-  ylab(paste0("PC2: ", percentVar[2], "% of variance"))
+ggplot(pca_df,
+       aes(x = PC1, y = PC2, color = treatment, shape = time)) +
+  geom_point(size = 5) +
+  labs(x = paste0("PC1 (", pct_var[1], "%)"),
+       y = paste0("PC2 (", pct_var[2], "%)")) +
+  scale_color_brewer(palette = "Dark2", name = "Infection status") +
+  scale_shape(name = "Time points") +
+  coord_fixed() +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank())
 ```
 
-### Plot again -- with sample names
-
-```{r}
-ggplot(pcaData,
-       aes(PC1, PC2, color = AMF, shape = Treatment)) +
-  geom_point(size = 3) +
-  geom_label_repel(aes(label = name)) +
-  xlab(paste0("PC1: ", percentVar[1], "% of variance")) +
-  ylab(paste0("PC2: ", percentVar[2], "% of variance"))
-```
+</details>
 
 <br>
 
-## DE analysis -- full dataset
+## Differential Expression (DE) analysis
 
-The design has two factors: `AMF` and `Treatment`.
-Rather than fit a multivariate model, we can start by merging the two into a
-single factor called `group`, and fit a univariate model with this factor.
+### Figuring out how to do the analysis
+
+First, let's see how the DE analysis was done in the paper:
+
+> _Then, we used the DESeq2 package (Love et al., 2014) to perform the differential gene expression analysis comparing: (i) P. relictum-infected mosquitoes vs. controls, (ii) P. cathemerium-infected mosquitoes vs. controls, and (iii) P. relictum-infected mosquitoes vs. P. cathemerium-infected mosquitoes._
+
+This is not terribly detailed and could be interpreted in a couple of different ways.
+For example, they may have compared infection statuses by ignoring time points or
+by controlling for time points (and their are different ways to do the latter).
+
+Ignoring time would mean analyzing the full dataset (all time points) while only
+using the infection status as an independent variable, i.e. the design `~treatment`.
+
+<details><summary>**Your Turn**: Given the PCA results, do you think that ignoring time is a good idea? _(Click to see the solution)_</summary>
+
+Nope!
+
+</details>
+
+Controlling for time can additionally be done in two ways:
+
+- A two-factor analysis: `~ time + treatment`
+- Pairwise comparisons between each combination of time and treatment
+  (we'll see below _how_ we can do that)
+
+If we take a look at Table 1 with the DE results, it will become clearer how
+they did their analysis:
+
+![](img_de/paper_table1.png){fig-align="center" width="80%"}
+
+It looks like they performed pairwise comparisons between each combination of time and treatment.
+But this can in turn be done in two ways with DESeq2:
+
+- After subsetting the dataset to each combination of time and treatment.
+- After creating a single independent variable that is a combination of time and treatment.
+
+The latter method is the more common one, and is what we will do below^[I can't tell from the paper which method they used].
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Setting the statistical design
+
+As discussed above, we will now create a new variable that is a combination
+of `treatment` and `time`, and we'll call it `group`:
 
 ```{r}
-dds_raw$group <- factor(paste(dds_raw$AMF, dds_raw$Treatment, sep = "_"))
-table(dds_raw$group)
-```
+# Create a combined variable called 'group':
+dds$group <- factor(paste(dds$treatment, dds$time, sep = "_"))
 
-We will set the "reference" level of the factor to be the double negative control
-(empty substrate, no Agrobacteria):
-
-```{r}
-dds_raw$group <- relevel(dds_raw$group, ref = "control_mock")
-dds_raw$group
+# Which unique values does 'group' have, and how many samples are in each?
+table(dds$group)
 ```
 
 Next, we set the analysis design:
 
 ```{r}
-design(dds_raw) <- formula(~ group)
+design(dds) <- ~ group
 ```
 
-And finally, we perform the differential expression analysis with the `DEseq()`
-function:
+Now we're ready to run the DE analysis!
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Running the DE analysis
+
+We perform the differential expression analysis with the `DEseq()` function:
 
 ```{r}
-dds <- DESeq(dds_raw)
+dds <- DESeq(dds)
 ```
 
-The `DESeq()` function above performs three steps consecutively:
-  
-- `estimateSizeFactors()` -- "Normalization" by library size and composition.
-  
-  Note that *DESeq2* doesn’t actually normalize the counts in the sense that
-  it produces a matrix with adjusted counts.
-  Instead it uses raw counts and includes the size factors in the modeling.
-  
-  To learn more about gene count normalization, see
-  [this video](https://www.youtube.com/watch?v=UFB993xufUU) and
-  [this page](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html).
-  
-- `estimateDispersions()` -- Estimate gene-wise dispersion (variance in counts).
-  
-- `nbinomWaldTest(ddsObj)` -- Fit the negative binomial GLM and calculate
-  Wald statistics, which is the test statistic underlying the p-value
-  for whether a gene is differentially expressed.
+::: callout-tip
+Note that we above, we assigned the output back to the `dds` object ---
+in this case, the DE results are being _added_ to the object!
+:::
 
-These functions could also be called separately,
-which would be useful if you want to be able to change more defaults.
+The `DESeq()` function is a wrapper that performs three steps (functions) consecutively:
+  
+- `estimateSizeFactors()` --- "Normalization" by library size and composition.
+- `estimateDispersions()` --- Estimate gene-wise dispersion (variance in counts).
+- `nbinomWaldTest(ddsObj)` --- Fit the negative binomial GLM and calculate
+  Wald statistics, which is the test statistic underlying the DE p-value.
+
+::: callout-note
+### More about gene count normalization
+
+Note that *DESeq2* doesn’t actually normalize the counts in the sense that
+it produces a matrix with adjusted counts.
+Instead it uses raw counts and includes the size factors in the modeling.
+To learn more about gene count normalization, see
+[this video](https://www.youtube.com/watch?v=UFB993xufUU) and
+[this page](https://hbctraining.github.io/DGE_workshop/lessons/02_DGE_count_normalization.html).
+
+:::
+
+<br>
+
+## Extracting the DE results
+
+A key thing to understand is that DESeq2 has automatically performed **pairwise**
+comparisons between **each of the (6) levels** of the `group` variable.
+
+As such, we can extract a separate table with gene-wise results for each of these (15) pairwise
+comparisons.
+Or put differently, for any individual gene, it tested whether this gene is differentially
+expressed separately for each of the pairwise comparisons.
+
+<hr style="height:1pt; visibility:hidden;" />
 
 ### The results table
 
-```{r}
-res <- results(dds)
-head(res)
-```
+We can extract the results for one pairwise comparison
+(which DESeq2 refers to as a **contrast**) at a time,
+by specifying it with the `contrast` argument as a vector of length 3:
 
-By default, the results table prints statistics
-**comparing the last level of the factor with the first level**:
-that is, log-fold change and p-values describe
-differences between these two levels specifically.
-However, we can easily extract equivalent statistics for any pairwise comparison
-among our factor levels, which we will see later.
-
-For now, we will explore what each column in this table means:
-
-- The **`baseMean`** column contains the mean expression level across all samples.
-
-- The **`log2FoldChange`** column contains the log2-fold change of gene counts
-  between the compared levels, that is, it represents the *effect size*.
-  
-  A log2-fold change of 1 indicates that the expression in the reference level
-  is two-fold *lower* than that of the other level,
-  a log2-fold change of 2 indicates a four-fold difference,
-  a log2-fold change of 3 indicates an eight-fold difference, and so on.
-  
-  Similarly, *negative log2-fold* values indicate a change in gene counts in the
-  other direction: the reference level is *higher* than the other level.
-  
-- The `lfcSE` column indicates the uncertainty in terms of the standard error
-  (SE) of the log2-fold change estimate.
-  
-- The **`stat`** column indicates the value for the Wald test's test statistic.
-
-- The **`pvalue`** column reported the *uncorrected* p-value from the Wald test.
-
-- Because we are testing significance for *many* genes,
-  we need to correct for multiple testing.
-  DESeq2 uses the Benjamini-Hochberg False Discovery Rate (FDR) correction,
-  and these values are reported in the column **`padj`** (i.e., adjusted p-value).
-
-A summary of this information about each column can be seen by running the
-`mcols()` function:
+1. The focal independent variable (here, `group`)
+2. The first (reference) level of the independent variable (in the example below, `relictum_24hpi`)
+3. The second level of the independent variable (in the example below, `control_24hpi`)
 
 ```{r}
-mcols(res)
+res_rc24 <- results(dds, contrast = c("group", "relictum_24hpi", "control_24hpi"))
+head(res_rc24)
 ```
 
-### `NA` values in the results table
+What do the columns in this table contain?
+
+- **`baseMean`**: Mean expression level across all samples.
+- **`log2FoldChange`**: The "log2-fold change" of gene counts between the compared levels.
+- **`lfcSE`**: The uncertainty in terms of the standard error (SE) of the log2-fold change estimate.
+- **`stat`**: The value for the Wald test's test statistic.
+- **`pvalue`**: The *uncorrected* p-value from the Wald test.
+- **`padj`**: The multiple-testing corrected p-value (i.e., adjusted p-value).
+
+::: callout-note
+#### Log2-fold changes
+Log2-fold changes are the standard way of representing the *effect size* of expression
+level differences between two groups of interest.
+
+A log2-fold change of 1 indicates that the expression in the reference level
+is two-fold *lower* than that of the other level,
+a log2-fold change of 2 indicates a four-fold difference,
+a log2-fold change of 3 indicates an eight-fold difference, and so on.
+  
+Similarly, *negative log2-fold* values indicate a change in gene counts in the
+other direction: the reference level is *higher* than the other level.
+:::
+
+::: callout-note
+#### Multiple testing correction
+Because we are testing significance for *many* genes,
+we need to correct for multiple testing.
+DESeq2 uses the Benjamini-Hochberg False Discovery Rate (FDR) correction.
+
+For more info, see: STATQUEST
+:::
+
+How many adjusted p-values were less than 0.05?
+
+```{r}
+sum(res_rc24$padj < 0.05, na.rm = TRUE)
+```
+
+So, we have `r sum(res_rc24$padj < 0.05, na.rm = TRUE)` Differentially Expressed
+Genes (**DEG**s) for this specific pairwise comparison.
+
+How does that compare to what they found in the paper?
+
+<details><summary>**Your Turn:** The paper's Table 1 also reports numbers of up- and downregulated genes separately. Can you find this out for our DEGs? _(Click to see the solution)_</summary>
+
+</details>
+
+<details><summary>**Your Turn:** The paper's Table 1 also reports the number of DEGs with an absolute log2-fold change greater than 1. Can you find this out for our DEGs? _(Click to see the solution)_</summary>
+
+</details>
+
+<details><summary>**Your Turn:** Extract the results for one or more other contrasts that are the paper's Table 1, and compare the results.</summary>
+</details>
+
+<details><summary>**Bonus section**: `NA` values in the results table _(Click to expand)_</summary>
 
 Some values in the results table can be set to `NA` for one of the following reasons:
 
@@ -397,226 +771,308 @@ Let's see how many genes have `NA` p-values:
 
 ```{r}
 # Number of genes with NA p-value:
-sum(is.na(res$pvalue))
+sum(is.na(res_rc24$pvalue))
 
 # As a proportion of the total number of genes in the test:
-sum(is.na(res$pvalue)) / nrow(res)
+sum(is.na(res_rc24$pvalue)) / nrow(res_rc24)
 ```
 
 And `NA` adjusted p-values:
 
 ```{r}
 # Number of genes with NA p-value:
-sum(is.na(res$padj))
+sum(is.na(res_rc24$padj))
 
 # As a proportion of the total number of genes in the test:
-sum(is.na(res$padj)) / nrow(res)
+sum(is.na(res_rc24$padj)) / nrow(res_rc24)
 ```
 
-----
+</details>
 
-## DE analysis -- contrast two custom groups
+<details><summary>**Bonus section**: Exporting the results _(Click to expand)_</summary>
 
-Using the `resultsNames` function,
-we can see which pairwise contrasts between different levels of the factor are
-available (though it is not displayed in a particularly readable fashion):
+You may be wondering how we can save the DE results tables:
 
-```{r}
-resultsNames(dds)
+```{r, eval=FALSE}
+# Create the output directory, if necessary:
+dir.create("results/DE", recursive = TRUE, showWarnings = FALSE)
+
+# Write the 
+write_tsv(as.data.frame(res_rc24), "results/DE/resultsres_rc24.tsv")
 ```
 
-Not all pairwise contrasts between the 5 levels in our `group` factor are available
-here: instead, `control_mock`, which we set as the reference level, is being compared
-with the other 3 levels.
-(However, we can make other pairwise comparisons, too.)
-
-Above, we looked at the results for the *last* of these comparisons
-(`group_Ri_myb_vs_control_mock`, i.e. "Ri_myb" vs. "control_mock"),
-simply because DESeq2 will show the last comparison by default when calling
-the `results()` function.
-
-To see the results table for one of the other 3 comparisons,
-we pass a vector to the `contrast` argument of the `results()` function with
-the factor (`group`) and the two levels to be contrasted.
-For example, to see the results for "Ri_mock" vs. "control_mock":
-
-```{r}
-# Here, we could specify *any* pairwise contrast,
-# not just the ones with "control_mock" that resultsNames() prints as seen above.
-my_contrast <- c("Ri_mock", "control_mock")
-
-res <- results(dds,
-               contrast = c("group", my_contrast))
-```
-
-How many adjusted p-values were less than 0.1?
-
-```{r}
-sum(res$padj < 0.1, na.rm = TRUE)
-```
+</details>
 
 <br>
 
-## Visually exploring the results
+## Visualizing the DE results
 
-We will create a few plots, by way of example,
-of the results for the "Ri_mock" versus "control_mock" comparison,
-which we extracted above.
+We will create a few plots for the results for the `relictum_24hpi` vs. `control_24hpi`
+comparison, which we extracted above.
 
 ### Volcano plot
 
-For a nice overview of the results, we can plot a so-called "volcano plot".
+For a nice overview of the results, we can plot a so-called "volcano plot"
+using the `EnhancedVolcano()` function from the package of the same name
+([see here for a "vignette" / tutorial](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html)):
+
+```{r, fig.height=6.5, eval=FALSE}
+EnhancedVolcano(
+  toptable = res_rc24,      # DESeq2 results to plot   
+  title = "relictum vs. control at 24 hpi",
+  x = "log2FoldChange",     # Plot the log2-fold change along the x-axis
+  y = "pvalue",             # Plot the p-value along the y-axis
+  lab = rownames(res_rc24), # Use the rownames for the gene labels (though see below)
+  labSize = 0               # Omit gene labels
+  )
+```
+
+<details><summary> _Click to see the plot_</summary>
+
+```{r, fig.height=6.5, echo=FALSE}
+EnhancedVolcano(
+  toptable = res_rc24,      # DESeq2 results to plot   
+  title = "relictum vs. control at 24 hpi",
+  x = "log2FoldChange",     # Plot the log2-fold change along the x-axis
+  y = "pvalue",             # Plot the p-value along the y-axis
+  lab = rownames(res_rc24), # Use the rownames for the gene labels (though see below)
+  labSize = 0               # Omit gene labels
+  )
+```
+
+</details>
+
+::: callout-note
+#### Plot customization ideas
+
+Above, we turned the gene labeling off by setting `labSize = 0` ---
+the default p-value cut-off for point labeling is `1e-5` (and the default log2-fold
+change cut-off is `1`): in this case, that would get quite busy with gene labels.
+We might want to try a plot with a stricter p-value cut-off that does show the gene labels.
+
+Some further ideas for potential customization:
+
+- We might want to get rid of the subtitle ("EnhancedVolcano") and the caption ("total=...").
+- Perhaps you want to exclude the outlier with the >20 log2-fold change.
+- Conversely, you might want to _label_ the abovementioned outlier.
+- You might want to try some other options you see in
+  [this vignette](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html)
+  or the help page which you can access by running `?EnhancedVolcano`.
+:::
+
+<details><summary>**Your Turn:** Consider some of the ideas above and customize the plot (_Click for an example_) </summary>
+
+```{r, fig.height=6.5}
+EnhancedVolcano(
+  toptable = res_rc24,      
+  title = "relictum vs. control at 24 hpi",
+  x = "log2FoldChange",     
+  y = "pvalue",             
+  lab = rownames(res_rc24), 
+  labSize = 3,               # Now we will show the gene labels
+  pCutoff = 10e-10,          # Modify the p-value cut-off
+  subtitle = NULL,           # Remove the subtitle
+  caption = NULL,            # Remove the caption
+  )
+```
+
+<details><summary>**Your Turn:** Figure out the identity of the abovementioned log2-fold change outlier either by labeling it in the plot, or by filtering the `res_rc24` table (_Click for the solution_) </summary>
+
+- By labeling it in the plot:
+
+```{r, fig.height=6.5}
+EnhancedVolcano(
+  toptable = res_rc24,      
+  title = "relictum vs. control at 24 hpi",
+  x = "log2FoldChange",     
+  y = "pvalue",             
+  lab = rownames(res_rc24), 
+  labSize = 3,               
+  pCutoff = 10e-4,           # Modify the p-value cut-off
+  FCcutoff = 20,
+  )
+```
+
+- By filtering the results table:
+```{r}
+as.data.frame(res_rc24) |> filter(log2FoldChange > 20)
+```
+
+</details>
+
+<hr style="height:1pt; visibility:hidden;" />
 
 ### Plot specific genes
 
-We can also create plot of expression levels for individual genes.
+We can also create plots of expression levels for individual genes.
 That is especially interesting for genes with highly significant differential
-expression.
+expression. So let's plot the most highly significant DEG.
 
-Let's plot the top-5 most significantly differentially expressed genes:
-
-```{r}
-# First, we select the 5 genes with the lowest adjusted p-value:
-top5 <- row.names(res[order(res$padj)[1:5], ])
-```
+First, let's create a vector with most highly signifant DEGs,
+which we'll use again for the heatmap below.
 
 ```{r}
-# Then we create a function to make a plot for a single gene:
-plotgene <- function(geneID, dds) {
-  
-  d <- plotCounts(dds,
-                  gene = geneID,
-                  intgroup = "group",
-                  returnData = TRUE)
+top25_DE <- row.names(res_rc24[order(res_rc24$padj)[1:20], ])
 
-  p <- ggplot(d, aes(x = group, y = count)) +
-          geom_point(position = position_jitter(w = 0.1, h = 0)) +
-          labs(title = geneID) +
-          theme_bw()
-  
-  print(p)
-}
+top25_DE
 ```
 
-Finally, we use `sapply()` to apply this function to each of our genes in the
-`top5` vector.
+DESeq2 has a plotting function but the plot is not very good.
+We will still use that function to quickly extract the counts for our gene of interest
+in the right format for plotting, using `returnData = TRUE` (which will also make it omit the plot):
 
 ```{r}
-none <- sapply(top5, plotgene, dds)
+focal_gene_counts <- plotCounts(
+  dds,
+  gene = top25_DE[1],
+  intgroup = c("time", "treatment"),
+  returnData = TRUE
+  )
 ```
 
-If we wanted to, we could easily create plots for 100s of genes, this way.
+```{r, eval=FALSE}
+head(focal_gene_counts)
+```
 
-### Heatmap
+<details><summary>_Click to see the result_</summary>
+
+```{r, echo=FALSE}
+# Take a look at the first 6 rows
+head(focal_gene_counts)
+```
+
+</details>
+
+Now we can make the plot:
+
+```{r, eval=FALSE}
+ggplot(focal_gene_counts, aes(x = treatment, y = count, fill = treatment)) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +
+  geom_point(size = 4, shape = 21, position = position_jitter(w = 0.1, h = 0)) +
+  facet_wrap(vars(time)) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+<details><summary> _Click to see the plot_</summary>
+
+```{r, echo=FALSE}
+ggplot(focal_gene_counts, aes(x = treatment, y = count, fill = treatment)) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +
+  geom_point(size = 4, shape = 21, position = position_jitter(w = 0.1, h = 0)) +
+  facet_wrap(vars(time)) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+</details>
+
+<details><summary>**Your Turn:** Plot the gene with the very high log-fold change value that we saw when making the volcano plot. _(Click for the solution)_</summary>
+
+```{r}
+focal_gene_counts <- plotCounts(
+  dds,
+  gene = "LOC120431476",
+  intgroup = c("time", "treatment"),
+  returnData = TRUE
+  )
+
+ggplot(focal_gene_counts, aes(x = treatment, y = count, fill = treatment)) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +
+  geom_point(size = 4, shape = 21, position = position_jitter(w = 0.1, h = 0)) +
+  facet_wrap(vars(time)) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+</details>
+
+<details><summary>**Bonus Exercise:** Plot one or a few more of the top-DE genes. Do they have similar expression patterns across treatment and timepoints as the first one?</summary>
+
+</details>
+
+<hr style="height:1pt; visibility:hidden;" />
+
+### Heatmaps
 
 We can create heatmaps with the `pheatmap` function.
 Let's start by creating a function that will plot a heatmap given a vector
 of gene IDs and a DESeq2 object `dds`:
 
 ```{r}
-plot_heatmap <- function(geneIDs, dds) {
-  
-  ntd <- assay(normTransform(dds))
-  
-  ntd_sel <- ntd[match(geneIDs, rownames(ntd)), ]
-  df_meta <- as.data.frame(colData(dds)[, c("AMF", "Treatment")])
-  
-  pheatmap(ntd_sel,
-         cluster_rows = FALSE,
-         cluster_cols = FALSE,
-         show_rownames = FALSE,
-         annotation_col = df_meta)
-}
-```
-
-Now, we can easily create a heatmap for the top-20 most highly differentially
-expressed genes:
-
-```{r}
-top20_DE <- row.names(res[order(res$padj)[1:20], ])
-plot_heatmap(top20_DE, dds)
-```
-
-Or for the 20 most highly expressed genes:
-
-```{r}
-top20_hi_idx <- order(rowMeans(counts(dds, normalized = TRUE)),
-                  decreasing = TRUE)[1:20]
-top20_hi <- row.names(dds)[top20_hi_idx]
-plot_heatmap(top20_hi, dds)
-```
-
-### Export the results
-
-Let's save the results dataframe to file.
-
-Note that it will only contain the results for one comparison.
-Also, if we write the results dataframe to file,
-we won't be able to tell from the file what the comparison is, so let's store
-that in two columns:
-
-```{r}
-my_contrast
-
-my_contrast_pasted <- paste0(my_contrast, collapse = "_vs_")
-my_contrast_pasted
+norm_mat <- assay(dds_vst)
 ```
 
 ```{r}
-res$level1 <- my_contrast[1]
-res$level2 <- my_contrast[2]
-kable(head(res))
+norm_mat_sel <- norm_mat[match(top25_DE, rownames(norm_mat)), ]
+meta_sort <- meta |>
+  arrange(treatment, time) |>
+  select(treatment, time)
 ```
-
-Now we can write `res` to file:
 
 ```{r, eval=FALSE}
-res_file <- file.path(outdir, paste0(my_contrast_pasted, '_all-res.txt'))
-
-write.table(res, res_file,
-            sep = '\t', row.names = TRUE, quote = FALSE)
+pheatmap(norm_mat_sel,
+         cluster_rows = TRUE,
+         cluster_cols = FALSE,
+         show_rownames = FALSE,
+         annotation_col = meta_sort,
+         scale = "row")
 ```
+
+<details><summary> _Click to see the plot_</summary>
+
+```{r, echo=FALSE}
+pheatmap(norm_mat_sel,
+         cluster_rows = TRUE,
+         cluster_cols = FALSE,
+         show_rownames = FALSE,
+         annotation_col = meta_sort,
+         scale = "row")
+```
+
+</details>
+
+<details><summary>**Your Turn:** Make a heatmap with the top-25 most-highly expressed genes _(Click for a hint: how to get that top-25)_</summary>
+
+```{r}
+top25_hi <- names(sort(rowMeans(norm_mat), decreasing = TRUE)[1:20])
+```
+
+</details>
+
+<details><summary> _Click for the solution_</summary>
+
+```{r}
+norm_mat_sel <- norm_mat[match(top25_hi, rownames(norm_mat)), ]
+meta_sort <- meta |>
+  arrange(treatment, time) |>
+  select(treatment, time)
+
+pheatmap(norm_mat_sel,
+         cluster_rows = TRUE,
+         cluster_cols = FALSE,
+         show_rownames = FALSE,
+         annotation_col = meta_sort,
+         scale = "row")
+```
+
+</details>
+
+<hr style="height:1pt; visibility:hidden;" />
 
 <br>
 
-## DE analysis -- with two factors
+## In Closing
 
-### Controlling for one factor
+### Next steps
 
-Say we wanted to analyze the effect of "mock" versus "myb"
-("Treatment" column) while controlling for the effects of "control" versus "Ri"
-("AMF" column).
+Some potential next steps for this analysis are:
 
-Let's start by turning "Treatment" and "AMF" into factors,
-and saving a new DESeq2 object:
+- Run the DE analysis for all pairwise comparisons
+- Compare DEGs across pairwise
+  (this would allow us to make the upset plot in Figure 2 of the paper)
+- Perm
+- Enrichment analysis
 
-```{r}
-# Convert Treatment and AMF into factors: 
-dds_raw$Treatment <- relevel(factor(dds_raw$Treatment), ref = "mock")
-dds_raw$AMF <- relevel(factor(dds_raw$AMF), ref = "control")
 
-# Save a new object:
-dds_2f_raw <- dds_raw
-```
-
-To include both factors, we use a `+` in the formula.
-Note that the order matters:
-using `AMF + Treatment`, we test for the effect of "Treatment" (the last factor),
-while controlling for the effect of AMF (the first factor).
-
-```{r}
-design(dds_2f_raw) <- formula(~ AMF + Treatment)
-```
-
-Run DESeq with the new design:
-
-```{r}
-dds_2f <- DESeq(dds_2f_raw)
-res <- results(dds_2f)
-```
-
-How many adjusted p-values were less than 0.1?
-
-```{r}
-sum(res$padj < 0.1, na.rm = TRUE)
-```
+<br>

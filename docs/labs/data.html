@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -106,9 +113,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ENTMLGY 6703 - Jelmer’s lectures</span>
     </a>
@@ -120,31 +127,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target=""><i class="bi bi-house" role="img">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-house" role="img">
 </i> 
- <span class="menu-text"> </span></a>
+<span class="menu-text"> </span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-3-hts" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-3-hts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Week 3: HTS</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-3-hts">    
         <li>
-    <a class="dropdown-item" href="../lectures/sequencing.html" rel="" target="">
+    <a class="dropdown-item" href="../lectures/sequencing.html">
  <span class="dropdown-text">Lecture: High-throughput Sequencing &amp; Genomes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../labs/infrastructure.html" rel="" target="">
+    <a class="dropdown-item" href="../labs/infrastructure.html">
  <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../labs/data.html" rel="" target="">
+    <a class="dropdown-item" href="../labs/data.html">
  <span class="dropdown-text">Lab part 2: Working with genome and HTS Data</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-4-rna-seq" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-4-rna-seq" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Week 4: RNA-seq</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
@@ -154,12 +161,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-other-pages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Other Pages</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-other-pages">    
+        <li>
+    <a class="dropdown-item" href="../r_homework.html">
+ <span class="dropdown-text">R Homework</span></a>
+  </li>  
+        <li class="dropdown-header">Overview of common Unix shell commands</li>
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
     <div class="dropdown">
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -176,7 +196,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </ul>
     </div>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -250,7 +269,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p><br></p>
 <section id="introduction" class="level2" data-number="1">
@@ -260,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will work with RNA-seq data from the paper “<em>Two avian Plasmodium species trigger different transcriptional responses on their vector Culex pipiens</em>”, published late last year in Molecular Ecology (<a href="https://doi.org/10.1111/mec.17240">link</a>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/paper.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="img_hts/paper.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 <p>This paper uses RNA-seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans — specifically, it compares mosquitos according to:</p>
@@ -341,7 +362,8 @@ In the command above:
 <li>Now, use the <code>tree</code> command (<code>-C</code> to show colors) to recursively list files your newly copied files in a way that gives a nice overview:</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>.
+<pre class="bash-out"><code># (Unfortunately colors aren't shown in the output on the website)
+.
 └── data
     ├── fastq
     │   ├── ERR10802863_R1.fastq.gz
@@ -449,19 +471,19 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>Generally, the first place to look reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page — by means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_search.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="img_hts/refgenome_search.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
 <p>For this species, we get the following “card” at the top of the results:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_result1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><img src="img_hts/refgenome_result1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 <p>If you next click on “Genomes” in the result page above, you should get the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_result2.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<p><img src="img_hts/refgenome_result2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
 </figure>
 </div>
 <p>So, NCBI has 3 genomes assemblies for <em>Episyrphus balteatus</em>. The top one has a green check mark next to it (which means that this genome has been designated the primary reference genome for the focal organism), and it is also the only genome with an entry in the <code>Annotation</code> column and with a “Chromosome” (vs.&nbsp;“Scaffold”) assembly <code>Level</code>. Therefore, that top assembly, <code>idEpiBalt1.1</code>, would be the one to go with.</p>
@@ -474,7 +496,7 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>You should find that there are 5 <em>Culex</em> assemblies, 2 of which are <em>Culex pipiens</em>. The first one, <code>TS_CPP_V2</code>, has the reference checkmark next to it and has an entry in the Annotation column, which the second one (<code>TS_CPM_V1</code>) doesn’t:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_culex_all.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<p><img src="img_hts/refgenome_culex_all.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
 </figure>
 </div>
 <p><em>(These two are also from different subspecies, but as far as I could see,</em> <em>the authors of our study don’t specify the focal subspecies –</em> <em>though you could probably figure that out based on geographic range.)</em></p>
@@ -487,12 +509,12 @@ Side note: How did I retrieve this paper’s data? <em>(Click to expand)</em>
 <p>On the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/">genome’s page at NCBI</a>, some of the information includes the following stats on the assembly and the annotation:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_stats.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<p><img src="img_hts/refgenome_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refannot_stats.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="img_hts/refannot_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p>So:</p>
@@ -517,7 +539,7 @@ Side note: Downloading the reference genome files <em>(Click to expand)</em>
 <p>If you wanted to download the reference genome files from the NCBI website, you could either select an assembly in the overview table and click the <code>Download</code> button, or click the <code>Download</code> button at the top of the page for a specific assembly. That should get you the following pop-up window:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img_hts/refgenome_download.png" class="img-fluid figure-img" style="width:55.0%"></p>
+<p><img src="img_hts/refgenome_download.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%"></p>
 </figure>
 </div>
 <p>You’ll want to select at least the “<em>Genome sequences (FASTA)</em>” and one or both of the “<em>Annotation features</em>” files (GTF is often preferred with RNA-seq).</p>
@@ -613,7 +635,7 @@ aaaatattgaTAGAATGAAAGATGCAAGTCccaaaaattttaagtaaatgaATAGTAATCATAAAGATAActgatgatga
 <p>After running the command above, the file should have “opened” inside the <code>less</code> pager.</p>
 <p>You can move around in the file in several ways: by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).</p>
 <p>If you find yourself scrolling down and down to try and reach the <strong>end of the file</strong>, you can instead press <kbd>G</kbd> to go to the very end right away (and <kbd>g</kbd> to go back to the top).</p>
-<p>Notice that you are “inside” this pager and won’t have your shell prompt back until you <strong>press <kbd>q</kbd> to quit <code>less</code>.</strong></p>
+<p>Notice that you are “inside” this pager and won’t have your shell prompt back until you <strong>press</strong> <kbd>q</kbd> to quit <code>less</code>.</p>
 </details>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -757,8 +779,8 @@ NC_068937.1 Gnomon  stop_codon  110026  110028  .   +   0   gene_id "LOC12042772
 </ol>
 <figure class="figure">
 <p align="center">
-<img src="../lectures/img_sequencing/fastq_header.png" width="85%" class="figure-img">
-</p><figcaption class="figure-caption">
+</p><p><img src="../lectures/img_sequencing/fastq_header.png" width="85%" class="figure-img"></p>
+<figcaption>
 One entry (read) in a FASTQ file covers 4 lines. <br>The header line is annotated, with some of the more useful components highlighted in red. <br>For viewing purposes, this read (at only 56 bp) is shorter than what is typical.
 </figcaption>
 <p></p>
@@ -909,10 +931,10 @@ Different header lines
 <p>Instead, we’ll have specialized tools like FastQC summarize them for us: e.g.&nbsp;how many sequences there are, what the quality scores look like, and if there are adapter sequences. We’ll run FastQC below.</p>
 <details>
 <summary>
-<strong>Your Turn</strong>: All of that said, in this case, you should be able to spot some very different-looking reads very soon when looking at the file with <code>less</code>. What are they? <em>(Click for the solution)</em>
+<strong>Your Turn</strong>: All of that said, in this case, you should be able to spot some very different-looking reads soon when looking at the file with <code>less</code>. What are they? <em>(Click for the solution)</em>
 </summary>
 <p>The 5<sup>th</sup> read looks as follows — and if you scroll down you should quickly see several more reads like this:</p>
-<pre class="{bash-out-single}"><code>@ERR10802863.11918285 11918285 length=35
+<pre class="bash-out-solo"><code>@ERR10802863.11918285 11918285 length=35
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 +
 ###################################</code></pre>
@@ -1036,16 +1058,16 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <li>FastQC assumes that your data is derived from whole-genome shotgun sequencing — some other types of data like RNA-seq data will always trigger a couple of warnings and files based on expected differences.</li>
 </ul>
 <p align="center">
-<img src="img_hts/fastqc_summary2.png" width="30%">
-</p>
+</p><p><img src="img_hts/fastqc_summary2.png" width="30%"></p>
+<p></p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="basic-statistics" class="level4">
 <h4 class="anchored" data-anchor-id="basic-statistics">Basic statistics</h4>
 <p>This shows, for example, the number of sequences (reads) and the read length range for your file:</p>
 <p align="center">
-<img src="img_hts/fastqc_mod01_basic-stats.png" width="85%">
-</p>
+</p><p><img src="img_hts/fastqc_mod01_basic-stats.png" width="85%"></p>
+<p></p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="per-base-quality-sequence-quality" class="level4">
@@ -1057,15 +1079,15 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<strong>Good / acceptable:</strong>
+<p><strong>Good / acceptable:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_good.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_good.png" width="100%"></p>
+<p></p>
 </div><div class="column" style="width:50%;">
-<strong>Bad:</strong>
+<p><strong>Bad:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_bad.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_bad.png" width="100%"></p>
+<p></p>
 </div>
 </div>
 <p>To interpret the quality scores along the y-axis, note the color scaling in the graphs (green is good, etc.), and see this table for details:</p>
@@ -1107,15 +1129,15 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <p>This shows the same quality scores we saw above, but now simply as a density plot of per-read averages, with the quality score now along the x-axis, and the number of reads with that quality score along the y-axis:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<strong>Good:</strong>
+<p><strong>Good:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_mod04_per-seq-qual_good.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_mod04_per-seq-qual_good.png" width="100%"></p>
+<p></p>
 </div><div class="column" style="width:50%;">
-<strong>Bad:</strong>
+<p><strong>Bad:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_mod04_per-seq-qual_bad.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_mod04_per-seq-qual_bad.png" width="100%"></p>
+<p></p>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
@@ -1124,8 +1146,8 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <h4 class="anchored" data-anchor-id="sequence-length-distribution">Sequence length distribution</h4>
 <p>Will throw a warning as soon as not all sequences are of the same length (like below), but this is quite normal.</p>
 <p align="center">
-<img src="img_hts/fastqc_mod08_seqlen_warning.png" width="60%">
-</p>
+</p><p><img src="img_hts/fastqc_mod08_seqlen_warning.png" width="60%"></p>
+<p></p>
 <hr style="height:1pt; visibility:hidden;">
 </section>
 <section id="adapter-content" class="level4">
@@ -1133,15 +1155,15 @@ Analysis complete for ERR10802863_2.fastq.gz</code></pre>
 <p>Checks for known adapter sequences. When some of the insert sizes are shorter than the read length, adapters can end up in the sequence – these should be removed!</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<strong>Good:</strong>
+<p><strong>Good:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_mod11_adapter_good.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_mod11_adapter_good.png" width="100%"></p>
+<p></p>
 </div><div class="column" style="width:50%;">
-<strong>Bad:</strong>
+<p><strong>Bad:</strong></p>
 <p align="center">
-<img src="img_hts/fastqc_mod11_adapter_bad.png" width="100%">
-</p>
+</p><p><img src="img_hts/fastqc_mod11_adapter_bad.png" width="100%"></p>
+<p></p>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
@@ -1266,7 +1288,7 @@ TAAGTAGATACCGATACGACGGGGCGGCATTCATGCTGCTACAGGGCTCAGCGGACCGACAAGCGACTGTGAAACGCAGC
 <li id="fn1"><p>But see the box below for more info/context<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Note that because individual sequence entries are commonly spread across multiple lines, FASTA entries do not necessarily cover 2 lines (cf.&nbsp;FASTQ).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>A GFF file would contain the same information but in a slightly different format. For programs used in RNA-seq analysis, GTF files tend to be the preferred format.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p> Note that this is very similar to running, say, the <code>ls</code> command!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Note that this is very similar to running, say, the <code>ls</code> command!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>The installed version of VS Code does not allow us to view HTML files<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
@@ -1350,10 +1372,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1363,8 +1384,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1377,6 +1407,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1420,6 +1569,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1445,6 +1595,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1505,6 +1681,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

@@ -26,6 +26,11 @@ website:
           - text: "Lecture: RNA-seq"
           - text: "Lab: Differential expression analysis"
     right:
+      - text: Other Pages
+        menu: 
+          - text: "R Homework"
+            href: r_homework.qmd
+          - text: "Overview of common Unix shell commands"
       - text: About
         href: about.qmd
     tools:

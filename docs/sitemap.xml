@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/removed.html</loc>
-    <lastmod>2024-01-26T16:14:05.587Z</lastmod>
+    <lastmod>2024-01-25T01:15:39.705Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/blast.html</loc>
-    <lastmod>2024-01-26T16:14:00.190Z</lastmod>
+    <lastmod>2024-01-18T16:16:11.993Z</lastmod>
   </url>
   <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/about.html</loc>
-    <lastmod>2024-01-26T16:13:50.289Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/data.html</loc>
-    <lastmod>2024-01-26T16:15:16.596Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/removed.html</loc>
-    <lastmod>2024-01-26T16:13:46.153Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/fastqc.html</loc>
-    <lastmod>2024-01-26T16:13:44.260Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/infrastructure.html</loc>
-    <lastmod>2024-01-26T22:19:10.720Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE.html</loc>
-    <lastmod>2024-01-26T16:13:48.091Z</lastmod>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/r_homework.html</loc>
+    <lastmod>2024-01-29T03:33:35.547Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/index.html</loc>
-    <lastmod>2024-01-26T16:13:50.029Z</lastmod>
+    <lastmod>2024-01-22T18:10:42.762Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE.html</loc>
+    <lastmod>2024-01-29T02:21:25.703Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/infrastructure.html</loc>
+    <lastmod>2024-01-26T22:18:46.440Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/fastqc.html</loc>
+    <lastmod>2024-01-22T18:08:37.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/removed.html</loc>
+    <lastmod>2024-01-21T03:12:04.471Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/data.html</loc>
+    <lastmod>2024-01-28T02:10:00.969Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/about.html</loc>
+    <lastmod>2024-01-27T17:24:10.992Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/sequencing.html</loc>
-    <lastmod>2024-01-26T16:13:56.230Z</lastmod>
+    <lastmod>2024-01-25T15:38:59.064Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/rnaseq.html</loc>
-    <lastmod>2024-01-26T16:14:05.044Z</lastmod>
+    <lastmod>2024-01-22T23:03:11.872Z</lastmod>
   </url>
 </urlset>

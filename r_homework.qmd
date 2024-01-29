@@ -1,0 +1,100 @@
+---
+title: "R homework"
+author: Jelmer Poelstra
+date: 2024-01-29
+number-sections: false
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+## R homework for the week 4 lab
+
+If you have limited or no experience with R,
+I would highly recommend that you go through part of the Data Carpentry
+["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
+
+At least make your way through the [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html) and the first
+(["Before we start"](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
+and second (["Introduction to R"](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html)) lessons.
+
+If you have time, then also go through:
+
+- [Episode 3 (data frames)](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html) --- until (not including) the ["Formatting dates" section](https://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html#formatting-dates).
+- [Episode 4 (tidyverse)](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html) --- until (not including) the ["Split-apply-combine" section](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html#split-apply-combine-data-analysis-and-the-summarize-function).
+- [Episode 5 (ggplot)](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) --- until (not including) the ["Arranging plots" section](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html#arranging-plots).
+
+_You can do this homework either with your own R & RStudio installation_
+_(the Carpentry lesson contains installation instructions),_
+_or use RStudio at the Ohio Supercomputer Center (see the instructions below)._
+
+::: callout-tip
+#### Not sure if you know enough R to skip this?
+The best way to find out is to take a look at the material!
+:::
+
+<br>
+
+## Start an RStudio session at OSC
+
+1. Log in to OSC at <https://ondemand.osc.edu>
+
+2. Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`** (all the way at the bottom)
+
+3. Fill out the form as follows:
+   - Cluster: **`Pitzer`**
+   - R version: **`4.3.0`**
+   - Project: **`PAS2250`**
+   - Number of hours: **`4`**
+   - Node type: **`any`**
+   - Number of cores: **`2`**
+
+<details><summary>_Click to see a screenshot_</summary>
+
+![](labs/img_de/rstudio_form.png){fig-align="center" width="50%"}
+
+</details>
+   
+4. Click the big blue **`Launch`** button at the bottom
+
+5. Now, you should be sent to a new page with a box at the top for your RStudio
+   Server "job", which should initially be "Queued" (waiting to start).
+
+<details><summary>_Click to see a screenshot_</summary>
+
+![](labs/img_de/rstudio_queued.png){fig-align="center" width="70%"}
+
+</details>
+
+6. Your job should start running very soon,
+   with the top bar of the box turning green and saying "Running".
+
+<details><summary>_Click to see a screenshot_</summary>
+
+![](labs/img_de/rstudio_running.png){fig-align="center" width="70%"}
+
+</details>
+
+7. Click **`Connect to RStudio Server`** at the bottom of the box,
+   and an RStudio Server instance will open in a new browser tab.
+   You're ready to go!
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-important
+#### Having trouble installing the _tidyverse_ package?
+
+If your using RStudio at OSC and your _tidyverse_ package installation fails,
+please load this package as follows (no installation needed):
+
+```{r, eval=FALSE}
+custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
+library(withr, lib.loc = custom_library)
+library(tidyr, lib.loc = custom_library)
+library(tidyverse, lib.loc = custom_library)
+```
+
+:::
+
+<br>
