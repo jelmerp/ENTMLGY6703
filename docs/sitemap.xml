@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/removed.html</loc>
-    <lastmod>2024-01-25T01:15:39.705Z</lastmod>
+    <lastmod>2024-01-30T22:23:14.314Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/blast.html</loc>
@@ -14,15 +14,19 @@
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/index.html</loc>
-    <lastmod>2024-01-22T18:10:42.762Z</lastmod>
+    <lastmod>2024-01-31T03:21:53.844Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE.html</loc>
-    <lastmod>2024-01-29T03:40:48.341Z</lastmod>
+    <lastmod>2024-01-31T03:19:31.274Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/infrastructure.html</loc>
     <lastmod>2024-01-26T22:18:46.440Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jelmerp.github.io/ENTMLGY6703/labs/DE_removed.html</loc>
+    <lastmod>2024-01-31T02:28:55.436Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/fastqc.html</loc>
@@ -30,7 +34,7 @@
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/removed.html</loc>
-    <lastmod>2024-01-21T03:12:04.471Z</lastmod>
+    <lastmod>2024-01-30T15:42:58.576Z</lastmod>
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/labs/data.html</loc>
@@ -46,6 +50,6 @@
   </url>
   <url>
     <loc>https://jelmerp.github.io/ENTMLGY6703/lectures/rnaseq.html</loc>
-    <lastmod>2024-01-29T03:51:33.176Z</lastmod>
+    <lastmod>2024-01-31T02:45:24.672Z</lastmod>
   </url>
 </urlset>

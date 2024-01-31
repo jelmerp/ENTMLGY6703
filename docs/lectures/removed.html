@@ -117,8 +117,14 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Week 4: RNA-seq</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
-        <li class="dropdown-header">Lecture: RNA-seq</li>
-        <li class="dropdown-header">Lab: Differential expression analysis</li>
+        <li>
+    <a class="dropdown-item" href="../lectures/rnaseq.html">
+ <span class="dropdown-text">Lecture: RNA-seq</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/DE.html">
+ <span class="dropdown-text">Lab: Differential expression analysis</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -132,7 +138,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="../r_homework.html">
  <span class="dropdown-text">R Homework</span></a>
   </li>  
-        <li class="dropdown-header">Overview of common Unix shell commands</li>
     </ul>
   </li>
   <li class="nav-item">
@@ -176,6 +181,24 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#x-1" id="toc-x-1" class="nav-link" data-scroll-target="#x-1"><span class="header-section-number">4</span> x</a></li>
   <li><a href="#microarrays" id="toc-microarrays" class="nav-link" data-scroll-target="#microarrays"><span class="header-section-number">5</span> Microarrays</a></li>
   <li><a href="#overview-of-all-steps-in-rna-seq" id="toc-overview-of-all-steps-in-rna-seq" class="nav-link" data-scroll-target="#overview-of-all-steps-in-rna-seq"><span class="header-section-number">6</span> Overview of all steps in RNA-seq</a></li>
+  <li><a href="#other-ways-of-quantifying-gene-expression" id="toc-other-ways-of-quantifying-gene-expression" class="nav-link" data-scroll-target="#other-ways-of-quantifying-gene-expression"><span class="header-section-number">7</span> Other ways of quantifying gene expression</a></li>
+  <li><a href="#some-other-types-of-rna-seq" id="toc-some-other-types-of-rna-seq" class="nav-link" data-scroll-target="#some-other-types-of-rna-seq"><span class="header-section-number">8</span> Some other types of RNA-seq</a></li>
+  <li><a href="#rna-extraction" id="toc-rna-extraction" class="nav-link" data-scroll-target="#rna-extraction"><span class="header-section-number">9</span> RNA extraction</a></li>
+  <li><a href="#rin-rna-integrity-number-score" id="toc-rin-rna-integrity-number-score" class="nav-link" data-scroll-target="#rin-rna-integrity-number-score"><span class="header-section-number">10</span> RIN (RNA Integrity Number) score</a></li>
+  <li><a href="#library-prep-options" id="toc-library-prep-options" class="nav-link" data-scroll-target="#library-prep-options"><span class="header-section-number">11</span> Library prep options</a></li>
+  <li><a href="#functional-enrichment-statistics" id="toc-functional-enrichment-statistics" class="nav-link" data-scroll-target="#functional-enrichment-statistics"><span class="header-section-number">12</span> Functional enrichment: statistics</a></li>
+  <li><a href="#de-analysis-other-designs" id="toc-de-analysis-other-designs" class="nav-link" data-scroll-target="#de-analysis-other-designs"><span class="header-section-number">13</span> DE analysis: other designs</a></li>
+  <li><a href="#normalization-by-gene-length" id="toc-normalization-by-gene-length" class="nav-link" data-scroll-target="#normalization-by-gene-length"><span class="header-section-number">14</span> Normalization by gene length</a></li>
+  <li><a href="#alternative-splicing-isoforms" id="toc-alternative-splicing-isoforms" class="nav-link" data-scroll-target="#alternative-splicing-isoforms"><span class="header-section-number">15</span> Alternative splicing &amp; isoforms</a></li>
+  <li><a href="#alternative-splicing-isoforms-1" id="toc-alternative-splicing-isoforms-1" class="nav-link" data-scroll-target="#alternative-splicing-isoforms-1"><span class="header-section-number">16</span> Alternative splicing &amp; isoforms</a></li>
+  <li><a href="#what-if-i-dont-have-a-reference-genome" id="toc-what-if-i-dont-have-a-reference-genome" class="nav-link" data-scroll-target="#what-if-i-dont-have-a-reference-genome"><span class="header-section-number">17</span> What if I don’t have a reference genome?</a></li>
+  <li><a href="#reads-to-counts-alignment-to-a-reference-genome" id="toc-reads-to-counts-alignment-to-a-reference-genome" class="nav-link" data-scroll-target="#reads-to-counts-alignment-to-a-reference-genome"><span class="header-section-number">18</span> Reads to counts: alignment to a reference genome</a></li>
+  <li><a href="#reads-to-counts-alignment-qc" id="toc-reads-to-counts-alignment-qc" class="nav-link" data-scroll-target="#reads-to-counts-alignment-qc"><span class="header-section-number">19</span> Reads to counts: alignment QC</a></li>
+  <li><a href="#reads-to-counts-alignment-qc-1" id="toc-reads-to-counts-alignment-qc-1" class="nav-link" data-scroll-target="#reads-to-counts-alignment-qc-1"><span class="header-section-number">20</span> Reads to counts: alignment QC</a></li>
+  <li><a href="#reads-to-counts-read-pre-processing" id="toc-reads-to-counts-read-pre-processing" class="nav-link" data-scroll-target="#reads-to-counts-read-pre-processing"><span class="header-section-number">21</span> Reads to counts: Read pre-processing</a></li>
+  <li><a href="#functional-enrichment" id="toc-functional-enrichment" class="nav-link" data-scroll-target="#functional-enrichment"><span class="header-section-number">22</span> Functional enrichment</a></li>
+  <li><a href="#de-analysis-1-pairwise-comparison" id="toc-de-analysis-1-pairwise-comparison" class="nav-link" data-scroll-target="#de-analysis-1-pairwise-comparison"><span class="header-section-number">23</span> DE analysis: &gt;1 pairwise comparison</a></li>
+  <li><a href="#side-note-dual-rna-seq" id="toc-side-note-dual-rna-seq" class="nav-link" data-scroll-target="#side-note-dual-rna-seq"><span class="header-section-number">24</span> Side note: Dual RNA-seq</a></li>
   </ul>
 </nav>
     </div>
@@ -262,6 +285,387 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Berge et al.&nbsp;2019 (www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)</figcaption>
 </figure>
 </div>
+</section>
+<section id="other-ways-of-quantifying-gene-expression" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="other-ways-of-quantifying-gene-expression"><span class="header-section-number">7</span> Other ways of quantifying gene expression</h2>
+<p>RNA-seq is not the only method to quantify gene expression, but often the preferred one:</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong>Reverse-transcription qPCR</strong> (RT-qPCR)<br>
+A low-throughput method that can quantify expression levels for one or a few genes at a time</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<p>. . .</p>
+<ul>
+<li><p><strong>Microarrays</strong> — hybridization of cDNA to preconstructed probes<br>
+Microarrays were the transcriptomics method of choice before the advent of high-throughput sequencing, but disadvantages relative to RNA-seq include:</p>
+<ul>
+<li><p>Produce <strong>relative measurements</strong> only with a much <strong>smaller dynamic range</strong> than RNA-seq</p></li>
+<li><p>Can only capture <strong>known features</strong>: cannot discover or examine novel features, and do not work for species without a (close) reference genome</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="some-other-types-of-rna-seq" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="some-other-types-of-rna-seq"><span class="header-section-number">8</span> Some other types of RNA-seq</h2>
+<ul>
+<li><p><strong>Small RNA-seq</strong> for small noncoding RNAs such as microRNAs and Piwi-interacting RNAs</p></li>
+<li><p><strong>Single-cell RNA-seq</strong> (scRNA-seq) — commonly used in cancer research</p></li>
+<li><p><strong>Direct RNA sequencing</strong></p></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<p>:::</p>
+</section>
+<section id="rna-extraction" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="rna-extraction"><span class="header-section-number">9</span> RNA extraction</h2>
+<p>The first step is to <strong>extract RNA from tissue samples</strong>. This is typically the only step you conduct yourself in the lab, with sequencing facilities taking care of downstream procedures.</p>
+<p><br></p>
+<p>Some considerations and recommendations:</p>
+<p>. . .</p>
+<ul>
+<li><p>The tissue sample should be collected from an <strong>organism that is alive or recently deceased</strong> (matter of minutes), and the RNA should be extracted immediately.</p></li>
+<li><p>With the appropriate buffer and temperate, an RNA extraction <em>can</em> be stored long-term.</p></li>
+</ul>
+<p>. . .</p>
+<ul>
+<li><p>Include a <strong>DNase treatment step</strong> to avoid DNA contamination.</p></li>
+<li><p>Perform <strong>Quality Control (QC)</strong> on your extractions: quantity (e.g.&nbsp;with a Nanodrop or Qubit) and quality (degradation; e.g.&nbsp;with a gel). Sequencing facilities can additionally check the RIN score with a “Bioanalyzer”.</p></li>
+</ul>
+</section>
+<section id="rin-rna-integrity-number-score" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="rin-rna-integrity-number-score"><span class="header-section-number">10</span> RIN (RNA Integrity Number) score</h2>
+<div class="columns">
+<div class="column" style="width:75%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.novogene.com/eu-en/resources/blog/rna-integrity-number-rin-explained"><img src="img_rnaseq/RIN.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a></p>
+</figure>
+</div>
+<div class="legend2">
+<p>https://www.novogene.com/eu-en/resources/blog/rna-integrity-number-rin-explained</p>
+</div>
+</div><div class="column" style="width:25%;">
+<ul>
+<li>The RIN score quantifies RNA quality: the lower the RIN score, the more degraded your RNA is likely to be.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>It makes use the expectation of pronounced peaks corresponding to highly abundance, intact 18S and 28S rRNAs.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="library-prep-options" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="library-prep-options"><span class="header-section-number">11</span> Library prep options</h2>
+<p>Let’s consider the different options you have for RNA-seq library prep:</p>
+<p>. . .</p>
+<ul>
+<li><p><strong>mRNA enrichment</strong><br>
+Needed because mRNA makes up only a few percent of RNA molecules, and done using either:</p>
+<ul>
+<li><p><strong>PolyA-selection</strong>: specifically selects mature (spliced) mRNAs</p></li>
+<li><p><strong>Ribodepletion</strong>: fishes out rRNA — this is suboptimal for mRNA-seq (presence of other RNAs and of pre-mRNAs) but can be a last resort with poor RNA quality</p></li>
+</ul></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<p>. . .</p>
+<ul>
+<li><p><strong>Library strandedness</strong><br>
+Libraries can be “<strong>stranded</strong>” or “<strong>unstranded</strong>” — stranded libraries allow you to tell the directionality of a transcript, which in turn allows you to:</p>
+<ul>
+<li><p>Distinguish between overlapping genes</p></li>
+<li><p>Assess whether you may have DNA contamination</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="functional-enrichment-statistics" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="functional-enrichment-statistics"><span class="header-section-number">12</span> Functional enrichment: statistics</h2>
+<p>The two most common statistical approaches are:</p>
+<ul>
+<li><strong>Overrepresentation Analysis</strong> (<strong>ORA</strong>)<br>
+With a list of genes divided in two groups (DE vs.&nbsp;not-DE), test whether the groups contain different frequencies of each functional gene category, like a Chi-Square/Fisher’s Exact Test:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>DE</th>
+<th>not-DE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>In photosynthesis category</td>
+<td>15</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>Not in photosynthesis category</td>
+<td>85</td>
+<td>14,870</td>
+</tr>
+</tbody>
+</table>
+<p>. . .</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong>Gene Set Enrichment Analysis</strong> (<strong>GSEA</strong>)<br>
+Uses the expression level change (log-fold changes, LFC) of each gene and does not take statistical significance into account. It basically asks whether the LFCs of genes in a category are significantly shifted away from zero, either upregulated or downregulated.</li>
+</ul>
+</section>
+<section id="de-analysis-other-designs" class="level2" data-number="13">
+<h2 data-number="13" class="anchored" data-anchor-id="de-analysis-other-designs"><span class="header-section-number">13</span> DE analysis: other designs</h2>
+<p>Statistical designs other than pairwise comparisons are also possible. For example:</p>
+<ul>
+<li><strong>Time series</strong> (or other continuous variables; regression analysis)<br>
+Which genes have monotonous in- or decreases across three or more time points?</li>
+</ul>
+<p>. . .</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><p><strong>Controlling for an independent variable</strong> (fixed or random effect)<br>
+Assessing the effect of one variable while controlling for another. E.g.:</p>
+<ul>
+<li><p>Which genes respond similarly to a virulent (vs.&nbsp;avirulent) pathogen in resistant and susceptible plants?</p></li>
+<li><p>Which genes respond similarly to a virulent (vs.&nbsp;avirulent) pathogen regardless of field plot?</p></li>
+</ul></li>
+</ul>
+<p>. . .</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong>Interaction effects between two independent variables</strong><br>
+E.g.: which genes respond differently to a virulent (vs.&nbsp;avirulent) pathogen in resistant and susceptible plants?</li>
+</ul>
+</section>
+<section id="normalization-by-gene-length" class="level2" data-number="14">
+<h2 data-number="14" class="anchored" data-anchor-id="normalization-by-gene-length"><span class="header-section-number">14</span> Normalization by gene length</h2>
+<p>Several metrics of gene expression levels exist:</p>
+<ul>
+<li><p><strong>Adjusted by gene length and library size</strong><br>
+E.g., FPKM (superseded) and TPM (Transcripts Per Million)</p></li>
+<li><p><strong>Raw counts</strong><br>
+These are used by most downstream approaches (more later).</p></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What about gene lengths?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Even though longer genes are more likely to be sampled and gene counts are therefore confounded by gene length, there is no normalization by gene length, because genes are not compared.</p>
+</div>
+</div>
+</section>
+<section id="alternative-splicing-isoforms" class="level2" data-number="15">
+<h2 data-number="15" class="anchored" data-anchor-id="alternative-splicing-isoforms"><span class="header-section-number">15</span> Alternative splicing &amp; isoforms</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_rnaseq/DNA_alternative_splicing2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figcaption>https://en.wikipedia.org/wiki/Protein_isoform</figcaption>
+</figure>
+</div>
+</section>
+<section id="alternative-splicing-isoforms-1" class="level2" data-number="16">
+<h2 data-number="16" class="anchored" data-anchor-id="alternative-splicing-isoforms-1"><span class="header-section-number">16</span> Alternative splicing &amp; isoforms</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Transcript-level vs.&nbsp;gene-level
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The terminology “transcript-level” vs.&nbsp;“gene-level”, e.g.&nbsp;in “transcript-level counts” refers to the distinction between having separate counts for each isoform (AKA transcript) versus a single count for each gene. Gene-level counts may either have been aggregated across isoforms, or reads were never assigned to isoforms in the first place.</p>
+</div>
+</div>
+</section>
+<section id="what-if-i-dont-have-a-reference-genome" class="level2" data-number="17">
+<h2 data-number="17" class="anchored" data-anchor-id="what-if-i-dont-have-a-reference-genome"><span class="header-section-number">17</span> What if I don’t have a reference genome?</h2>
+<p>Without a reference genome, an RNA-seq project is considerably more work.<br>
+These two extra steps are needed:</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong><em>De novo</em></strong> <strong>transcriptome assembly</strong><br>
+First, your reads can be used to first assemble a transcriptome from scratch with a tool like <code>Trinity</code>. (This is quite compute-intensive!)</li>
+</ul>
+<p>. . .</p>
+<ul>
+<li><p><strong>Transcriptome annotation</strong><br>
+Then, your transcriptome will need to be functionally annotated:</p>
+<ul>
+<li><p>Trying to assign gene names and functional categories to your transcripts</p></li>
+<li><p>A very similar process to genome annotation, and works in part by using BLAST or related tools to find orthologous, already annotated, genes in other organisms.</p></li>
+</ul></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<p>. . .</p>
+<p>Then, you can <strong>align to your newly assembled transcriptome</strong> the same way you would align to a reference transcriptome (obviously, you won’t have the option to align to the genome).</p>
+</section>
+<section id="reads-to-counts-alignment-to-a-reference-genome" class="level2" data-number="18">
+<h2 data-number="18" class="anchored" data-anchor-id="reads-to-counts-alignment-to-a-reference-genome"><span class="header-section-number">18</span> Reads to counts: alignment to a reference genome</h2>
+<p>The <strong>alignment of reads to a reference genome</strong> needs to be <em>“splice-aware”</em>.<br>
+Alternatively, you can <em>align to the transcriptome</em> (i.e., all mature transcripts).</p>
+<p><br></p>
+<p>Alignment usually consists of <strong>two steps</strong>:</p>
+<ul>
+<li><p>One-time creation of a tool-specific “<strong>index</strong>” of the reference genome/transcriptome.</p></li>
+<li><p>For each sample independently, <strong>alignment</strong> of the reads to the reference index.</p></li>
+</ul>
+<p><br></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Alignment tools
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some of the currently most commonly used alignment tools are <code>HISAT2</code> &amp; <code>STAR</code> (map to genome), and <code>RSEM</code> &amp; <code>Salmon</code> &amp; <code>Kallisto</code> (map to transcriptome).</p>
+</div>
+</div>
+</section>
+<section id="reads-to-counts-alignment-qc" class="level2" data-number="19">
+<h2 data-number="19" class="anchored" data-anchor-id="reads-to-counts-alignment-qc"><span class="header-section-number">19</span> Reads to counts: alignment QC</h2>
+<p>These kind of stats can only be assessed after aligning to the genome (vs.&nbsp;to the transcriptome).</p>
+<ul>
+<li><p><strong>Alignment rates</strong><br>
+What percentage of reads was successfully aligned?</p>
+<ul>
+<li><p><strong>Low rates</strong> (&lt;80%) =&gt; cross-species contamination or poor reference genome quality</p></li>
+<li><p><strong>Multi-mapped reads</strong> (mapping to multiple locations in the genome) are typically accepted by the mapper but are not or probabilistically quantified — more on this later.</p></li>
+</ul></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<p>. . .</p>
+<ul>
+<li><p><strong>Alignment targets</strong><br>
+What percentages of aligned reads mapped to <em>exons</em> vs.&nbsp;<em>introns</em> vs.&nbsp;<em>intergenic regions</em>?</p>
+<ul>
+<li><p>High <strong>intronic</strong> mapping rates =&gt; presence of pre-mRNA</p></li>
+<li><p>High <strong>intergenic</strong> mapping rates =&gt; DNA contamination or poor genome assembly/annotation quality</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="reads-to-counts-alignment-qc-1" class="level2" data-number="20">
+<h2 data-number="20" class="anchored" data-anchor-id="reads-to-counts-alignment-qc-1"><span class="header-section-number">20</span> Reads to counts: alignment QC</h2>
+<ul>
+<li><strong>Across-gene coverage distribution</strong><br>
+An uneven distribution may indicate high levels of RNA degradation</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong>Outlier samples</strong><br>
+Are patterns consistent across samples or are there outliers that may need to be removed?</li>
+</ul>
+<p><br></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Alignment QC tools
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can get these stats by checking the aligner’s “log” outputs, and by running tools like <code>QualiMap</code> and <code>RSeQC</code>.</p>
+</div>
+</div>
+</section>
+<section id="reads-to-counts-read-pre-processing" class="level2" data-number="21">
+<h2 data-number="21" class="anchored" data-anchor-id="reads-to-counts-read-pre-processing"><span class="header-section-number">21</span> Reads to counts: Read pre-processing</h2>
+<p>Read pre-processing includes the following steps:</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><p><strong>Checking the</strong> <strong>quantity and quality of your reads</strong></p>
+<ul>
+<li><p>Does not change your data, but helps decide next steps / sample exclusion</p></li>
+<li><p>Also useful to check for contamination, library complexity, and adapter content</p></li>
+<li><p>Typically done with the tool <code>FastQC</code> (and <code>MultiQC</code> for across-sample summaries)</p></li>
+</ul></li>
+</ul>
+<p>. . .</p>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li><strong>Removing unwanted sequences</strong>
+<ul>
+<li><strong>Adapters</strong>, <strong>low-quality bases</strong>, and very short reads — with a tool like <code>TrimGalore</code></li>
+<li><strong>rRNA</strong>-derived reads — with <code>SortMeRNA</code> (<em>optional</em>)</li>
+<li><strong>Contaminant</strong> sequences — with a taxonomic read classification program like <code>Kraken2</code> (<em>optional</em>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="functional-enrichment" class="level2" data-number="22">
+<h2 data-number="22" class="anchored" data-anchor-id="functional-enrichment"><span class="header-section-number">22</span> Functional enrichment</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Retrieving annotations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Genome annotations for a specific organism often but not always include GO or KEGG terms.</p>
+<p>KEGG annotations are more commonly missing but can also be more easily generated, by uploading a FASTA file with amino acid sequences to KEGG’s <code>GhostKOALA</code> webservice: <a href="https://www.kegg.jp/ghostkoala/" class="uri">https://www.kegg.jp/ghostkoala/</a>.</p>
+</div>
+</div>
+</section>
+<section id="de-analysis-1-pairwise-comparison" class="level2" data-number="23">
+<h2 data-number="23" class="anchored" data-anchor-id="de-analysis-1-pairwise-comparison"><span class="header-section-number">23</span> DE analysis: &gt;1 pairwise comparison</h2>
+<p><strong>More than two groups</strong></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Plants exposed to:</p>
+<ul>
+<li>A virulent pathogen</li>
+<li>An avirulent pathogen</li>
+<li>A mock inoculation</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p>Pairwise comparisons:</p>
+<ul>
+<li>Virulent vs.&nbsp;avirulent</li>
+<li>Mock vs.&nbsp;virulent</li>
+<li>Mock vs.&nbsp;avirulent</li>
+</ul>
+</div>
+</div>
+<p><br></p>
+<p>. . .</p>
+<p><strong>More than one independent variable</strong></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Plant type: resistant &amp; susceptible</li>
+<li>Pathogen type: virulent &amp; avirulent</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Resistant plant vs.&nbsp;virulent pathogen</li>
+<li>Resistant plant vs.&nbsp;avirulent pathogen</li>
+<li>Susceptible plant vs.&nbsp;virulent pathogen</li>
+<li>Susceptible plant vs.&nbsp;avirulent pathogen</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="side-note-dual-rna-seq" class="level2" data-background-color="mintcream" data-number="24">
+<h2 data-background-color="mintcream" data-number="24" class="anchored" data-anchor-id="side-note-dual-rna-seq"><span class="header-section-number">24</span> Side note: Dual RNA-seq</h2>
+<p>In agricultural research, it is common to study both a plant host and its adversary.</p>
+<p>If the adversary is a microbial/viral/fungal/oomycete pathogen, it is possible or necessary to collect samples that contain both host and pathogen.</p>
+<p><br></p>
+<p>When these samples are subjected to RNA-seq, they will contain both host and pathogen reads.</p>
+<p>These reads can be separated bioinformatically and when both host and pathogen reads are analyzed, this is called a <strong>dual RNA-seq experiment</strong>.</p>
 
 
 </section>

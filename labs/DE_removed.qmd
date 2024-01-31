@@ -1,0 +1,52 @@
+---
+title: "DE_removed"
+execute: 
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+#### Printing the `dds` object *(Click to expand)*
+
+We can also simply print the `dds` object, which will give a summary of its contents:
+
+```{r}
+dds
+```
+:::
+
+::: {.callout-note collapse="true"}
+#### Histograms of gene counts *(Click to expand)*
+
+To plot a histogram of mean gene counts across samples, we'll first create a data frame with these mean gene counts:
+
+```{r}
+mean_counts <- rowSums(count_mat) / ncol(count_mat)
+mean_counts_df <- data.frame(mean_counts) |> 
+  rownames_to_column("gene_id")
+```
+
+Now we can make the histogram:
+
+```{r}
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  theme_minimal()
+```
+
+Zoom in a bit:
+
+```{r}
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  scale_x_continuous(limits = c(0, 100000)) +
+  theme_minimal()
+```
+
+Which genes have the highest mean counts, and what are those counts?
+
+```{r}
+sort(rowSums(count_mat) / ncol(count_mat), decreasing = TRUE)[1:10]
+```
+:::

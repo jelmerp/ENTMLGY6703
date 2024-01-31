@@ -24,13 +24,14 @@ website:
       - text: "Week 4: RNA-seq"
         menu: 
           - text: "Lecture: RNA-seq"
+            href: lectures/rnaseq.qmd
           - text: "Lab: Differential expression analysis"
+            href: labs/DE.qmd
     right:
       - text: Other Pages
         menu: 
           - text: "R Homework"
             href: r_homework.qmd
-          - text: "Overview of common Unix shell commands"
       - text: About
         href: about.qmd
     tools:
@@ -43,6 +44,7 @@ website:
 format:
   html:
     theme: yeti
+    highlight-style: atom-one
     css: styles.css
     toc: true
     number-sections: true
