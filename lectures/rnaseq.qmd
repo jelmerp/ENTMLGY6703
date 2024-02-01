@@ -69,23 +69,6 @@ Many approaches & applications — but most commonly, transcriptomics focuses on
 https://hbctraining.github.io
 :::
 
-## Transcriptomics
-
-Transcriptomics is the study of the transcriptome,\
-i.e. the **large-scale study of RNA transcripts expressed in an organism**.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-Many approaches & applications — but most commonly, transcriptomics focuses on:
-
--   **mRNA** rather than on noncoding RNA types such as rRNA, tRNA, and miRNA
-
--   **Quantifying** gene expression levels (& ignoring nucleotide-level variation)
-
--   **Statistically comparing** expression *between groups* (treatments, populations, tissues)
-
-![](img_rnaseq/count_comp.png){fig-align="center" width="40%"}
-
 ## Why do transcriptomics?
 
 Considering...

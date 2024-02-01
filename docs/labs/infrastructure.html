@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In today’s lab:</p>
 <ul>
 <li><p>We will start with learning about a typical “computational infrastructure” to analyze high-throughput sequencing (HTS) data — <strong>this page</strong>.</p></li>
-<li><p>We will then use that infrastructure to start the exploration of an HTS dataset. We’ll check out reference genome and HTS read files, and perform read quality control – <strong><a href="../labs/data.html">the next page</a></strong>.</p></li>
+<li><p>We will then use that infrastructure to start the exploration of an HTS dataset. We’ll check out reference genome and HTS read files, and perform read quality control – <a href="../labs/data.html"><strong>the next page</strong></a>.</p></li>
 </ul>
 <p><br></p>
 </section>
@@ -352,8 +352,8 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <p>A supercomputer is a highly interconnected set of many computer processors and storage units. You can think of it simply as a <strong>network of computers</strong> — with individual computers called “nodes”.</p>
 <p>Supercomputers are also commonly referred to as <em>High-Performance Computing (<strong>HPC</strong>) clusters</em> or simply <strong>compute clusters</strong>. This is what Owens, one of the OSC supercomputers, physically looks like:</p>
 <p align="center">
-<img src="img_hts/owens.jpg" width="50%">
-</p>
+</p><p><img src="img_hts/owens.jpg" width="50%"></p>
+<p></p>
 <p>Why you might need a supercomputer:</p>
 <ul>
 <li>Often, your genomics <strong>dataset is too large</strong> to be handled efficiently, or at all, by a laptop/desktop computer.</li>
@@ -365,8 +365,8 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <section id="introduction-to-osc" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</h3>
 <p align="center">
-<img src="img_hts/osc_logo.png" width="70%">
-</p>
+</p><p><img src="img_hts/osc_logo.png" width="70%"></p>
+<p></p>
 <p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers (and others) across Ohio. OSC has two supercomputers/clusters (named <strong>Owens</strong> and <strong>Pitzer</strong>), and lots of infrastructure for their usage. Research usage is charged at <a href="https://www.osc.edu/content/academic_fee_model_faq">subsidized rates</a>, and in most case, these costs are absorbed at the college level.</p>
 <section id="the-structure-of-an-osc-supercomputer" class="level4">
 <h4 class="anchored" data-anchor-id="the-structure-of-an-osc-supercomputer">The structure of an OSC supercomputer</h4>
@@ -377,8 +377,8 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <li><strong>Compute Nodes</strong>: The many computers you can reserve to run your analyses</li>
 </ul>
 <p align="center">
-<img src="img_hts/cluster_overview_ed.png" width="85%">
-</p>
+</p><p><img src="img_hts/cluster_overview_ed.png" width="85%"></p>
+<p></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -410,34 +410,27 @@ Supercomputers run on the Linux operating system</li>
 </section>
 <section id="the-osc-ondemand-web-portal" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="the-osc-ondemand-web-portal"><span class="header-section-number">3.3</span> The OSC OnDemand web portal</h3>
-<p>The OSC OnDemand web portal allows you to use a web browser to access OSC resources such as:</p>
-<ul>
-<li>A <strong>file browser</strong> where you can also create and rename folders and files, etc.</li>
-<li>A <strong>Unix shell</strong></li>
-<li>A host of “<strong>Interactive Apps</strong>”: programs such as RStudio, Jupyter, VS Code and QGIS.</li>
-</ul>
 <p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and log in</strong> with your OSC (not OSU!) credentials.</p>
 <p>You should see a landing page similar to the one below:</p>
 <p align="center">
-<img src="img_hts/ondemand_home.png" width="95%">
-</p>
+</p><p><img src="img_hts/ondemand_home.png" width="95%"></p>
+<p></p>
 <p>We will now go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
 <section id="files-file-system-access" class="level4">
 <h4 class="anchored" data-anchor-id="files-file-system-access"><strong>Files</strong>: File system access</h4>
-<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of directories (=folders, and “dir” for short) that you have access to. If your account is brand new, you should only have three directories listed<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of directories (=folders, and “dir” for short) that you have access to. If your account is brand new, you should only two directories listed<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <ol type="1">
 <li>A <strong>Home</strong> directory (starts with <code>/users/</code>)</li>
-<li>A “<strong>project</strong>” directory (starts with <code>/fs/ess/</code>) for <code>PAS2250</code> — permanent, backed-up storage</li>
-<li>A “<strong>scratch</strong>” directory (starts with <code>/fs/scratch/</code>) <code>PAS2250</code> — temporary storage</li>
+<li>A project “<strong>scratch</strong>” directory (starts with <code>/fs/scratch/</code>) <code>PAS2250</code></li>
 </ol>
 <p>Select the <code>PAS2250</code> scratch directory, <code>/fs/scratch/PAS2250</code>, where we’ll be working today and next week:</p>
 <p align="center">
-<img src="img_hts/ondemand_files_PAS2250.png" width="45%">
-</p>
+</p><p><img src="img_hts/ondemand_files_PAS2250.png" width="45%"></p>
+<p></p>
 <p>Once there, you should see a list of directories and files (here: just a single dir), and you can click on the directories to explore the contents further:</p>
 <p align="center">
-<img src="img_hts/ondemand_files_PAS2250_2.png" width="95%">
-</p>
+</p><p><img src="img_hts/ondemand_files_PAS2250_2.png" width="95%"></p>
+<p></p>
 <p>This interface is <strong>much like the file browser on your own computer</strong>, so you can also create, delete, move and copy files and folders, and even upload (from your computer to OSC) and download (from OSC your computer) files<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> — see the buttons across the top.</p>
 <details>
 <summary>
@@ -451,28 +444,28 @@ Supercomputers run on the Linux operating system</li>
 </ul>
 <p><em>(You can see what your username is by looking at the right side of the blue top bar:)</em></p>
 <p align="center">
-<img src="img_hts/username.png" width="40%">
-</p>
+</p><p><img src="img_hts/username.png" width="40%"></p>
+<p></p>
 </details>
 </section>
 <section id="clusters-unix-shell-access" class="level4">
 <h4 class="anchored" data-anchor-id="clusters-unix-shell-access"><strong>Clusters</strong>: Unix shell access</h4>
 <p>Interacting with a supercomputer is most commonly done using a Unix shell, and we’ll learn about the basics of doing so soon. Under the <strong>Clusters</strong> dropdown menu, you can access a Unix shell either on Owens or Pitzer:</p>
 <p align="center">
-<img src="img_hts/ondemand_shell_select.png" width="50%">
-</p>
+</p><p><img src="img_hts/ondemand_shell_select.png" width="50%"></p>
+<p></p>
 <p>I’m selecting a shell on the Pitzer supercomputer, which will open a new browser tab looking like this:</p>
 <p align="center">
-<img src="img_hts/ondemand_shell2.png" width="95%">
-</p>
+</p><p><img src="img_hts/ondemand_shell2.png" width="95%"></p>
+<p></p>
 <p>However, from now on, we’ll be accessing a Unix shell <strong>inside the VS Code text editor</strong>, which also gives us some additional functionality in a user-friendly way.</p>
 </section>
 <section id="interactive-apps" class="level4">
 <h4 class="anchored" data-anchor-id="interactive-apps">Interactive Apps</h4>
 <p>We can access programs with Graphical User Interfaces (GUIs; point-and-click interfaces) via the <strong>Interactive Apps</strong> dropdown menu — let’s select VS Code using the “Code Server” button:</p>
 <p align="center">
-<img src="img_hts/ondemand_vscode_select.png" width="31%">
-</p>
+</p><p><img src="img_hts/ondemand_vscode_select.png" width="31%"></p>
+<p></p>
 <p><br></p>
 </section>
 </section>
@@ -494,7 +487,7 @@ Supercomputers run on the Linux operating system</li>
 <p>Because Interactive Apps like VS Code and RStudio <strong>run on compute nodes</strong> (not login nodes), which need to be “reserved”, we have to fill out a form and specify the following details (see also the screenshot below):</p>
 <table class="table">
 <colgroup>
-<col style="width: 60%">
+<col style="width: 59%">
 <col style="width: 40%">
 </colgroup>
 <thead>
@@ -523,26 +516,26 @@ Supercomputers run on the Linux operating system</li>
 </tbody>
 </table>
 <p align="center">
-<img src="img_hts/ondemand_vscode_form2.png" width="60%">
-</p>
+</p><p><img src="img_hts/ondemand_vscode_form2.png" width="60%"></p>
+<p></p>
 <p>Click on <strong>Launch</strong> at the bottom, which will send your request to the “compute job” scheduler. First, your job will be “<em>Queued</em>” — that is, waiting for the job scheduler to allocate resources on the compute nodes to it:</p>
 <p align="center">
-<img src="img_hts/ondemand_vscode_queued.png" width="75%">
-</p>
+</p><p><img src="img_hts/ondemand_vscode_queued.png" width="75%"></p>
+<p></p>
 <p>Your job is typically granted resources within a few seconds (the card will then say “<em>Starting</em>”), and be ready for usage (“<em>Running</em>”) in another couple of seconds:</p>
 <p align="center">
-<img src="img_hts/ondemand_vscode_running.png" width="75%">
-</p>
+</p><p><img src="img_hts/ondemand_vscode_running.png" width="75%"></p>
+<p></p>
 <p>Then, click on the blue <strong>Connect to VS Code</strong> button to open VS Code in a new browser tab. When VS Code opens, you may get these two pop-ups — click “Yes” (and check the box) and “Don’t Show Again”, respectively:</p>
 <div class="columns">
 <div class="column" style="width:52%;">
 <p align="center">
-<img src="img_hts/vscode-trust2.png" width="90%">
-</p>
+</p><p><img src="img_hts/vscode-trust2.png" width="90%"></p>
+<p></p>
 </div><div class="column" style="width:48%;">
 <p align="center">
-<img src="img_hts/vscode-git.png" width="90%">
-</p>
+</p><p><img src="img_hts/vscode-git.png" width="90%"></p>
+<p></p>
 </div>
 </div>
 <hr style="height:1pt; visibility:hidden;">
@@ -550,8 +543,8 @@ Supercomputers run on the Linux operating system</li>
 <section id="the-vs-code-user-interface" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</h3>
 <p align="left">
-<img src="img_hts/vscode-welcome_ed.png" width="80%">
-</p>
+</p><p><img src="img_hts/vscode-welcome_ed.png" width="80%"></p>
+<p></p>
 <section id="side-bars" class="level4">
 <h4 class="anchored" data-anchor-id="side-bars">Side bars</h4>
 <p>The <strong>Activity Bar</strong> (narrow side bar) on the far left has:</p>
@@ -609,9 +602,9 @@ Many bioinformatics programs are basically specialized commands
 <section id="the-prompt" class="level4">
 <h4 class="anchored" data-anchor-id="the-prompt">The prompt</h4>
 <p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. Your prompt at OSC should show the following pieces of information:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="op">&lt;</span>username<span class="op">&gt;</span>@<span class="op">&lt;</span>node-name<span class="op">&gt;</span> <span class="op">&lt;</span>working-dir<span class="op">&gt;</span>]$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-in-nocolor"><code>[&lt;username&gt;@&lt;node-name&gt; &lt;working-dir&gt;]$</code></pre>
 <p>For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[jelmer@p0080</span> jelmer]$ </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-in-nocolor"><code>[jelmer@p0080 jelmer]$ </code></pre>
 <p>You type your command line expressions <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute them. When it has finished executing, we’ll get our prompt back and can type a new command.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -695,9 +688,9 @@ General shell tips
 </ul>
 <p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory (i.e.&nbsp;change your <em>working</em> dir). And like many commands that perform an action, <code>cd</code> normally has <strong>no output</strong> at all.</p>
 <p>Let’s use <code>cd</code> to move to another directory by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/sratch/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2250/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/sratch/PAS2250/ENT6703/share</code></pre>
+<pre class="bash-out"><code>/fs/scratch/PAS2250/ENT6703/share</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -720,7 +713,7 @@ I will demonstrate “tab completion”!
 <strong>Your Turn</strong>: What was the problem with the path we specified? <em>(Click to see the answer)</em>
 </summary>
 <p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
-As pointed out above, paths (dir and file specifications) are <strong>case-sensitive</strong> on Unix systems!
+<p>As pointed out above, paths (dir and file specifications) are <strong>case-sensitive</strong> on Unix systems!</p>
 </details>
 <hr style="height:1pt; visibility:hidden;">
 </section>
@@ -921,7 +914,7 @@ ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10
 
 <ol>
 <li id="fn1"><p>Cloud computing is an alternative, but won’t be covered here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>You can be associated with multiple <code>PAS</code> projects and for each one, a scratch and a project directory is added<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If you were added to another project than <code>PAS2250</code>, you should have at least 3: <code>PAS2250</code> does not have a “project dir”, but most projects do<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Though this is not meant for large (&gt;1 GB) transfers. Different methods are available for those but are outside the scope of this introductions.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Note that we’ll be kicked off as soon as that amount of time has passed!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>This will be your starting location in the file system, we’ll talk more about working dirs in a little bit.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

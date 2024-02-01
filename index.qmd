@@ -9,7 +9,7 @@ number-sections: false
 ### Schedule
 
 | Week | Date       | Module                           | Topic & link                                                                                                                              |
-|-----------------|-----------------|-----------------|----------------------|
+|------|------------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | 3    | Jan 25^th^ | High-throughput sequencing (HTS) | [Lecture: High-throughput sequencing & genomes](lectures/sequencing.qmd)                                                                  |
 | 3    | Jan 26^th^ | High-throughput sequencing (HTS) | \- [Lab part 1: Computational infrastructure](labs/infrastructure.qmd)<br>- [Lab part 2: Working with genome and HTS data](labs/data.qmd) |
 | 4    | Feb 1^st^  | RNA-seq                          | [Lecture: RNA-seq](lectures/rnaseq.qmd)                                                                                                   |
