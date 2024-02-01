@@ -68,7 +68,7 @@ Today, with that gene count table, you will:
 
 <details><summary>_Click to see a screenshot_</summary>
 
-![](img_de/rstudio_form.png){fig-align="center" width="50%"}
+![](img/rstudio_form.png){fig-align="center" width="50%"}
 
 </details>
    
@@ -79,7 +79,7 @@ Today, with that gene count table, you will:
 
 <details><summary>_Click to see a screenshot_</summary>
 
-![](img_de/rstudio_queued.png){fig-align="center" width="70%"}
+![](img/rstudio_queued.png){fig-align="center" width="70%"}
 
 </details>
 
@@ -88,7 +88,7 @@ Today, with that gene count table, you will:
 
 <details><summary>_Click to see a screenshot_</summary>
 
-![](img_de/rstudio_running.png){fig-align="center" width="70%"}
+![](img/rstudio_running.png){fig-align="center" width="70%"}
 
 </details>
 
@@ -106,7 +106,7 @@ _First_, we'll prevent R from saving your **"Workspace"**:
 2. In the pop-up window (stay on the `General` tab), change the settings under the
    "Workspace" heading to:
    
-![](img_de/workspace.png){fig-align="center" width="45%"}
+![](img/workspace.png){fig-align="center" width="45%"}
 
 ::: {.callout-note collapse="true"}
 #### Why are we doing this? _(Click to expand)_
@@ -126,7 +126,7 @@ loading an R package to work] to **`|>`** ^[The new base R pipe that does not re
    and check the box for `Use native pipe operator, |> (requires R 4.1+)`
 3. Click **`OK`** at the bottom of the pop-up window
 
-![](img_de/rstudio_pipe.png){fig-align="center" width="70%"}
+![](img/rstudio_pipe.png){fig-align="center" width="70%"}
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -141,7 +141,7 @@ To create a new RStudio Project inside your personal dir in `/fs/scratch/PAS2250
 
 <details><summary>_Click to see a screenshot_</summary>
 
-![](img_de/rstudio_proj_existingdir.png){fig-align="center" width="40%"}
+![](img/rstudio_proj_existingdir.png){fig-align="center" width="40%"}
 
 </details>
 
@@ -149,7 +149,7 @@ To create a new RStudio Project inside your personal dir in `/fs/scratch/PAS2250
 
 <details><summary>_Click to see a screenshot_</summary>
 
-![](img_de/rstudio_proj_browse.png){fig-align="center" width="40%"}
+![](img/rstudio_proj_browse.png){fig-align="center" width="40%"}
 
 </details>
 
@@ -157,12 +157,12 @@ To create a new RStudio Project inside your personal dir in `/fs/scratch/PAS2250
    from which you can't click your way to `/fs/scratch`!
    Instead, you'll first have to click on the (very small!) **`...`** highlighted in the screenshot below:
 
-![](img_de/rstudio_proj_dotdotdot_ed.png){fig-align="center" width="50%"}
+![](img/rstudio_proj_dotdotdot_ed.png){fig-align="center" width="50%"}
 
 5. Type at least part of the path to your personal dir (which is in `/fs/scratch/PAS2250/ENT6703`),
    e.g. as shown below, and click **`OK`**:
 
-![](img_de/rstudio_proj_path.png){fig-align="center" width="35%"}
+![](img/rstudio_proj_path.png){fig-align="center" width="35%"}
 
 6. Now you should be able to browse/click the rest of the way to your personal directory.
 5. Click **`Choose`** to pick your selected directory.
@@ -513,7 +513,7 @@ plotPCA(dds_vst, ntop = 500, intgroup = c("time", "treatment"))
 
 <details><summary>_Click to see the paper's Figure 1_</summary>
 
-![](img_de/garrigo_PCA.jpeg)
+![](img/garrigo_PCA.jpeg)
 
 </details>
 
@@ -611,7 +611,7 @@ Controlling for time can additionally be done in two ways:
 If we take a look at Table 1 with the DE results, it will become clearer how
 they did their analysis:
 
-![](img_de/paper_table1.png){fig-align="center" width="80%"}
+![](img/paper_table1.png){fig-align="center" width="80%"}
 
 ::: exercise
 #### {{< fa user-edit >}} Your Turn

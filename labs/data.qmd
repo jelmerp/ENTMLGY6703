@@ -16,7 +16,7 @@ editor_options:
 
 We will work with RNA-seq data from the paper "*Two avian Plasmodium species trigger different transcriptional responses on their vector Culex pipiens*", published late last year in Molecular Ecology ([link](https://doi.org/10.1111/mec.17240)):
 
-![](img_hts/paper.png){fig-align="center" width="85%"}
+![](img/paper.png){fig-align="center" width="85%"}
 
 This paper uses RNA-seq data to study gene expression in *Culex pipiens* mosquitos infected with malaria-causing *Plasmodium* protozoans --- specifically, it compares mosquitos according to:
 
@@ -211,15 +211,15 @@ But perhaps that genome of *Cx. pipiens* has been published in the meantime?
 
 Generally, the first place to look reference genome data is at NCBI, <https://ncbi.nlm.nih.gov>, where you can start by simply typing the name of your organism in the search box at the home page --- by means of example, let's first search for the hoverfly *Episyrphus balteatus*:
 
-![](img_hts/refgenome_search.png){fig-align="center" width="75%"}
+![](img/refgenome_search.png){fig-align="center" width="75%"}
 
 For this species, we get the following "card" at the top of the results:
 
-![](img_hts/refgenome_result1.png){fig-align="center" width="80%"}
+![](img/refgenome_result1.png){fig-align="center" width="80%"}
 
 If you next click on "Genomes" in the result page above, you should get the following:
 
-![](img_hts/refgenome_result2.png){fig-align="center" width="95%"}
+![](img/refgenome_result2.png){fig-align="center" width="95%"}
 
 So, NCBI has 3 genomes assemblies for *Episyrphus balteatus*. The top one has a green check mark next to it (which means that this genome has been designated the primary reference genome for the focal organism), and it is also the only genome with an entry in the `Annotation` column and with a "Chromosome" (vs. "Scaffold") assembly `Level`. Therefore, that top assembly, `idEpiBalt1.1`, would be the one to go with.
 
@@ -233,7 +233,7 @@ Go through the same process as shown above for *Episyrphus balteatus*, instead e
 
 You should find that there are 5 *Culex* assemblies, 2 of which are *Culex pipiens*. The first one, `TS_CPP_V2`, has the reference checkmark next to it and has an entry in the Annotation column, which the second one (`TS_CPM_V1`) doesn't:
 
-![](img_hts/refgenome_culex_all.png){fig-align="center" width="95%"}
+![](img/refgenome_culex_all.png){fig-align="center" width="95%"}
 
 *(These two are also from different subspecies, but as far as I could see,* *the authors of our study don't specify the focal subspecies --* *though you could probably figure that out based on geographic range.)*
 
@@ -249,9 +249,9 @@ As shown in the solutions above, there *is* currently a reference genome for *Cx
 
 On the [genome's page at NCBI](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/), some of the information includes the following stats on the assembly and the annotation:
 
-![](img_hts/refgenome_stats.png){fig-align="center" width="40%"}
+![](img/refgenome_stats.png){fig-align="center" width="40%"}
 
-![](img_hts/refannot_stats.png){fig-align="center" width="50%"}
+![](img/refannot_stats.png){fig-align="center" width="50%"}
 
 So:
 
@@ -266,7 +266,7 @@ So:
 
 If you wanted to download the reference genome files from the NCBI website, you could either select an assembly in the overview table and click the `Download` button, or click the `Download` button at the top of the page for a specific assembly. That should get you the following pop-up window:
 
-![](img_hts/refgenome_download.png){fig-align="center" width="55%"}
+![](img/refgenome_download.png){fig-align="center" width="55%"}
 
 You'll want to select at least the "*Genome sequences (FASTA)*" and one or both of the "*Annotation features*" files (GTF is often preferred with RNA-seq).
 
@@ -841,7 +841,7 @@ These are handy and typically at least somewhat meaningful, but it is important 
 
 <p align="center">
 
-<img src="img_hts/fastqc_summary2.png" width="30%"/>
+<img src="img/fastqc_summary2.png" width="30%"/>
 
 </p>
 
@@ -853,7 +853,7 @@ This shows, for example, the number of sequences (reads) and the read length ran
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod01_basic-stats.png" width="85%"/>
+<img src="img/fastqc_mod01_basic-stats.png" width="85%"/>
 
 </p>
 
@@ -872,7 +872,7 @@ This figure visualize the mean per-base quality score (y-axis) along the length 
 
 <p align="center">
 
-<img src="img_hts/fastqc_good.png" width="100%"/>
+<img src="img/fastqc_good.png" width="100%"/>
 
 </p>
 :::
@@ -882,7 +882,7 @@ This figure visualize the mean per-base quality score (y-axis) along the length 
 
 <p align="center">
 
-<img src="img_hts/fastqc_bad.png" width="100%"/>
+<img src="img/fastqc_bad.png" width="100%"/>
 
 </p>
 :::
@@ -909,7 +909,7 @@ This shows the same quality scores we saw above, but now simply as a density plo
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod04_per-seq-qual_good.png" width="100%"/>
+<img src="img/fastqc_mod04_per-seq-qual_good.png" width="100%"/>
 
 </p>
 :::
@@ -919,7 +919,7 @@ This shows the same quality scores we saw above, but now simply as a density plo
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod04_per-seq-qual_bad.png" width="100%"/>
+<img src="img/fastqc_mod04_per-seq-qual_bad.png" width="100%"/>
 
 </p>
 :::
@@ -933,7 +933,7 @@ Will throw a warning as soon as not all sequences are of the same length (like b
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod08_seqlen_warning.png" width="60%"/>
+<img src="img/fastqc_mod08_seqlen_warning.png" width="60%"/>
 
 </p>
 
@@ -949,7 +949,7 @@ Checks for known adapter sequences. When some of the insert sizes are shorter th
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod11_adapter_good.png" width="100%"/>
+<img src="img/fastqc_mod11_adapter_good.png" width="100%"/>
 
 </p>
 :::
@@ -959,7 +959,7 @@ Checks for known adapter sequences. When some of the insert sizes are shorter th
 
 <p align="center">
 
-<img src="img_hts/fastqc_mod11_adapter_bad.png" width="100%"/>
+<img src="img/fastqc_mod11_adapter_bad.png" width="100%"/>
 
 </p>
 :::

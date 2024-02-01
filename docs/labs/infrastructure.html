@@ -352,7 +352,7 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <p>A supercomputer is a highly interconnected set of many computer processors and storage units. You can think of it simply as a <strong>network of computers</strong> — with individual computers called “nodes”.</p>
 <p>Supercomputers are also commonly referred to as <em>High-Performance Computing (<strong>HPC</strong>) clusters</em> or simply <strong>compute clusters</strong>. This is what Owens, one of the OSC supercomputers, physically looks like:</p>
 <p align="center">
-</p><p><img src="img_hts/owens.jpg" width="50%"></p>
+</p><p><img src="img/owens.jpg" width="50%"></p>
 <p></p>
 <p>Why you might need a supercomputer:</p>
 <ul>
@@ -365,7 +365,7 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <section id="introduction-to-osc" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</h3>
 <p align="center">
-</p><p><img src="img_hts/osc_logo.png" width="70%"></p>
+</p><p><img src="img/osc_logo.png" width="70%"></p>
 <p></p>
 <p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers (and others) across Ohio. OSC has two supercomputers/clusters (named <strong>Owens</strong> and <strong>Pitzer</strong>), and lots of infrastructure for their usage. Research usage is charged at <a href="https://www.osc.edu/content/academic_fee_model_faq">subsidized rates</a>, and in most case, these costs are absorbed at the college level.</p>
 <section id="the-structure-of-an-osc-supercomputer" class="level4">
@@ -377,7 +377,7 @@ Side note: Advantages of command-line interfaces <em>(Click to expand)</em>
 <li><strong>Compute Nodes</strong>: The many computers you can reserve to run your analyses</li>
 </ul>
 <p align="center">
-</p><p><img src="img_hts/cluster_overview_ed.png" width="85%"></p>
+</p><p><img src="img/cluster_overview_ed.png" width="85%"></p>
 <p></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -413,7 +413,7 @@ Supercomputers run on the Linux operating system</li>
 <p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and log in</strong> with your OSC (not OSU!) credentials.</p>
 <p>You should see a landing page similar to the one below:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_home.png" width="95%"></p>
+</p><p><img src="img/ondemand_home.png" width="95%"></p>
 <p></p>
 <p>We will now go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
 <section id="files-file-system-access" class="level4">
@@ -425,11 +425,11 @@ Supercomputers run on the Linux operating system</li>
 </ol>
 <p>Select the <code>PAS2250</code> scratch directory, <code>/fs/scratch/PAS2250</code>, where we’ll be working today and next week:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_files_PAS2250.png" width="45%"></p>
+</p><p><img src="img/ondemand_files_PAS2250.png" width="45%"></p>
 <p></p>
 <p>Once there, you should see a list of directories and files (here: just a single dir), and you can click on the directories to explore the contents further:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_files_PAS2250_2.png" width="95%"></p>
+</p><p><img src="img/ondemand_files_PAS2250_2.png" width="95%"></p>
 <p></p>
 <p>This interface is <strong>much like the file browser on your own computer</strong>, so you can also create, delete, move and copy files and folders, and even upload (from your computer to OSC) and download (from OSC your computer) files<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> — see the buttons across the top.</p>
 <details>
@@ -444,7 +444,7 @@ Supercomputers run on the Linux operating system</li>
 </ul>
 <p><em>(You can see what your username is by looking at the right side of the blue top bar:)</em></p>
 <p align="center">
-</p><p><img src="img_hts/username.png" width="40%"></p>
+</p><p><img src="img/username.png" width="40%"></p>
 <p></p>
 </details>
 </section>
@@ -452,11 +452,11 @@ Supercomputers run on the Linux operating system</li>
 <h4 class="anchored" data-anchor-id="clusters-unix-shell-access"><strong>Clusters</strong>: Unix shell access</h4>
 <p>Interacting with a supercomputer is most commonly done using a Unix shell, and we’ll learn about the basics of doing so soon. Under the <strong>Clusters</strong> dropdown menu, you can access a Unix shell either on Owens or Pitzer:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_shell_select.png" width="50%"></p>
+</p><p><img src="img/ondemand_shell_select.png" width="50%"></p>
 <p></p>
 <p>I’m selecting a shell on the Pitzer supercomputer, which will open a new browser tab looking like this:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_shell2.png" width="95%"></p>
+</p><p><img src="img/ondemand_shell2.png" width="95%"></p>
 <p></p>
 <p>However, from now on, we’ll be accessing a Unix shell <strong>inside the VS Code text editor</strong>, which also gives us some additional functionality in a user-friendly way.</p>
 </section>
@@ -464,7 +464,7 @@ Supercomputers run on the Linux operating system</li>
 <h4 class="anchored" data-anchor-id="interactive-apps">Interactive Apps</h4>
 <p>We can access programs with Graphical User Interfaces (GUIs; point-and-click interfaces) via the <strong>Interactive Apps</strong> dropdown menu — let’s select VS Code using the “Code Server” button:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_vscode_select.png" width="31%"></p>
+</p><p><img src="img/ondemand_vscode_select.png" width="31%"></p>
 <p></p>
 <p><br></p>
 </section>
@@ -516,25 +516,25 @@ Supercomputers run on the Linux operating system</li>
 </tbody>
 </table>
 <p align="center">
-</p><p><img src="img_hts/ondemand_vscode_form2.png" width="60%"></p>
+</p><p><img src="img/ondemand_vscode_form2.png" width="60%"></p>
 <p></p>
 <p>Click on <strong>Launch</strong> at the bottom, which will send your request to the “compute job” scheduler. First, your job will be “<em>Queued</em>” — that is, waiting for the job scheduler to allocate resources on the compute nodes to it:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_vscode_queued.png" width="75%"></p>
+</p><p><img src="img/ondemand_vscode_queued.png" width="75%"></p>
 <p></p>
 <p>Your job is typically granted resources within a few seconds (the card will then say “<em>Starting</em>”), and be ready for usage (“<em>Running</em>”) in another couple of seconds:</p>
 <p align="center">
-</p><p><img src="img_hts/ondemand_vscode_running.png" width="75%"></p>
+</p><p><img src="img/ondemand_vscode_running.png" width="75%"></p>
 <p></p>
 <p>Then, click on the blue <strong>Connect to VS Code</strong> button to open VS Code in a new browser tab. When VS Code opens, you may get these two pop-ups — click “Yes” (and check the box) and “Don’t Show Again”, respectively:</p>
 <div class="columns">
 <div class="column" style="width:52%;">
 <p align="center">
-</p><p><img src="img_hts/vscode-trust2.png" width="90%"></p>
+</p><p><img src="img/vscode-trust2.png" width="90%"></p>
 <p></p>
 </div><div class="column" style="width:48%;">
 <p align="center">
-</p><p><img src="img_hts/vscode-git.png" width="90%"></p>
+</p><p><img src="img/vscode-git.png" width="90%"></p>
 <p></p>
 </div>
 </div>
@@ -543,7 +543,7 @@ Supercomputers run on the Linux operating system</li>
 <section id="the-vs-code-user-interface" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</h3>
 <p align="left">
-</p><p><img src="img_hts/vscode-welcome_ed.png" width="80%"></p>
+</p><p><img src="img/vscode-welcome_ed.png" width="80%"></p>
 <p></p>
 <section id="side-bars" class="level4">
 <h4 class="anchored" data-anchor-id="side-bars">Side bars</h4>
