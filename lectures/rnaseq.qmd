@@ -105,7 +105,8 @@ Specifically, we can use transcriptomics to:
 
     -   Explain differences between groups (treatments, genotypes, sexes, tissues, etc.)
 
-    -   Can be targeted to enhance or reduce responses for pathogen and pest control
+    -   Can be targeted to enhance or reduce organismal responses to help control
+        pathogens and pests
 
 ## What is RNA-seq?
 
@@ -227,28 +228,28 @@ You won't need technical replicates that only replicate library prep and/or sequ
 
 ::: {.column width="50%"}
 ::: {.callout-tip appearance="minimal"}
--   Your first step is to **extract RNA from tissue samples**
+
+-   Library preparation is typically done by sequencing facilities
 
 <hr style="height:1pt; visibility:hidden;" />
 
--   Next, "**library preparation**" is the series of lab steps to produce a collection of molecules ready to be sequenced
-
--   Library prep is typically done by sequencing facilities
+-   There are two main ways to select for mRNAs, which make up only a few % of RNAs:
+    poly-A selection and ribo-depletion.
 
 <hr style="height:1pt; visibility:hidden;" />
 
--   Recall: many samples can be "multiplexed" into a single RNA-seq library
+-   Many samples can be "multiplexed" into a single RNA-seq library
 :::
 
-<br>
+<br><br><br>
 
 ::: {.legend2 align="left"}
-Fig. from Kukurba & Montgomery 2015 (www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
+Fig. from [Kukurba & Montgomery 2015](www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
 :::
 :::
 :::
 
-## Sequencing
+## Sequencing considerations
 
 -   **Sequencing technology**
 
@@ -264,32 +265,25 @@ Fig. from Kukurba & Montgomery 2015 (www.ncbi.nlm.nih.gov/pmc/articles/PMC486323
 
     -   Paired-end has limited added value for reference-based, gene-level workflows (but can be key in other scenarios) — but it is still common as prices are often similar
 
-## Sequencing (cont.)
-
--   **Sequencing "depth" / amount** — how many reads per sample
-
-    -   Guidelines highly approximate (cf. in genomics) — depends not just on transcriptome size; also on expression level distribution, expression levels of genes of interest, etc.
+<hr style="height:1pt; visibility:hidden;" />
 
 . . .
 
-::: columns
-::: {.column width="65%"}
-![](img_rnaseq/02-de-replicates-3.png){fig-align="center" width="80%"}
-:::
+-   **Sequencing "depth" / amount** — how many reads per sample
 
-::: {.column width="35%"}
--   Typical recommendations are 20-50 million reads per sample (more for e.g. transcript-level inferences)
+    -   Guidelines highly approximate (cf. in genomics) — depends not just on transcriptome size;
+        also on expression level distribution, expression levels of genes of interest, etc.
+    
+    -   Typical recommendations are 20-50 million reads per sample (more for e.g. transcript-level inferences)
 
-<hr style="height:1pt; visibility:hidden;" />
+## Sequencing depth vs. replicates
 
--   For statistical power, *more replicates are better than a higher sequencing depth*
+For statistical power, more replicates are better than a higher sequencing depth:
 
-<br>
+![](img_rnaseq/02-de-replicates-3.png){fig-align="center" width="95%"}
 
 ::: {.legend2 align="left"}
-From [Liu et al. 2014](https://doi.org/10.1093/bioinformatics/btt688)
-:::
-:::
+Fig. from [Liu et al. 2014](https://doi.org/10.1093/bioinformatics/btt688)
 :::
 
 # From reads to counts {background-color="dimgray"}
@@ -300,7 +294,7 @@ From [Liu et al. 2014](https://doi.org/10.1093/bioinformatics/btt688)
 
 ## From reads to counts: overview
 
-You will typically receive a "demultiplexed" (split by sample) set of **FASTQ** files.
+You will typically receive a "demultiplexed" (split-by-sample) set of **FASTQ** files.
 
 Once you receive your data, the first series of analysis steps involves going from the raw reads to a count table (which will have a read count for each gene in each sample).
 
@@ -312,7 +306,7 @@ This part is **bioinformatics-heavy** with large files, a need for lots of compu
 
 . . .
 
-1.  Read preprocessing: QC, trimming, and optionally rRNA removal
+1.  Read preprocessing
 
 2.  Aligning reads to a reference genome (+ alignment QC)
 
@@ -355,7 +349,7 @@ The **alignment of reads to a reference genome** needs to be *"splice-aware"*.
 
 ## Reads to counts: alignment to a reference genome
 
-Alternatively, you can *align to the transcriptome* (i.e., all mature transcripts):
+Alternatively, you can **align to the transcriptome** (i.e., all mature transcripts):
 
 ![[Berge et al. 2019](www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](img_rnaseq/alignment_ed1.jpg)
 
@@ -423,22 +417,23 @@ The "nf-core" initiative (<https://nf-co.re>) attempts to produce best-practice 
 ## Count table analysis: overview
 
 The second part of RNA-seq data analysis involves analyzing the count table.\
-In contrast to the first part, this can be done on a laptop and instead is heavier on **statistics**, **data visualization** and **biological interpretation**.
+In contrast to the first part, this can be done on a laptop and instead is heavier
+on **statistics**, **data visualization** and **biological interpretation**.
 
 <br>
 
 . . .
 
-Common steps include:
+It is typically done with the R languange, and common steps include:
 
 -   **Principal Component Analysis (PCA)**\
     Assessing overall sample clustering patterns
 
--   **Differential expression analysis**\
+-   **Differential Expression (DE) analysis**\
     Finding genes that differ in expression level between sample groups (DEGs)
 
 -   **Functional enrichment analysis**\
-    See whether certain gene functions are overrepresented among DEGs
+    See whether certain gene function groupings are overrepresented among DEGs
 
 ## PCA
 
@@ -459,11 +454,26 @@ Typically, this is done with pairwise comparisons between groups:
 
 ::: columns
 ::: column
-![](img_rnaseq/volcano.png)
+![](img_rnaseq/geneplot.png)
 :::
 
 ::: column
+:::
+:::
+
+## Differential expression (DE) analysis
+
+A Differential Expression (DE) analysis allows you to test, for every single expressed gene in your dataset, whether it significantly differs in expression level between groups.
+
+Typically, this is done with pairwise comparisons between groups:
+
+::: columns
+::: column
 ![](img_rnaseq/geneplot.png)
+:::
+
+::: column
+![](img_rnaseq/volcano.png)
 :::
 :::
 
@@ -550,19 +560,24 @@ Fig. 4 from [Garrigos et al. 2023](https://doi.org/10.1111/mec.17240)
 
 ## Functional enrichment: KEGG {.nostretch}
 
--   Focus on **pathways** for cellular and organismal functions whose genes can be
-    drawn and connected in maps
-    
--   Whereas in well-annotated genomes, the majority of genes has one or more GO
-    terms associated with it, much fewer genes are usually annotated with
-    KEGG orthologs
+KEGG focuses on **pathways** for cellular and organismal functions whose genes can be
+drawn and connected in maps.
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
+
+::: {.callout-note appearance="minimal"}
+_Whereas in well-annotated genomes, the majority of genes has one or more GO_
+_terms associated with it, many fewer genes are usually annotated with_
+_KEGG orthologs._
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
 
 ![](img_rnaseq/kegg_example.jpg){fig-align="center" width="90%"}
 
 ::: legend2
 [Rodriguez et al. 2020](https://bsppjournals.onlinelibrary.wiley.com/doi/abs/10.1111/ppa.13165)
+KEGG representation of up-regulated genes related to jasmonic acid (JA) biosynthesis (α-linolenic acid metabolism (ko00592)) and JA signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Rectangles are gene products, mostly proteins but including RNAs; circles are chemical compounds, DNA or other molecules. Genes or chemicals up-regulated at any time point were highlighted in green.
 :::
 
 ## Functional enrichment: KEGG

@@ -5,7 +5,7 @@ date: 2024-02-02
 editor: visual
 execute: 
   eval: true
-  cache: true
+  cache: false
 knitr:
   opts_chunk:
     out.width: "85%"
@@ -791,13 +791,13 @@ of comparisons.
 
 - **Solution using tidyverse/dplyr:**
 
-```{r}
+```{r, eval=TRUE}
 # First we need to convert the results table into a regular data frame
 as.data.frame(res_rc24) |>
   # Then we only select the rows/genes that are significant
   filter(padj < 0.05) |>
   # If we run count() on a logical test, we get the nrs. that are FALSE v. TRUE
-  count(log2FoldChange > 0)
+  dplyr::count(log2FoldChange > 0)
 ```
 
 - **Solution using base R:**
@@ -823,13 +823,13 @@ sum(res_rc24$log2FoldChange > 0 & res_rc24$padj < 0.05, na.rm = TRUE)
 
 - **Solution using tidyverse/dplyr:**
 
-```{r}
+```{r, eval=TRUE}
 # First we need to convert the results table into a regular data frame
 as.data.frame(res_rc24) |>
   # Then we only select the rows/genes that are significant
   filter(padj < 0.05, abs(log2FoldChange) > 1) |>
   # If we run count() on a logical test, we get the nrs. that are FALSE v. TRUE
-  count(log2FoldChange > 0)
+  dplyr::count(log2FoldChange > 0)
 ```
 
 - **Solution using base R:**
