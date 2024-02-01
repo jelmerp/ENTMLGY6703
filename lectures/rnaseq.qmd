@@ -524,7 +524,8 @@ Specialized R/Bioconductor packages like `DESeq2` and `EdgeR` make differential 
 
 Lists of DEGs can be quite long, and it is not always easy to make biological sense of them. Functional enrichment analyses help with this.
 
-Functional enrichment analyses check whether certain **functional categories of genes** (e.g., biological processes, or pathways) are **statistically overrepresented** among up- and/or downregulated genes.
+Functional enrichment analyses check whether certain **functional categories of genes**
+are **statistically overrepresented** among up- and/or downregulated genes.
 
 <br>
 
@@ -544,7 +545,7 @@ There are a number of databases that group genes into functional categories, but
 
 -   Hierarchical structure with more specific terms grouping into more general terms
 
--   Highest-level grouping are the three "ontologies": Biological Process, Molecular Function, Cellular Component
+-   Highest-level grouping are the three "ontologies": _Biological Process_, _Molecular Function_, _Cellular Component_
 
 <br>
 
@@ -563,21 +564,13 @@ Fig. 4 from [Garrigos et al. 2023](https://doi.org/10.1111/mec.17240)
 KEGG focuses on **pathways** for cellular and organismal functions whose genes can be
 drawn and connected in maps.
 
-<hr style="height:1pt; visibility:hidden;" />
-
-::: {.callout-note appearance="minimal"}
-_Whereas in well-annotated genomes, the majority of genes has one or more GO_
-_terms associated with it, many fewer genes are usually annotated with_
-_KEGG orthologs._
-:::
-
-<hr style="height:1pt; visibility:hidden;" />
+<br>
 
 ![](img_rnaseq/kegg_example.jpg){fig-align="center" width="90%"}
 
 ::: legend2
-[Rodriguez et al. 2020](https://bsppjournals.onlinelibrary.wiley.com/doi/abs/10.1111/ppa.13165)
-KEGG representation of up-regulated genes related to jasmonic acid (JA) biosynthesis (α-linolenic acid metabolism (ko00592)) and JA signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Rectangles are gene products, mostly proteins but including RNAs; circles are chemical compounds, DNA or other molecules. Genes or chemicals up-regulated at any time point were highlighted in green.
+[Rodriguez et al. 2020](https://bsppjournals.onlinelibrary.wiley.com/doi/abs/10.1111/ppa.13165):
+"KEGG representation of up-regulated genes related to jasmonic acid (JA) signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with _Pseudocercospora fijiensis_. Genes or chemicals up-regulated at any time point were highlighted in green."
 :::
 
 ## Functional enrichment: KEGG

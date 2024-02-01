@@ -1019,7 +1019,7 @@
     "href": "lectures/rnaseq.html#functional-enrichment-introduction",
     "title": "Transcriptomics with RNA-seq",
     "section": "Functional enrichment: introduction",
-    "text": "Functional enrichment: introduction\nLists of DEGs can be quite long, and it is not always easy to make biological sense of them. Functional enrichment analyses help with this.\nFunctional enrichment analyses check whether certain functional categories of genes (e.g., biological processes, or pathways) are statistically overrepresented among up- and/or downregulated genes.\n\n\nThere are a number of databases that group genes into functional categories, but the two main ones used for enrichment analysis are:\n\nGene Ontology (GO)\nKyoto Encyclopedia of Genes and Genomes (KEGG)"
+    "text": "Functional enrichment: introduction\nLists of DEGs can be quite long, and it is not always easy to make biological sense of them. Functional enrichment analyses help with this.\nFunctional enrichment analyses check whether certain functional categories of genes are statistically overrepresented among up- and/or downregulated genes.\n\n\nThere are a number of databases that group genes into functional categories, but the two main ones used for enrichment analysis are:\n\nGene Ontology (GO)\nKyoto Encyclopedia of Genes and Genomes (KEGG)"
   },
   {
     "objectID": "lectures/rnaseq.html#functional-enrichment-go",
@@ -1033,7 +1033,7 @@
     "href": "lectures/rnaseq.html#functional-enrichment-kegg",
     "title": "Transcriptomics with RNA-seq",
     "section": "Functional enrichment: KEGG",
-    "text": "Functional enrichment: KEGG\nKEGG focuses on pathways for cellular and organismal functions whose genes can be drawn and connected in maps.\n\n\n\n\nWhereas in well-annotated genomes, the majority of genes has one or more GO terms associated with it, many fewer genes are usually annotated with KEGG orthologs.\n\n\n\n\n\n\n\n\n\n\nRodriguez et al. 2020 KEGG representation of up-regulated genes related to jasmonic acid (JA) biosynthesis (α-linolenic acid metabolism (ko00592)) and JA signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Rectangles are gene products, mostly proteins but including RNAs; circles are chemical compounds, DNA or other molecules. Genes or chemicals up-regulated at any time point were highlighted in green."
+    "text": "Functional enrichment: KEGG\nKEGG focuses on pathways for cellular and organismal functions whose genes can be drawn and connected in maps.\n\n\n\n\n\n\n\nRodriguez et al. 2020: “KEGG representation of up-regulated genes related to jasmonic acid (JA) signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Genes or chemicals up-regulated at any time point were highlighted in green.”"
   },
   {
     "objectID": "lectures/rnaseq.html#functional-enrichment-kegg-1",
