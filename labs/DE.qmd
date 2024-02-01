@@ -5,7 +5,7 @@ date: 2024-02-02
 editor: visual
 execute: 
   eval: true
-  cache: false
+  cache: true
 knitr:
   opts_chunk:
     out.width: "85%"
@@ -126,7 +126,7 @@ loading an R package to work] to **`|>`** ^[The new base R pipe that does not re
    and check the box for `Use native pipe operator, |> (requires R 4.1+)`
 3. Click **`OK`** at the bottom of the pop-up window
 
-![](img/rstudio_pipe.png){fig-align="center" width="70%"}
+![](img/rstudio_pipe_ed.png){fig-align="center" width="70%"}
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -213,7 +213,8 @@ library(EnhancedVolcano, lib.loc = custom_library) # Volcano plot
 library(DESeq2, lib.loc = custom_library)          # Differential expression analysis
 ```
 
-<details><summary>There should be a lot of output in the R console, some of it in orange, but all should be good unless you see explicit errors at the bottom (_Click to see expected output_)</summary>
+<details><summary>This will produce output in the R console (a lot when loading DESeq2),
+and some of it in orange, but all should be good unless you see explicit errors at the bottom (_Click to see expected output_)</summary>
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -241,30 +242,32 @@ library(DESeq2)
 
 For the differential expression analysis, we have the following input files:
 
-- **Metadata table** --- The metadata we saw last week, to enable between-treatment comparisons
+- **Metadata table** --- The metadata we saw last week (slightly modified), to enable between-treatment comparisons
 - **Gene counts table** --- Produced by running the [nf-core rnaseq workflow](https://nf-co.re/rnaseq) on the input data we saw last week
 
 ```{r, eval=FALSE}
 # We'll save the paths to our input files for later use
 # ('..' goes up one dir in the dir hierarchy - same as in the Unix shell) 
 count_table_file <- "../share/results/counts/salmon.merged.gene_counts_length_scaled.tsv"
-metadata_file <- "../share/data/meta/metadata.tsv"
+metadata_file <- "../share/data/meta/metadata_ed.tsv"
 ```
 
 ```{r, echo=FALSE}
 count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
-metadata_file <- here::here("data/meta/metadata.tsv")
+metadata_file <- here::here("data/meta/metadata_ed.tsv")
 ```
 
 <br>
 
 ## Create a DESeq2 object
 
-Today, we will perform differential expression (DE) analysis using the popular **DESeq2** package
+Like in the _Culex_ paper whose data we are working with,
+we will perform a Principal Component Analysis (PCA) and a Differential Expression (DE) analysis
+using the popular **DESeq2** package
 ([paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8),
 [website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)).
 
-The DESeq2 package has its own "object type" (basically, a format in R) and
+The DESeq2 package has its own "object type" (a specific R format type) and
 before we can do anything else, we need to create a DESeq2 object from three components:
 
 1. **Metadata**  
@@ -310,7 +313,7 @@ head(meta)
 ```
 
 ::: {.callout-tip appearance="minimal"}
-_Note the difference between having the sample IDs as a separate column versus having them as row names._
+_In the two outputs above, note the difference between having the sample IDs as a separate column versus as row names._
 :::
 
 ::: {.callout-note collapse="true"}
@@ -341,20 +344,19 @@ count_df <- read_tsv(count_table_file, show_col_types = FALSE)
 head(count_df)
 ```
 
-We next have to make several modifications, because DESeq2 expects an all-numeric matrix
-with whole numbers (integers) and gene IDs are "row names" rather than as a separate
-column:
+Here, too, we have to make several modifications: DESeq2 expects an all-numeric matrix
+with whole numbers (integers) and with gene IDs as row names:
 
 ```{r}
 # Prepare the count table so it can be loaded into DESeq2
 count_mat <- count_df |>
   # 1. Turn the 'gene_id' column into row names:
   column_to_rownames("gene_id") |>
-  # 2. Remove a remaining non-numeric column, with gene names:
+  # 2. Remove a remaining non-numeric column (which has gene names):
   select(-gene_name) |>
-  # 3. We should round everything to whole numbers:
+  # 3. Round everything to whole numbers:
   round() |>
-  # 4. We should convert it to a formal matrix format:
+  # 4. Convert it to a formal 'matrix' format:
   as.matrix()
 ```
 
@@ -404,7 +406,7 @@ a bit of exploratory data analysis using our `dds` object.
 
 ### Our count matrix
 
-What are number of rows (=number of genes) and columns (=number of samples) of our count matrix?
+What are the number of rows (=number of genes) and columns (=number of samples) of our count matrix?
 
 ```{r}
 dim(count_mat)
@@ -450,7 +452,7 @@ colSums(count_mat)
 ```
 
 ::: exercise
-#### {{< fa user-edit >}} Your Turn (Bonus)
+#### {{< fa user-edit >}} Your Turn (_Bonus_)
 That's not so easy to read / interpret. Can you instead get these numbers in millions, rounded to whole numbers, and sorted from low to high?
 
 <details><summary> _Click to see the solution_</summary>
@@ -474,7 +476,7 @@ This will help us answer questions like:
 - Which of these two variables has a greater effect on overall patterns of gene expression?
 - Is there an overall _interaction_ between these two variables?
   
-First, we have to normalize the count data to account for differences in library size among samples and "stabilize" the variance among genes^[Specifically, the point is to remove the dependence of the expression level variance on the expression level mean among genes]:
+First, we have to normalize the count data to account for differences in library size among samples and "stabilize" the variance among genes^[Specifically, the point is to remove the dependence of the variance in expression level on its mean, among genes]:
 
 ```{r}
 dds_vst <- varianceStabilizingTransformation(dds)
@@ -525,15 +527,16 @@ plotPCA(dds_vst, ntop = 500, intgroup = c("time", "treatment"))
   (Hint: figure out how to do so by looking at the help by running `?plotPCA`)
 
 - _Bonus_: Customize the PCA plot --- e.g. can you "separate" treatment and time
-  point, like Fig. 1 of the paper did?
+  point (different shapes for one variable, and different colors for the other),
+  like in Fig. 1 of the paper?
 
 <details><summary> _Click to see some hints for PCA plot customization_</summary>
 
-The biggest issue (I think) with the above plot is that each combination of 
-time point and treatment has a distinct color ---
+To expand on the point of the exercise: in the plot we made above,
+each combination of time point and treatment has a distinct color ---
 it would be better to use **point color** only to distinguish one of the variables,
 and **point shape** to distinguish the other variable
-(as it was also done in the paper's Fig. 1).
+(as was also done in the paper's Fig. 1).
 
 To be able to customize the plot properly, we best build it from scratch ourselves,
 rather than using the `plotPCA` function. But then how do we get the input data in
@@ -547,22 +550,29 @@ pca_df <- plotPCA(dds_vst, ntop = 500,
                   intgroup = c("time", "treatment"), returnData = TRUE)
 ```
 
+With that `pca_df` dataframe in hand, it will be relatively straightforward to
+customize the plot, if you know some ggplot2.
+
 </details>
 
 <details><summary> _Click to see a possible solution_</summary>
+
+First, we'll get the data in the right format, as explained in the hint:
 
 ```{r}
 pca_df <- plotPCA(dds_vst, ntop = 500,
                   intgroup = c("time", "treatment"), returnData = TRUE)
 ```
 
-We'll extract the percentage of variance explained by different principal components,
+Second, we'll extract and store the percentage of variance explained by different principal components,
 so we can later add this information to the plot:
 
 ```{r}
 pct_var <- round(100 * attr(pca_df, "percentVar"), 1)
 pct_var
 ```
+
+Now we can make the plot:
 
 ```{r}
 ggplot(pca_df,
@@ -592,7 +602,7 @@ First, let's see how the DE analysis was done in the paper:
 
 This is not terribly detailed and could be interpreted in a couple of different ways.
 For example, they may have compared infection statuses by _ignoring_ time points **_or_**
-by _controlling for_ time points (and their are different ways to do the latter).
+by _controlling for_ time points (and there are different ways to do the latter).
 
 Ignoring time would mean analyzing the full dataset (all time points) while only
 using the infection status as an independent variable, i.e. the design `~treatment`.
@@ -622,7 +632,8 @@ It looks like they performed pairwise comparisons between each combination of ti
 </details>
 :::
 
-Pairwise comparisons with multiple independent variables can (also!) be done in two ways:
+That brings us a step closer,
+but pairwise comparisons with >1 independent variable can (also!) be done in two ways:
 
 - After **subsetting** the dataset to each combination of time and treatment.
 - After creating a single, **combined independent variable** that is a combination of time and treatment.
@@ -647,6 +658,7 @@ table(dds$group)
 Next, we set the analysis design:
 
 ```{r}
+# Note: the symbol before 'group' is a tilde, ~ 
 design(dds) <- ~ group
 ```
 
@@ -739,7 +751,7 @@ A nice property of LFC is that decreases and increases in expression are express
 :::
 
 ::: exercise
-#### {{< fa user-edit >}} Your Turn (bonus)
+#### {{< fa user-edit >}} Your Turn (_Bonus_)
 
 Based on the above, or your knowledge of log-transformations,
 what do you expect the following to return:
@@ -752,12 +764,16 @@ log2(2 / 8)
 
 <details><summary>_Click to see the solution_</summary>
 
-```{r}
-log2(8 / 2)    # Fold-change of 4
-```
+- A fold-change of 4 (8/2) is a LFC of 2:
 
 ```{r}
-log2(2 / 8)    # Fold-change of 0.25
+log2(8 / 2)
+```
+
+- A fold-change of 0.25 (2/8) is a LFC of -2:
+
+```{r}
+log2(2 / 8)
 ```
 
 </details>
@@ -771,6 +787,8 @@ log2(2 / 8)    # Fold-change of 0.25
 How many adjusted p-values were less than 0.05 (i.e., significant)?
 
 ```{r}
+# (We need 'na.rm = TRUE' because some p-values are 'NA')
+# (If we don't remove NAs from the calculation, sum() will just return NA)
 sum(res_rc24$padj < 0.05, na.rm = TRUE)
 ```
 
@@ -888,15 +906,16 @@ EnhancedVolcano(
 </details>
 
 ::: exercise
-#### {{< fa user-edit >}} Your Turn
+#### {{< fa user-edit >}} Your Turn (_Bonus_)
 
-Above, we turned off gene name labeling by setting `labSize = 0`.
+The `EnhancedVolcano()` function by default adds gene IDs to highly significant genes,
+but above, we turned off gene name labeling by setting `labSize = 0`.
 I did this because the default p-value cut-off for point labeling is `1e-5` 
 and in this case, that would make the plot quite busy with gene labels.
 We might want to try a plot with a stricter p-value cut-off that does show the gene labels.
 
 - **Play around with the p-value cut-off and the labeling to create a plot you like.**  
-  _Check [the vignette](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html), or the help page (access by running `?EnhancedVolcano`) to see how you can do this._
+  _Check [the vignette](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html), or the help page (accessed by running `?EnhancedVolcano`) to see how you can do this._
   
 <details><summary> _Click for an example_</summary>
 
@@ -918,8 +937,8 @@ EnhancedVolcano(
 
 <hr style="height:1pt; visibility:hidden;" />
 
-- **Figure out the identity of the abovementioned log2-fold change outlier**
-  (either by labeling it in the plot, or by filtering the `res_rc24` table)
+- **Figure out the identity of the abovementioned log2-fold change outlier.**\
+  _(You can do so either by labeling it in the plot, or by filtering the `res_rc24` table.)_
 
 <details><summary>_Click for the solution for how to lab it in the plot_ </summary>
 
@@ -1025,7 +1044,12 @@ ggplot(focal_gene_counts,
 ::: exercise
 #### {{< fa user-edit >}} Your turn
 
-- Plot the gene with the very high LFC value that we saw when making the volcano plot.
+- Plot one or a few more of the top-DE genes.
+  Do they have similar expression patterns across treatment and time points as the first one?
+
+-----
+
+- _Bonus_: Plot the gene with the very high LFC value that we saw when making the volcano plot.
   How would you interpret this?
 
 <details><summary>_Click for the solution_</summary>
@@ -1068,12 +1092,9 @@ and need to visualize important genes!
 
 ::: {.callout-important}
 #### Outliers!
-Make sure to check out the solution to the previous exercise,
+You may want to check out the solution to the previous exercise,
 even if you don't get around to doing it yourself.
 :::
-
-- _Bonus_: Plot one or a few more of the top-DE genes.
-  Do they have similar expression patterns across treatment and time points as the first one?
 
 :::
 
@@ -1228,7 +1249,7 @@ pheatmap(
 </details>
 
 ::: exercise
-#### {{< fa user-edit >}} Your turn
+#### {{< fa user-edit >}} Your Tuen (_Bonus_)
 
 Make a heatmap with the top-25 **most-highly expressed** genes
 (i.e., genes with the highest mean expression levels across all samples).

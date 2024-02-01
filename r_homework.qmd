@@ -11,14 +11,13 @@ editor_options:
 
 ## R homework for the week 4 lab
 
-If you have limited or no experience with R,
-I highly recommend that you go through part of the Data Carpentry ["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
+If you have limited or no experience with R, I highly recommend that you go through part of the Data Carpentry ["Data Analysis and Visualisation in R for Ecologists" lesson](https://datacarpentry.org/R-ecology-lesson/index.html).
 
 **At least** make your way through:
 
-- The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
-- [Episode 1 ("Before we start")](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
-- [Episode 2 ("Introduction to R")](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
+-   The [introductory page](https://datacarpentry.org/R-ecology-lesson/index.html)
+-   [Episode 1 ("Before we start")](https://datacarpentry.org/R-ecology-lesson/00-before-we-start.html))
+-   [Episode 2 ("Introduction to R")](https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html))
 
 **If you have time**, then you can also go through:
 
@@ -26,10 +25,9 @@ I highly recommend that you go through part of the Data Carpentry ["Data Analysi
 -   [Episode 4 (tidyverse)](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html) --- until (not including) the ["Split-apply-combine" section](https://datacarpentry.org/R-ecology-lesson/03-dplyr.html#split-apply-combine-data-analysis-and-the-summarize-function).
 -   [Episode 5 (ggplot)](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) --- until (not including) the ["Arranging plots" section](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html#arranging-plots).
 
-_You can do this homework either with **your own R & RStudio installation** (the Carpentry lesson contains installation instructions), or use **RStudio at OSC** (see the instructions below)._
+*You can do this homework either with **your own R & RStudio installation** (the Carpentry lesson contains installation instructions), or use **RStudio at OSC** (see the instructions below).*
 
-If you run into any issues when going through this material, or just have questions,
-don't hesitate to [email Jelmer](poelstra.1@osu.edu).
+If you run into any issues when going through this material, or just have questions, don't hesitate to [email Jelmer](poelstra.1@osu.edu).
 
 ::: callout-tip
 #### Not sure if you know enough R to skip this?
@@ -41,8 +39,7 @@ The best way to find out is to take a look at the material!
 
 ## Start an RStudio session at OSC
 
-In case you want to use RStudio at the Ohio Supercomputer Center (OSC) for your homework,
-follow these instructions to get started:
+In case you want to use RStudio at the Ohio Supercomputer Center (OSC) for your homework, follow these instructions to get started:
 
 1.  Log in to OSC at <https://ondemand.osc.edu>
 
@@ -61,7 +58,7 @@ follow these instructions to get started:
 
 <summary>*Click to see a screenshot*</summary>
 
-![](labs/img_de/rstudio_form.png){fig-align="center" width="50%"}
+![](labs/img/rstudio_form.png){fig-align="center" width="50%"}
 
 </details>
 
@@ -73,7 +70,7 @@ follow these instructions to get started:
 
 <summary>*Click to see a screenshot*</summary>
 
-![](labs/img_de/rstudio_queued.png){fig-align="center" width="70%"}
+![](labs/img/rstudio_queued.png){fig-align="center" width="70%"}
 
 </details>
 
@@ -83,7 +80,7 @@ follow these instructions to get started:
 
 <summary>*Click to see a screenshot*</summary>
 
-![](labs/img_de/rstudio_running.png){fig-align="center" width="70%"}
+![](labs/img/rstudio_running.png){fig-align="center" width="70%"}
 
 </details>
 
@@ -94,16 +91,15 @@ follow these instructions to get started:
 ::: callout-important
 #### Having trouble installing the *tidyverse* package?
 
-If you are using RStudio at OSC and your *tidyverse* package installation fails,
-please load this package as follows (no installation needed):
+If you are using RStudio at OSC and the installation of the *tidyverse* package (or another package) with `install.packages()` fails, please load the packages that the Carpentries lesson uses as follows (no installation needed):
 
 ```{r, eval=FALSE}
 custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
-library(withr, lib.loc = custom_library)
-library(tidyr, lib.loc = custom_library)
 library(tidyverse, lib.loc = custom_library)
+library(hexbin, lib.loc = libdir)
+library(patchwork, lib.loc = libdir)
+library(RSQLite, lib.loc = libdir)
 ```
-
 :::
 
 <br>
