@@ -353,10 +353,11 @@ Having trouble installing the <em>tidyverse</em> package?
 <p>If you are using RStudio at OSC and the installation of the <em>tidyverse</em> package (or another package) with <code>install.packages()</code> fails, please load the packages that the Carpentries lesson uses as follows (no installation needed):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>custom_library <span class="ot">&lt;-</span> <span class="st">"/fs/scratch/PAS2250/ENT6703/share/rlib"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse, <span class="at">lib.loc =</span> custom_library)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hexbin, <span class="at">lib.loc =</span> libdir)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork, <span class="at">lib.loc =</span> libdir)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite, <span class="at">lib.loc =</span> libdir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(custom_library)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse, <span class="at">lib.loc =</span> custom_library)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hexbin, <span class="at">lib.loc =</span> custom_library)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork, <span class="at">lib.loc =</span> custom_library)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite, <span class="at">lib.loc =</span> custom_library)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

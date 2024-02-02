@@ -499,12 +499,13 @@ Make sure to type all the R code below inside your script, and then send it to t
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we define the dir that has the custom library:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>custom_library <span class="ot">&lt;-</span> <span class="st">"/fs/scratch/PAS2250/ENT6703/share/rlib"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, we load all needed R packages from that library:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse, <span class="at">lib.loc =</span> custom_library)       <span class="co"># Misc. data manipulation and plotting</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap, <span class="at">lib.loc =</span> custom_library)        <span class="co"># Heatmap plot</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano, <span class="at">lib.loc =</span> custom_library) <span class="co"># Volcano plot</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2, <span class="at">lib.loc =</span> custom_library)          <span class="co"># Differential expression analysis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(custom_library)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, we load all needed R packages from that library:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse, <span class="at">lib.loc =</span> custom_library)       <span class="co"># Misc. data manipulation and plotting</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap, <span class="at">lib.loc =</span> custom_library)        <span class="co"># Heatmap plot</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano, <span class="at">lib.loc =</span> custom_library) <span class="co"># Volcano plot</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2, <span class="at">lib.loc =</span> custom_library)          <span class="co"># Differential expression analysis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details>
 <summary>

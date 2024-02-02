@@ -95,10 +95,11 @@ If you are using RStudio at OSC and the installation of the *tidyverse* package 
 
 ```{r, eval=FALSE}
 custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
+.libPaths(custom_library)
 library(tidyverse, lib.loc = custom_library)
-library(hexbin, lib.loc = libdir)
-library(patchwork, lib.loc = libdir)
-library(RSQLite, lib.loc = libdir)
+library(hexbin, lib.loc = custom_library)
+library(patchwork, lib.loc = custom_library)
+library(RSQLite, lib.loc = custom_library)
 ```
 :::
 

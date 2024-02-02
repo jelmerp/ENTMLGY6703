@@ -47,7 +47,6 @@ Today, with that gene count table, you will:
 - Run a Differential Expression (DE) analysis
 - Extract and visualize the DE results
 
-
 <br>
 
 ## Getting set up
@@ -205,6 +204,7 @@ Copy the code below into your R script and then send it to the R console:
 ```{r, eval=FALSE}
 # First, we define the dir that has the custom library:
 custom_library <- "/fs/scratch/PAS2250/ENT6703/share/rlib"
+.libPaths(custom_library)
 
 # Then, we load all needed R packages from that library:
 library(tidyverse, lib.loc = custom_library)       # Misc. data manipulation and plotting
