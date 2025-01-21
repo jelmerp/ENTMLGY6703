@@ -585,7 +585,7 @@
     "href": "lectures/sequencing.html#how-errors-come-about-in-illumina",
     "title": "High-throughput sequencing  and genomes",
     "section": "How errors come about in Illumina",
-    "text": "How errors come about in Illumina\n\n\n\nThe different templates within a cluster get out of sync because occasionally:\n\nThey miss a base incorporation\nThey incorporate two bases at once\n\n\n\n\nBase incorporation may also terminate before the end of the template is reached\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis error profile is why, for Illumina:\n\n\n\nThere are hard limits on read lengths\nBase quality scores typically decrease along the read"
+    "text": "How errors come about in Illumina\n\n\n\nThe different templates within a cluster get out of sync because occasionally:\n\nThey miss a base incorporation\nThey incorporate two bases at once\n\n\n\n\nBase incorporation may also terminate before the end of the template is reached\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis error profile is why, for Illumina:\n\n\n\nThere are hard limits on read lengths\nBase quality scores typically decrease along the read"
   },
   {
     "objectID": "lectures/sequencing.html#how-illumina-sequencing-works-zooming-out",
@@ -655,7 +655,7 @@
     "href": "lectures/sequencing.html#genome-size-variation",
     "title": "High-throughput sequencing  and genomes",
     "section": "Genome size variation",
-    "text": "Genome size variation\n\n\n\nhttps://en.wikipedia.org/wiki/Genome_size"
+    "text": "Genome size variation\n\n\n\n\n\n\n\nhttps://en.wikipedia.org/wiki/Genome_size"
   },
   {
     "objectID": "lectures/sequencing.html#genome-structure",
